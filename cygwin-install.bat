@@ -9,22 +9,23 @@ REM -- Change to the directory of the executing batch file
 CD %~dp0
  
 REM -- Configure our paths
-SET SITE=http://cygwin.mirrors.pair.com/
+REM SET SITE=http://cygwin.mirrors.pair.com/
+SET SITE=http://ftp.jaist.ac.jp/
 SET LOCALDIR=%CD%
-SET ROOTDIR=C:/cygwin
+SET ROOTDIR=C:/cygwin64
  
 REM -- These are the packages we will install (in addition to the default packages)
-SET PACKAGES=mintty,wget,ctags,diffutils,git,git-completion,git-svn,stgit,mercurial
+SET PACKAGES=mintty,wget,ctags,diffutils,git,git-completion,git-svn,stgit,mercurial openssh
 REM -- These are necessary for apt-cyg install, do not change. Any duplicates will be ignored.
 SET PACKAGES=%PACKAGES%,wget,tar,gawk,bzip2,subversion
  
 REM -- Do it!
 ECHO *** INSTALLING DEFAULT PACKAGES
-setup --quiet-mode --no-desktop --download --local-install --no-verify -s %SITE% -l "%LOCALDIR%" -R "%ROOTDIR%"
+setup-x86_64 --quiet-mode --no-desktop --download --local-install --no-verify -s %SITE% -l "%LOCALDIR%" -R "%ROOTDIR%"
 ECHO.
 ECHO.
 ECHO *** INSTALLING CUSTOM PACKAGES
-setup -q -d -D -L -X -s %SITE% -l "%LOCALDIR%" -R "%ROOTDIR%" -P %PACKAGES%
+setup-x86_64 -q -d -D -L -X -s %SITE% -l "%LOCALDIR%" -R "%ROOTDIR%" -P %PACKAGES%
  
 REM -- Show what we did
 ECHO.
