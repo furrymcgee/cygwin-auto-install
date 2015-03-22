@@ -10,7 +10,7 @@ CD %~dp0
  
 REM -- Configure our paths
 REM SET SITE=http://cygwin.mirrors.pair.com/
-SET SITE=http://ftp.jaist.ac.jp/
+SET SITE=http://ftp.jaist.ac.jp/pub/cygwin/
 SET LOCALDIR=%CD%
 SET ROOTDIR=C:/cygwin64
  
