@@ -1,31 +1,43 @@
 @ECHO OFF
 REM -- Automates cygwin installation
-REM -- Source: https://github.com/rtwolf/auto-cygwin-install
-REM -- Based on: https://gist.github.com/wjrogers/1016065
  
 SETLOCAL
- 
-REM -- Change to the directory of the executing batch file
-CD %~dp0
- 
 REM -- Configure our paths
 REM SET SITE=http://cygwin.mirrors.pair.com/
 SET SITE=http://ftp.jaist.ac.jp/pub/cygwin/
 SET LOCALDIR=%CD%
-SET ROOTDIR=C:/cygwin64
- 
+
+REM -- This site is for Microsoft Windows XP
+REM https://web.archive.org/web/20160820100148/http://cygwin.com/setup-x86.exe
+SET SITE=http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/2016/08/30/104223
+SET SETUP=%CD%\setup-x86-2.874.exe 
+
 REM -- These are the packages we will install (in addition to the default packages)
-SET PACKAGES=mintty,wget,ctags,diffutils,git,git-completion,git-svn,stgit,mercurial,openssh,zip,unzip
-REM -- These are necessary for apt-cyg install, do not change. Any duplicates will be ignored.
-SET PACKAGES=%PACKAGES%,wget,tar,gawk,bzip2,subversion
+SET PACKAGES=%PACKAGES%,bash,tig,tmux,vim,w3m,mc
+SET PACKAGES=%PACKAGES%,sqlite3,git,wget,openssh,patch,sed
+SET PACKAGES=%PACKAGES%,gcc-g++,gcc-fortran,gperf,flex,bison,ctags
+SET PACKAGES=%PACKAGES%,cmake,dejagnu,make,pkg-config,gettext
+SET PACKAGES=%PACKAGES%,git-svn,subversion,mercurial,quilt,stgit
+SET PACKAGES=%PACKAGES%,mutt,irssi,dialog,procps,stow
+SET PACKAGES=%PACKAGES%,autoconf,automake,autogen,autopoint
+SET PACKAGES=%PACKAGES%,intltool,libtool,libtool-bin,libtoolize
+SET PACKAGES=%PACKAGES%,python,ruby,scons,lua,perl,perl_manpages
+SET PACKAGES=%PACKAGES%,bzip2,openssl,p7zip,unzip,xz-utils
+SET PACKAGES=%PACKAGES%,inetutils,socat,ncurses,syslog-ng
+SET PACKAGES=%PACKAGES%,ucl,libgdk_pixbuf2.0-devel,libncurses-devel
+:: SET PACKAGES=%PACKAGES%,octave,octave-doc,gnuplot,gnuplot-doc,sox
+:: SET PACKAGES=%PACKAGES%,xorg-server,xorg-docs,xinit,xterm,WindowMaker
+SET PACKAGES=%PACKAGES%,libxml-parser-perl,libffi-dev,libltdl-dev,libssl-dev
+SET PACKAGES=%PACKAGES%,libSDL2-devel,libopenal-devel,libmpg123-devel
  
 REM -- Do it!
-ECHO *** INSTALLING DEFAULT PACKAGES
-setup-x86_64 --quiet-mode --no-desktop --download --local-install --no-verify -s %SITE% -l "%LOCALDIR%" -R "%ROOTDIR%"
+ECHO *** DOWNLOADING CUSTOM PACKAGES
+%SETUP% --verbose --quiet-mode --no-desktop --download --no-verify --only-site --site %SITE% --local-package-dir %LOCALDIR%\setup --root %LOCALDIR%\cygwin --packages %PACKAGES% 
 ECHO.
 ECHO.
 ECHO *** INSTALLING CUSTOM PACKAGES
-setup-x86_64 -q -d -D -L -X -s %SITE% -l "%LOCALDIR%" -R "%ROOTDIR%" -P %PACKAGES%
+
+%SETUP% --verbose --quiet-mode --no-verify --disable-buggy-antivirus --local-install --local-package-dir %LOCALDIR%\setup --root %LOCALDIR%\cygwin --packages %PACKAGES%
  
 REM -- Show what we did
 ECHO.
@@ -34,13 +46,3 @@ ECHO cygwin installation updated
 ECHO  - %PACKAGES%
 ECHO.
 
-ECHO apt-cyg installing.
-set PATH=%ROOTDIR%/bin;%PATH%
-%ROOTDIR%/bin/bash.exe -c 'svn --force export http://apt-cyg.googlecode.com/svn/trunk/ /bin/'
-%ROOTDIR%/bin/bash.exe -c 'chmod +x /bin/apt-cyg'
-ECHO apt-cyg installed if it says somin like "A    /bin" and "A   /bin/apt-cyg" and "Exported revision 18" or some other number.
-
-ENDLOCAL
- 
-PAUSE
-EXIT /B 0
