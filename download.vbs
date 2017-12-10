@@ -1,8 +1,14 @@
-strLink = "http://download.windowsupdate.com/microsoftupdate/v6/wsusscan/wsusscn2.cab"
+'https://www.codeproject.com/tips/506439/downloading-files-with-vbscript
+
+If WScript.Arguments.Count Then
+	strLink = WScript.Arguments(0)
+Else
+	WScript.Quit 1
+End If
+
 ' Get file name from URL.
-' http://download.windowsupdate.com/microsoftupdate/v6/wsusscan/wsusscn2.cab -> wsusscn2.cab
 strSaveName = Mid(strLink, InStrRev(strLink,"/") + 1, Len(strLink))
-strSaveTo = "C:\" & strSaveName
+strSaveTo = strSaveName
 
 WScript.Echo "HTTPDownload"
 WScript.Echo "-------------"
@@ -10,7 +16,8 @@ WScript.Echo "Download: " & strLink
 WScript.Echo "Save to:  " & strSaveTo
 
 ' Create an HTTP object
-Set objHTTP = CreateObject("MSXML2.XMLHTTP")
+Set objHTTP = CreateObject("MSXML2.ServerXMLHTTP")
+objHTTP.SetOption 2, objHTTP.GetOption(2) And Not SXH_SERVER_CERT_IGNORE_ALL_SERVER_ERRORS
 
 ' Download the specified URL
 'xmlhttp.Open "GET", strURL, false, "User", "Password"
