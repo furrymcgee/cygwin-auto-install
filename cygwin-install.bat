@@ -10,18 +10,17 @@ SET LOCALDIR=%~dp0
 REM -- Download setup-x86-2.874.exe from web archive
 cscript %LOCALDIR%\download.vbs https://web.archive.org/web/20160820100148/http://cygwin.com/setup-x86.exe
 
-REM -- Download setup-x86-2.874.exe from web archive
-cscript download.vbs https://web.archive.org/web/20160820100148/http://cygwin.com/setup-x86.exe
-
 REM -- This site is for Microsoft Windows XP
+REM https://web.archive.org/web/20160820100148/http://cygwin.com/setup-x86.exe
 SET SITE=http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/2016/08/30/104223
-SET SETUP=setup-x86.exe 
+SET SETUP=setup-x86.exe
+SET ROOT=c:\cygwin
 
 REM -- These are the packages we will install (in addition to the default packages)
-SET PACKAGES=%PACKAGES%,bash,tig,tmux,vim,w3m,mc,tmux,bc
+SET PACKAGES=%PACKAGES%,bash,tig,tmux,vim,w3m,mc,bc
 SET PACKAGES=%PACKAGES%,sqlite3,tcl-sqlite3,git,wget,openssh,patch,sed
 SET PACKAGES=%PACKAGES%,gcc-g++,gcc-fortran,gdb,gperf,flex,bison,ctags
-SET PACKAGES=%PACKAGES%,cmake,dejagnu,make,pkg-config,gettext
+SET PACKAGES=%PACKAGES%,cmake,dejagnu,make,pkg-config,gettext,check
 SET PACKAGES=%PACKAGES%,git-svn,subversion,mercurial,quilt,stgit
 SET PACKAGES=%PACKAGES%,mutt,irssi,dialog,procps,stow,ccache
 SET PACKAGES=%PACKAGES%,autoconf,automake,autogen,autopoint
@@ -29,7 +28,8 @@ SET PACKAGES=%PACKAGES%,intltool,libtool,libtool-bin,libtoolize
 SET PACKAGES=%PACKAGES%,python,ruby,scons,lua,perl,perl_manpages,asciidoc
 SET PACKAGES=%PACKAGES%,bzip2,openssl,p7zip,unzip,xz-utils
 SET PACKAGES=%PACKAGES%,inetutils,socat,ncurses,syslog-ng,curl
-SET PACKAGES=%PACKAGES%,postgresql
+SET PACKAGES=%PACKAGES%,postgresql,expat,libexpat-devel
+::SET PACKAGES=%PACKAGES%,cygport,busybox,pandoc,recutils
 ::SET PACKAGES=%PACKAGES%,ucl,libgdk_pixbuf2.0-devel,libncurses-devel
 ::SET PACKAGES=%PACKAGES%,octave,octave-doc,gnuplot,gnuplot-doc,sox
 ::SET PACKAGES=%PACKAGES%,xorg-server,xorg-docs,xinit,xterm,WindowMaker
@@ -39,12 +39,12 @@ SET PACKAGES=%PACKAGES%,postgresql
  
 REM -- Do it!
 ECHO *** DOWNLOADING CUSTOM PACKAGES
-%SETUP% --verbose --quiet-mode --no-desktop --download --no-verify --only-site --site %SITE% --local-package-dir %LOCALDIR%\setup --root %LOCALDIR%\cygwin --packages %PACKAGES% 
+"%SETUP%" --verbose --quiet-mode --no-desktop --download --no-verify --only-site --site %SITE% --local-package-dir "%LOCALDIR%\setup" --root "%ROOT%" --packages %PACKAGES% 
 ECHO.
 ECHO.
 ECHO *** INSTALLING CUSTOM PACKAGES
 
-%SETUP% --verbose --quiet-mode --no-verify --disable-buggy-antivirus --local-install --local-package-dir %LOCALDIR%\setup --root %LOCALDIR%\cygwin --packages %PACKAGES%
+"%SETUP%" --verbose --quiet-mode --no-verify --disable-buggy-antivirus --local-install --local-package-dir "%LOCALDIR%\setup" --root "%ROOT%" --packages %PACKAGES%
  
 REM -- Show what we did
 ECHO.
