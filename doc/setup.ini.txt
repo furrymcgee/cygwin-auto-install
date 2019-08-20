@@ -1,0 +1,199 @@
+https://sourceware.org/cygwin-apps/setup.ini.html
+
+setup.ini documentation
+
+Note that setup.ini is automatically generated for the Cygwin site. This section is intended as a reference for writing software
+that interoperates with the setup.ini package listing, or who are using a fork of setup elsewhere and want to know what they can
+achieve with it. It is not aimed at setup end users or Cygwin package maintainers - although you may find it of interest.
+
+setup reads a (possibly compressed) file called setup.ini that resides on all Cygwin mirrors. The format is quite flexible - it's
+grown over time. The content of the file drives setup's behaviour. It lists the packages available from a given mirror site (the
+one it is downloaded from), and what source files each package has, available versions, dependencies and the like.
+
+A setup.ini file consists of optional header lines, followed by a sequence of package sections.
+
+Lines that begin with the # character are ignored by setup, and can be used to add commentary to the file.
+
+For forward compatibility, unrecognized lines should be ignored.
+
+Headers
+
+Header lines can only appear at the beginning of setup.ini files, before the first package section.
+
+setup-timestamp: number
+
+The time (in Unix epoch seconds) that the setup.ini file was created. Its purpose is to warn the user when the timestamp is less
+than the last setup.ini used; i.e. it prevents accidental regression.
+
+setup-version: version
+
+The current version of setup when this setup.ini was generated. Setup will warn if the version of setup is less than this
+version.
+
+setup-minimum-version: version
+
+The minimum version of setup needed to correctly parse and process this setup.ini. Setup won't proceed if it's version is less
+than this.
+
+release: text
+
+A label for the package set. The label cygwin is reserved for use by cygwin.com
+
+arch: x86|x86_64
+
+The processor architecture this package set is built for.
+
+Package section
+
+@ package
+
+Package: package
+
+Lines beginning with the "at" symbol or "Package:" indicate the start of a package section. Each package section consists of a
+name, descriptive texts, package categories, and one or more package version descriptions.
+
+sdesc: "some text"
+
+This is the "short description" of the package. This text, if available, accompanies the package name in package listings.
+
+ldesc: "some text"
+
+This is the "long description" of the package. This text, if available, is used as a supplemental description of the package.
+
+category: name1[ name2...]
+
+Section: name1[ name2...]
+
+The category or Section line indicates the categories that this package belongs to. One package can belong to multiple
+categories. Multiple categories are separated by spaces. See the description of categories in .hint files for more information on
+categories.
+
+message: id "some text"
+
+Optional. This is text that will be displayed by setup when the package is installed.
+
+requires: package[ package...]
+
+Indicates a list of packages that this package needs at runtime in order to function correctly. Multiple packages should be
+separated by a space.
+
+replace-versions:version[ version...]
+
+Optional. This is a list of withdrawn versions, which, if installed, should be replaced with the curr: version, even if it is
+lower.
+
+Version description
+
+[curr]
+[test]
+[prev]
+[<label>]
+
+These indicate the start of a version description within a package section. Note that [curr] is the default, and may be omitted
+if that version happens to be specified before the others.
+
+"curr" indicates the current stable (preferred) version, and "test" indicates a test version. "<label>" carries no meaning except
+to be a unique label for a version.
+
+For historical reasons, "prev" is used for versions preceding the "curr" version.
+
+For historical reasons, when multiple "prev" or "test" version descriptions exist, the last one appearing is the preferred (or
+highest, if no preference exists).
+
+version: version
+
+Indicates the version of the package.
+
+install: filename size-in-bytes hash
+
+Indicates the archive file to install for that version, and its size in bytes, and a checksum. The file name must include the
+path (relative to the base directory), and the file size must match the actual file size (setup uses this to verify it got the
+whole file). The hash is a SHA512 hash encoded as 128 hex characters, or 86 base64 characters, or an MD5 hash encoded as 32 hex
+characters. If it does not match the locally calculated hash, the package is considered corrupt and won't be installed by setup.
+Hex characters are 0-9a-f (case matters).
+
+source: filename size-in-bytes hash
+
+Like install:, for the corresponding archive file to install the source.
+
+Source: package [(version-identifier)]
+
+Indicates the source-package containing the source for the current package version. i.e. for package foo-dev, one might have
+"Source: foo-src" to indicate that the source package for foo-dev is foo-src. This entry should not be used in conjunction with
+the "source:" entry.
+
+depends2: version-relations
+
+This is a more sophisticated version of requires:, allowing the specification of version relationships. depends: is a synonym for
+depends2:.
+
+obsoletes: version-relations
+
+Indicates packages this package obsoletes.
+
+Note: The following directives are not fully implemented yet.
+
+Build-Depends: version-relations
+
+Indicates the binary packages required to build the source package.
+
+Syntax of relationship fields
+
+Depends:, Obsoletes:, Build-Depends: all have a common syntax. They are a list of package names separated by commas. They may
+restrict their applicability to particular versions of each named package. This is done in parentheses after each package name.
+The parentheses should contain a relation, one of =,<=,>=,<,> followed by a version-identifier.
+
+version-relations is version-relation [, version-relation ...]
+
+version-relation is package [(= | <= | >= | < | > version-identifier)]
+
+An example
+
+# an example setup.ini
+release: cygwin
+arch: x86
+setup-timestamp: 1481478212
+setup-version: 2.876
+
+@ cygwin
+sdesc: "The UNIX emulation engine"
+ldesc: "The UNIX emulation engine"
+category: Base
+requires: base-cygwin
+version: 2.6.0-1
+install: x86/release/cygwin/cygwin-2.6.0-1.tar.xz 1945744 d0ee36febabde34ded4bcbe77f00a6367ab4293b3f24989044335685b294dd42f64e2d0d8956f0651c8d26c583897b1dc16b6c0a023d859ba5ce97eed19624fc
+source: x86/release/cygwin/cygwin-2.6.0-1-src.tar.xz 12900708 1660ecefbc36e6825cff333b0bbd4dae2b891e041aafa8587ba7f61d7945a23c4189ac4776d975fc36dbe8fd6b922f7e1963661ad8d1ce49a237ca030f7b69d0
+[prev]
+version: 2.5.2-1
+install: x86/release/cygwin/cygwin-2.5.2-1.tar.xz 2829972 bfde5e7737bb32fb8642566ff82cb5c86899b10f2dbad3bcd0ff2ea11c4b8b0292e52597bbc3d6e1fea7899a1f1a1c32f23f6807aaffd776ed9519e1631ff9aa
+source: x86/release/cygwin/cygwin-2.5.2-1-src.tar.xz 13003452 ae559cc50673f5da95e6d33818665414b9ce50211900e4d02e9a303f594afb5e746e82b457e48495dea0fa6c05c07f6d44cd900c98efb670d5c6c741511c8b0f
+[test]
+version: 2.6.1-0.1
+install: x86/release/cygwin/cygwin-2.6.1-0.1.tar.xz 1946980 34d161ee790cb5b03b9d7057cb03473c56c135623416ed980fd94d049fa2df268ab5dfb72e11dabfd9f4c60aaf7daa26a88c566daf05558d5508a0bacd2f0b43
+source: x86/release/cygwin/cygwin-2.6.1-0.1-src.tar.xz 12908060 c7fed48626f3411dca8bc2c65f3a35822eee1c661b514af803f7acb7b9283a5b0212eeb78e72601bd5525c41bafefde5f258d93331bd98c625a82e75434894f2
+
+@ bash
+sdesc: "The GNU Bourne Again SHell"
+ldesc: "Bash is an sh-compatible shell that incorporates useful features
+from the Korn shell (ksh) and C shell (csh).  It is intended to conform to the
+IEEE POSIX P1003.2/ISO 9945.2 Shell and Tools standard.  It offers functional
+improvements over sh for both programming and interactive use. In addition,
+most sh scripts can be run by Bash without modification."
+category: Base Shells
+requires: coreutils cygwin libgcc1 libiconv2 libintl8 libncursesw10 libreadline7
+version: 4.3.48-8
+install: x86/release/bash/bash-4.3.48-8.tar.xz 1413684 937dd36982aba5a373534dd605803855bb86252e9e010ad62ba83ae653627584c55673e4aba9d3c7c8f1106b56ff0b7b5af599a1f72568a01885e33b6d9f62e5
+source: x86/release/bash/bash-4.3.48-8-src.tar.xz 7995684 cd13b3a21abbd552a66f194a85c2a6094b90c92bed3558b7447be06a8e47ad9e673c424bfbbebfcc004d5b46b47fe47a54413e99894ff89989e176fb9e3ed419
+[prev]
+version: 4.3.46-7
+install: x86/release/bash/bash-4.3.46-7.tar.xz 1413640 2029f253ee794f8dfb2fa4cf6f9212307281c8e7a61b621755bc0b2d415ae92b8d60c801b22438dd70f5e4d98bf1b409622271308cc3a3f26dbb19f443dfdb77
+source: x86/release/bash/bash-4.3.46-7-src.tar.xz 7994960 a216448a2700627656b0d53eca93a94f0d97859d5c24d53d7e4bad71883ff7bcf9346d027453f71eabc4df6099b5df1d3f068b06a8b36a796d1943931b759422
+
+Cygwin-Apps Home
+mailing list
+setup
+
+  • setup.ini
+
+cygwin.com
+sourceware.org

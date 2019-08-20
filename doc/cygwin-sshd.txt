@@ -1,0 +1,62 @@
+http://www.noah.org/ssh/cygwin-sshd.html
+
+Cygwin SSHD HowTo
+How to run the OpenSSH SSHD server on Windows using Cygwin
+
+Install the following Cygwin packages (rerun setup if necessary -- you can add
+packages after you have already installed Cygwin).
+
+    Admin --> cygrunsrv
+    Net --> openssh
+
+Open a new bash shell window and run the SSH configure stuff.
+
+    ssh-host-config -y
+
+This step will create necessary configuration files, a priviledge separation
+user and necessary directories.
+
+When prompted with "CYGWIN=" type for following:
+
+    tty ntsec
+
+Now you are ready to start the service.
+
+    cygrunsrv -S sshd
+
+Finished
+
+Bugs
+
+Sometimes you get a sshd/cygrunsrv service error after trying to run the
+service.
+
+    cygrunsrv: Error starting a service:
+    QueryServiceStatus: Win32 error 1062:
+    The service has not been started.
+
+There can be a couple of causes for this. The following may fix the problem
+(this is not an option on XP Home).
+
+Solution 1.
+
+You may have an old or corrupt installation of Cygwin. Try reinstalling. The
+following may also help:
+
+cygrunsrv -R sshd
+REBOOT (or use the Task Manager to kill all instances of sshd that may be
+running in the background)
+run "ssh-host-config -y" again.
+This seemed to help on a few systems I worked on.
+
+Solution 2.
+
+Open an explorer window and use the "Properties | Security" dialog and
+explicitly add "Full Control" for the SYSTEM user to the following directories:
+
+    C:\Cygwin
+    C:\Cygwin\var
+    C:\Cygwin\var\log
+
+Hope that helps!
+

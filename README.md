@@ -15,3 +15,15 @@ https://github.com/rtwolf/cygwin-auto-install/
 If you've found this project helpful, please support me by buying me a coffee: http://www.mind-manual.com/blog/buy-me-a-coffee/
 
 As you may know, "A programmer is just a tool which converts caffeine into code". Thanks in advance!
+
+
+Services
+========
+
+     https://cygwin.com/package-server.html
+     https://cygwin.com/git-cygwin-packages/
+     https://sourceware.org/cygwin-apps/setup.ini.html
+     http://cygwin.com/ml/cygwin/2002-04/msg01229.html
+     http://www.vicente-navarro.com/blog/2007/07/20/servicios-en-cygwin-syslogd-sshd-telnetd-ftpd-nfsd-etc/
+     http://www.noah.org/ssh/cygwin-sshd.html
+     https://cygwin.com/cygwin-ug-net/ntsec.html

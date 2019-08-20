@@ -3,14 +3,15 @@
 5<<-"HINT" \
 6<<MAKE \
 bash -ex
-	cd /var/ftp/pub || exit 1
-	# link to cygwin mirror
-	: mkdir cygwin
-	: ln -s /mnt/cygwin-auto-install/setup/*/* cygwin
-	mkdir custom-cygwin
-	cd custom-cygwin
-	ln -s ../cygwin/* .
-	: mkdir x86 x86/release
+	sed -i /etc/xinetd.d/ftpd \
+		-e /disable/s/yes/no/
+
+	: xargs -I@ sh '@-config --yes && cygrunsvr -S @' <<-'EOF'
+		xinetd
+		syslogd
+	EOF
+
+	mkdir x86 x86/release
 	sed s/^\\\t// <&6 |
 	make --debug -f - x86/release x86/setup.ini
 BASH

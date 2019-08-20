@@ -1,0 +1,421 @@
+http://cygwin.com/ml/cygwin/2002-04/msg01229.html
+
+This is the mail archive of the cygwin@cygwin.com mailing list for the Cygwin
+project.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Index Nav:    [Date Index] [Subject Index] [Author Index] [Thread Index]
+Message Nav:  [Date Prev] [Date Next]    [Thread Prev] [Thread Next]
+Other format: [Raw text]
+
+The Cygwin Server Daemon - VERY LONG
+
+  • From: Richard Troy <rtroy at sciencetools dot com>
+  • To: <cygwin at cygwin dot com>
+  • Date: Mon, 22 Apr 2002 13:25:16 -0700 (PDT)
+  • Subject: The Cygwin Server Daemon - VERY LONG
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+Hello again,
+
+Last week when I inquired about the cygserver architecture, present state
+of development, etc, I was told that cygserver is documented primarily in
+the cygwin-developers email list archive. I am now working on a document
+that will hopefully serve as better documentation of cygserver, starting
+as a compilation of materials found in the cygwin-developers archive,
+those found in the normal cygwin email archive, and augmented with my own
+questions and observations. I would appreciate any and all feedback on
+this document and on this topic in general.
+
+In doing this compliation and write up a lot of questions yet remain for
+me. There are just a whole lot of loose ends. It's my casual observation
+that the emails in the archive weren't as helpful and clear to me as they
+might have been because the original email audience knows each other and
+come from similar backgrounds so they don't need as many words to
+communicate an idea. Frankly, the code moved from losely sketched concept
+to running code without much discussion of the architecture. I, on the
+other hand, need a little more detail to really get it.
+
+One of the loose ends:
+
+> > didn't find any working copies of it either.
+>
+> What do you mean by this? It works for me, and the other folk who tested
+> it before it got committed. Currently it does very little though.
+
+The normal install with setup.exe didn't provide cygserver. Only a build
+of the source provided a copy. I was surprised by that. When you say it
+does very little, I'm still left with the question, "Well, what _does_ it
+do?" And, the new cygwin1.dll was _huge_ in comparison to the previous
+one. Is that because of debugging info?
+
+Other important open questions include:
+
++ Why doesn't the cygserver run, itself, as a server under NT much as sshd
+does?
+
++ If it's run by a normal user, how does this impart any ability to change
+user contexts? (When I asked about assigning privileges, I got the short
+answer, "What?")
+
++ Regarding starting the server with cygrunsrv:
+
+  - If the server is started with cygrunsrv, are we supposed to "install"
+    cygserver itself?
+
+  - What is the intent of the ability to install, remove, start and stop
+    services? Are these "services" supposed to be the "objects" we read
+    about in the archives?
+
++ Regarding my own hopeful use someday: What is a reasonable approach to
+  adding the honoring of the setuid (and guid) bit(s) in image execution?
+
+  I take it that cygwin1.dll needs to be changed, but cygwin1.dll seems to
+  be built of little bits of source code scattered about. I imagine that
+  in there somewhere is code that forks off a process to run a new image
+  that the user wants run. And I imagine that somewhere in there, where
+  the file access occurrs to bring in the executable image, there's a
+  place where new code should be inserted to test the suid bits and, if
+  the bit is set, a call to change security context into the file owner
+  should occurr. Comments _please._ In particular, does anyone know the
+  module name I should be mucking with? What about the call to change
+  context to the file owner? These pointers will help save me a lot of
+  time and are greatly appreciated.
+
+
+Regards,
+Richard
+
+--
+Richard Troy, Chief Scientist
+Science Tools Corporation
+rtroy@ScienceTools.com, 510-567-9957, http://ScienceTools.com/
+
+
+_______________________________________________________________________________
+_______________________________________________________________________________
+
+
+                        Cygwin Server
+
+
+  The following topics are covered in this text:
+
+
+        Cygwin Server Concept
+          + needs and features
+
+        Accessing the Cygserver Daemon
+          + Communications strategy
+
+        Running the cygserver
+
+        Multi-threading
+
+        Server Children
+
+        Code Size
+
+        Stability
+
+        Present Status
+
+        Far future
+
+        Other notes
+
+
+_______________________________________________________________________________
+
+Cygwin Server Concept:
+
+All operating systems which provide a multi-user security environment
+require a mechanism by which a non-privileged user can perform privileged
+tasks in a controlled and secure way. There are two generalized mechanisms
+in widespread use. The most common mechanism presumes a network-based
+model in which a privileged program is contacted by an unprivileged client
+program to effect the desired behavior. On Unix and Unix based operating
+systems such as Linux, the "inetd" daemon is a good example of this
+technique. However, Unix augments this technique with the "setuid bit", (a
+technique patented by Dennis Ritchie in the late '70s, IIRC) which
+provides a cue to the operating system to start an executable image in the
+user context of the owner identified in the file system for the
+executable.
+
+Because Windows does not support the concept of the setuid bit, there is
+motive to create a mechanism to support it in Cygwin.
+
+In addition, the earlier implementation of Cygwin, in order to support a
+process model like that found on Unix, has utilized a shared memory
+segment. Without some kind of controlling mechanism, this shared memory
+must be made available to all users and because of this, a security hole
+is created.
+
+
+These needs, when re-articulated, include:
+
+  + provide critical services to Cygwin processes.
+
+  + support s-uid and s-gid applications and files.
+
+  + Secure Handles
+
+  + IPC - inter-process communication
+
+  + s-uid, s-gid facility
+
+  + any persistent fhandler_* data, such as Persistent Clipboard data.
+
+  + A simple standarized protocol which is able to transport _any_ new
+    messages. New features in the server should not affect the protocol
+    implementation at all.
+
+  + Secure transmission of process data (pid, uid, gid) in terms of TRUTH.
+    A process should never be able to pretend to be started by another
+    user, for example.
+
+
+Cygserver addresses these needs. In particular, it provides these
+features:
+
+   + It supports both Unix pipes (win9x) and Named Pipes (WinNT).
+   + It securely handles tty handle passing.
+   + It is easily extended with an object-based marshaling approach.
+   + It has partial support for process management.
+   + It is multi-threaded with blocking IO to be safe on Win9x.
+
+________________________________________________________________________________
+
+Accessing the Cygserver Daemon:
+
+The application interface is and will be the Cygwin DLL. The server
+process is just used to do the dirty jobs for the DLL itself.
+
+The interface to the server process is only meant to be used INSIDE of
+Cygwin. For example, the `seteuid()' call could be implemented as a call
+to the server in future:
+
+        int
+        seteuid (uid_t uid)
+        {
+          if (os_being_run == winNT)
+            {
+              cygsrv_message msg;
+              msg.set_message_type (CYGSRV_SETEUID);
+              msg.add_ulong_parameter (uid);
+              msg.call_cygwin_server ();
+              return msg.get_int_result ();
+            }
+          ...
+        }
+
+
+Communications strategy:
+
+1. Named pipes (NT/W2k only)
+2. Shared memory
+3. Sockets (can include systems without networking installed)
+
+A communication between client and server is restricted to local host
+only, so we take "mixed" approach -- use named pipes on nt/2000 and shared
+memory on w9x.
+
+________________________________________________________________________________
+
+Running the cygserver daemon:
+
+The server is not presently provided in the normal cygwin distribution
+and must be obtained from a local compile operation. You may follow the
+directions presently located at:
+
+    http://sources.redhat.com/ml/cygwin-developers/2002-03/msg00000.html
+
+Before starting the server, it may be desireable to set the cygwin
+environment variable to include ntsec so that security is turned on. Also
+note that NTFS is required to get the suid bits provided by Unix file
+systems.
+
+The server may be started from a cmd shell simply by running "cygserver".
+
+And, the server may be started with the cygrunsrv command. Command line
+options are:
+
+Usage: cygrunsrv [OPTION]...
+
+Main options: Exactly one is required.
+  -I, --install <svc_name>  Installes a new service named <svc_name>.
+  -R, --remove <svc_name>   Removes a service named <svc_name>.
+  -S, --start <svc_name>    Starts a service named <svc_name>.
+  -E, --stop <svc_name>     Stops a service named <svc_name>.
+
+Required install options:
+  -p, --path <app_path>     Application path which is run as a service.
+
+Miscellaneous install options:
+  -a, --args <args>         Optional string with command line options which
+                            is given to the service application on
+startup.
+  -c, --chdir <directory>   Optional directory which will be used as working
+                            directory for the application.
+  -e, --env <VAR=VALUE>     Optional environment strings which are added
+                            to the environment when service is started.
+                            You can add up to 255 environment strings using
+                            the `--env' option.
+                            Note: /bin is always added to $PATH to allow all
+                            started applications to find at least cygwin1.dll.
+  -d, --disp <display name> Optional string which contains the display name
+                            of the service. Defaults to service name.
+  -f, --desc <description>  Optional string which contains the service
+                            description.
+  -t, --type [auto|manual]  Optional start type of service. Defaults to `auto'.
+  -u, --user <user name>    Optional user name to start service as.
+                            Defaults to SYSTEM account.
+  -w, --passwd <password>   Optional password for user. Only needed
+                            if a user is given. If a user has an empty
+                            password, enter `-w '. If a user is given but
+                            no password, cygrunsrv will ask for a password
+                            interactively.
+  -s, --termsig <signal>    Optional signal to send to service application
+                            when service is stopped.  <signal> can be a number
+                            or a signal name such as HUP, INT, QUIT, etc.
+                            Default is TERM.
+  -y, --dep <svc_name2>     Optional name of service that must be started
+                            before this new service.  The --dep option may
+                            be given up to 16 times, listing another dependent
+                            service each time.
+  -0, --stdin <file>        Optional input file used for stdin redirection.
+                            Default is /dev/null.
+  -1, --stdout <file>       Optional output file used for stdout redirection.
+                            Default is /var/log/<svc_name>.log.
+  -2, --stderr <file>       Optional output file used for stderr redirection.
+                            Default is /var/log/<svc_name>.log.
+  -o, --shutdown            Stop service application during system shutdown.
+
+Informative output:
+  -h, --help                print this help, then exit.
+  -v, --version             print cygrunsrv program version number, then exit.
+
+________________________________________________________________________________
+
+
+Multi-threading:
+
+The current cygserver daemon uses a producer-consumer model. There are:
+
+   + a set of work queues
+   + for each queue a fixed set of worker threads
+   + a queue control thread
+
+Each operation gets a dedicated thread for the life of the operation, and
+then the thread resumes waiting. Instead of using a separate thread to
+handle requests from eadch client, every client connection uses an
+existing worker thread for each request. A single client can have multiple
+concurrent requests (i.e. one from each thread in the client). This is as
+close to the optimal performance threaded model, (which is asynchronous
+non-blocking IO with 1 thread per processor) as we can get reliably on
+win95, and it provides for very high performance on NT. The reason we have
+a fixed number of worker threads is to prevent thrashing during high work
+load periods. (Observation is that so far the default limit has never yet
+been reached.) Any requests recieved while ALL threads are busy will get
+queued and the queue head is dequeued by the next thread that finishes a
+task - without context switching. The threads are not ordered, so ideally
+NT/9x's kernel will let long-term idle threads swap out, and
+preferentially signal threads that have handled more requests. If ever all
+the threads active at once, then the dequeuing code becomes active and the
+threads will work at full efficiency. (see
+threaded_queue.cc::worker_function).
+
+The worker threads are somewhat specialised, but for a given queue_request
+hierarchy, can handle any requests via overridden process() methods. (This
+is only particular relevant when looking at the process cache - SHM
+related stuff - because all the cygwin<->daemon calls will get handled by
+one queue and set of worker threads.)
+
+A future version might have a runtime setable or load tunable number of
+threads, but that shouldn't be needed.
+
+________________________________________________________________________________
+
+Server Children:
+
+Regarding the question: Doesn't the implementation imply that the server
+must spawn every process? Or at least be the caller of the win32 to start
+the process and setup the process<->server communication channel? The
+answer is yes.
+
+________________________________________________________________________________
+
+Code Size:
+
+The diff for the daemon is 130K. That's not a lot of code (under 4400
+lines, including the diff headers and the not-to-be-included shared memory
+and IPC code).
+
+________________________________________________________________________________
+
+Stability:
+
+The server has been used by a number of folks for a handfull of months
+(as of April, 2002) and hasn't shown any negative impact on cygwin
+stability.
+
+________________________________________________________________________________
+
+Present Status:
+
+An email on March 4, 2002 titled "SysV IPC and SHM", when referring to
+cygserver said: "help this code reach the light of day".
+
+http://sources.redhat.com/ml/cygwin-developers/2002-03/msg00000.html
+
+________________________________________________________________________________
+
+Far future:
+
+Someday a single setuid server could run in an NT domain.
+
+________________________________________________________________________________
+
+Other notes:
+
+  + Original Corinna revival of topic:
+
+    http://sources.redhat.com/ml/cygwin-developers/2001-05/msg00235.html
+
+  + Egor's original message was described as being here, though it's
+    really not what I expected:
+
+    http://sources.redhat.com/ml/cygwin-patches/2001-q1/msg00260.html
+
+________________________________________________________________________________
+________________________________________________________________________________
+
+Thanks much for all your feedback.
+Richard
+
+--
+Richard Troy, Chief Scientist
+Science Tools Corporation
+rtroy@ScienceTools.com, 510-567-9957, http://ScienceTools.com/
+
+
+--
+Unsubscribe info:      http://cygwin.com/ml/#unsubscribe-simple
+Bug reporting:         http://cygwin.com/bugs.html
+Documentation:         http://cygwin.com/docs.html
+FAQ:                   http://cygwin.com/faq/
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  • Follow-Ups:
+      □ Re: The Cygwin Server Daemon
+          ☆ From: Richard Troy
+      □ Re: The Cygwin Server Daemon - VERY LONG
+          ☆ From: Richard Troy
+
+Index Nav:   [Date Index] [Subject Index] [Author Index] [Thread Index]
+Message Nav: [Date Prev] [Date Next]    [Thread Prev] [Thread Next]
+

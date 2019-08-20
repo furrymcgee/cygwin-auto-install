@@ -1,0 +1,806 @@
+http://www.vicente-navarro.com/blog/2007/07/20/servicios-en-cygwin-syslogd-sshd-telnetd-ftpd-nfsd-etc/
+
+Lo hice y lo entendí
+
+El blog de Vicente Navarro
+
+  • XML Feed
+  • Páginas
+
+      □ Sobre mí
+      □ Sobre el blog
+      □ Licencia de uso
+      □ Condiciones de uso
+      □ Política de privacidad
+  • Categorías
+
+      □ Android Feed para todas las entradas archivadas en Android (3)
+      □ Desarrollo Web Feed para todas las entradas archivadas en Desarrollo
+        Web (13)
+      □ GNU/Linux Feed para todas las entradas archivadas en GNU/Linux (105)
+      □ Hardware Feed para todas las entradas archivadas en Hardware (30)
+          ☆ VIA EPIA Feed para todas las entradas archivadas en VIA EPIA (9)
+      □ Internet Feed para todas las entradas archivadas en Internet (6)
+      □ LAMP/WordPress Feed para todas las entradas archivadas en LAMP/
+        WordPress (22)
+      □ Misc Feed para todas las entradas archivadas en Misc (6)
+      □ Navegadores Feed para todas las entradas archivadas en Navegadores (17)
+      □ PC Feed para todas las entradas archivadas en PC (15)
+      □ Programación Feed para todas las entradas archivadas en Programación
+        (8)
+      □ Redes Feed para todas las entradas archivadas en Redes (17)
+      □ Sobre el Blog Feed para todas las entradas archivadas en Sobre el Blog
+        (17)
+      □ Software Libre Feed para todas las entradas archivadas en Software
+        Libre (6)
+      □ UNIX Feed para todas las entradas archivadas en UNIX (21)
+      □ Virtualización Feed para todas las entradas archivadas en
+        Virtualización (6)
+      □ Windows Feed para todas las entradas archivadas en Windows (41)
+  • Archivos
+
+      □ abril 2015 (2)
+      □ febrero 2013 (3)
+      □ junio 2012 (1)
+      □ noviembre 2011 (2)
+      □ octubre 2011 (3)
+      □ noviembre 2010 (1)
+      □ octubre 2010 (1)
+      □ junio 2010 (1)
+      □ enero 2010 (1)
+      □ octubre 2009 (1)
+      □ agosto 2009 (1)
+      □ junio 2009 (1)
+      □ mayo 2009 (2)
+      □ marzo 2009 (1)
+      □ febrero 2009 (3)
+      □ enero 2009 (3)
+      □ diciembre 2008 (6)
+      □ noviembre 2008 (6)
+      □ octubre 2008 (6)
+      □ septiembre 2008 (4)
+      □ agosto 2008 (1)
+      □ julio 2008 (3)
+      □ junio 2008 (4)
+      □ mayo 2008 (7)
+      □ abril 2008 (6)
+      □ marzo 2008 (3)
+      □ febrero 2008 (3)
+      □ enero 2008 (11)
+      □ diciembre 2007 (10)
+      □ noviembre 2007 (7)
+      □ octubre 2007 (10)
+      □ septiembre 2007 (10)
+      □ agosto 2007 (5)
+      □ julio 2007 (8)
+      □ junio 2007 (4)
+      □ mayo 2007 (6)
+      □ abril 2007 (7)
+      □ marzo 2007 (7)
+      □ febrero 2007 (11)
+  • Meta
+
+      □ RSS
+      □ RSS de los comentarios
+
+  • Etiquetas
+
+    Hardware patch QEMU Windows VIA Firefox CSS Zyxel 660HW Debian Kernel GNU/
+    Linux filesystems PHP memorias USB drivers NTFS-3G wget Televisión HTML
+    JavaScript Ubuntu Cygwin fuentes UNIX Apache blog Redes VIA EPIA MySQL
+    shell WordPress dd OpenSSH GRUB Internet Explorer particiones ms-sys initrd
+    FAT X Window System
+   
+    Ver todas »
+
+  • Contacto
+
+  • Búsqueda [                    ] [Buscar]
+  • [LoHice]
+  • Creative Commons License
+  • Valid XHTML 1.0 Transitional
+  • Valid CSS!
+  • WordPress
+  • Get Firefox
+  • Debian GNU/Linux
+  • Obtenga GNU/Linux
+  • Get Linux
+  • Wikipedia Affiliate Button
+
+     • julio 2007
+    L  M  X  J  V  S  D
+    « jun       ago »
+                      1
+    2  3  4  5  6  7  8
+    9  10 11 12 13 14 15
+    16 17 18 19 20 21 22
+    23 24 25 26 27 28 29
+    30 31  
+
+20 jul
+
+Servicios en Cygwin (syslogd, sshd, telnetd, ftpd, nfsd, etc.)
+
+En entradas anteriores hemos tratado diversos temas sobre la utilización del
+Cygwin, centrándonos mucho en la consola del Cygwin y en su portabilidad. Pero
+una de las cosas más importantes de los sistemas UNIX son sus servidores/
+servicios/demonios que trabajan en segundo plano sin aparecer para nada en la
+consola. Los más típicos son los de red, aunque hay muchos otros. En Cygwin
+también podemos usarlos, y opcionalmente podemos usar la infraestructura de
+Windows para convertirlos en servicios de Windows, de forma que podamos
+controlarlos usando el panel de Servicios, algo muy conveniente.
+
+Para poder usar servicios de red, es muy importante tener en cuenta que la
+configuración por defecto del Firewall de Windows no nos permitirá su uso, de
+modo que en todo momento tenemos que tener en cuenta la necesidad de configurar
+correctamente este Firewall o cualquier otro Firewall Personal que podamos
+tener instalado.
+
+También es muy importante, si queremos crear servicios de Windows, haber hecho
+la instalación para todos los usuarios, no sólo para el actual:
+
+Cygwin - Instalación para todos los usuarios
+
+Además, los usuarios de Windows 2003 tendrán que tener alguna precaución
+adicional, ya que como dice el manual de Cygwin en la importante sección NT
+security and usage of ntsec:
+
+    On NT and Windows 2000 the SYSTEM user has these privileges and can run
+    services such as sshd. However, on Windows 2003 SYSTEM lacks the Create a
+    token object right, so it is necessary to create a special user with all
+    the necessary rights, as well as Logon as a service, to run such services.
+    For security reasons this user should be denied the rights to logon
+    interactively or over the network.
+
+En esta entrada vamos a tratar los siguientes servicios:
+
+  • inetd
+  • xinetd
+  • syslogd
+  • sshd
+  • nfsd, mountd, portmap
+  • cygserver
+  • Eliminar todos los servicios
+  • Y si algo no funciona…
+
+inetd
+
+Podemos comenzar por el clásico inetd y sus servidores (ftpd, rexecd, rlogind,
+rshd, talkd, telnetd, tftpd, uucpd), todos ellos incluidos en el paquete
+inetutils de Cygwin (así como los respectivos clientes). La documentación del
+paquete está en /usr/share/doc/Cygwin/inetutils-X.Y.Z.README.
+
+Podemos simplemente arrancar el demonio en la consola ejecutando /usr/sbin/
+inetd y curiosamente la ventana con la consola desaparecerá, pero si abrimos
+una nueva, veremos que el proceso seguirá arriba y haciendo su trabajo:
+
+    vnavarro@DARKSTAR ~
+    $ ps -ef
+         UID     PID    PPID TTY     STIME COMMAND
+    vnavarro    2664     848 con  17:00:09 /usr/sbin/inetd
+    vnavarro    5692       1 con  17:01:14 /usr/bin/bash
+    vnavarro    5680    5692 con  17:01:22 /usr/bin/ps
+
+    vnavarro@DARKSTAR ~
+    $ telnet localhost
+    Trying 127.0.0.1...
+    Connected to DARKSTAR.
+    Escape character is '^]'.
+    Password:
+    Last login: Fri Jul 20 17:03:20 from localhost
+    Fanfare!!!
+    You are successfully logged in to this server!!!
+
+    vnavarro@DARKSTAR ~
+    $ logout
+    Connection closed by foreign host.
+
+    vnavarro@DARKSTAR ~
+    $ ftp localhost
+    Connected to DARKSTAR.
+    220-
+    220- Wow! I have found the ftp daemon! Let's see...
+    220-
+    220 DARKSTAR FTP server (GNU inetutils 1.3.2) ready.
+    Name (localhost:vnavarro):
+    331 Password required for vnavarro.
+    Password:
+    230- Fanfare!!!
+    230- You are successfully logged in to this server!!!
+    230 User vnavarro logged in.
+    Remote system type is UNIX.
+    Using binary mode to transfer files.
+    ftp> quit
+    221 Goodbye.
+
+xinetd
+
+Aunque el inetd tiene opciones para instalarse como servicio de Windows: /usr/
+sbin/inetd --install-as-service/--remove-as-service a mí no me ha ido muy bien
+con ellas. Pero en realidad, vale más la pena pasar directamente al xinetd que,
+al fin y al cabo, es una importante evolución del clásico inetd. Tras instalar
+el paquete xinetd, comenzamos ejecutando el xinetd-config:
+
+    vnavarro@DARKSTAR ~
+    $ xinetd-config
+    Overwrite existing xinetd configuration file(s)? (yes/no) yes
+    Creating default xinetd configuration files
+    x - creating lock directory
+    x - extracting xinetd.conf.tar.bz2 (binary)
+    xinetd.d/
+    xinetd.d/chargen
+    xinetd.d/chargen-udp
+    xinetd.d/daytime
+    xinetd.d/daytime-udp
+    xinetd.d/echo
+    xinetd.d/echo-udp
+    xinetd.d/ftpd
+    xinetd.d/rexec
+    xinetd.d/rlogin
+    xinetd.d/rsh
+    xinetd.d/rsync
+    xinetd.d/servers
+    xinetd.d/services
+    xinetd.d/talk
+    xinetd.d/telnet
+    xinetd.d/time
+    xinetd.d/time-udp
+    xinetd.conf
+
+    Configuration finished. Have fun!
+
+A diferencia de lo que hemos anteriormente con el inetd, el xinetd no parece
+funcionar tan bien en la línea de comandos. Si lo ejecutamos directamente en la
+consola (con la opción -d de debug) podremos ver que al hacer un localhost hace
+un amago de conexión que se corta inmediatamente:
+
+    vnavarro@DARKSTAR ~
+    $ /usr/sbin/xinetd -d
+
+    ...
+
+    07/7/20@17:58:56: DEBUG: {server_start} Starting service telnet
+    07/7/20@17:58:56: DEBUG: {main_loop} active_services = 13
+    07/7/20@17:58:56: ERROR: {set_credentials} setuid failed: Permission denied (errno = 13)
+    07/7/20@17:58:56: DEBUG: {main_loop} active_services = 13
+    07/7/20@17:58:56: DEBUG: {main_loop} select returned 1
+    07/7/20@17:58:56: DEBUG: {check_pipe} Got signal 20 (Child exited)
+    07/7/20@17:58:56: DEBUG: {child_exit} waitpid returned = 4216
+    07/7/20@17:58:56: DEBUG: {server_end} telnet server 4216 exited
+    07/7/20@17:58:56: INFO: {conn_free} freeing connection
+
+Se trata de un problema de permisos del usuario actual. Podríamos esforzarnos
+para configurarlo adecuadamente según explica la sección del manual de ntsec
+que mencionaba anteriormente, pero casi mejor lo instalamos como servicio de
+Windows de forma que funcione como usuario SYSTEM y evitamos el problema.
+
+La utilidad clave para hacer esto es el cygrunsrv. No se habla de este comando
+en el manual de Cygwin, siendo la referencia clave de este comando el documento
+/usr/share/doc/Cygwin/cygrunsrv.README. Tampoco tiene página de man, pero un
+cygrunsrv -h nos dará casi toda la información que necesitamos.
+
+El cygrunsrv permite instalar, eliminar, arrancar, parar y listar demonios de
+Cygwin como servicios de Windows. Por ejemplo, instalemos el xinetd como un
+servicio de Windows:
+
+    vnavarro@DARKSTAR ~
+    $ cygrunsrv -I xinetd -d "CYGWIN xinetd" --pidfile /var/run/xinetd.pid -p /usr/sbin/xinetd --args "-pidfile /var/run/xinetd.pid"
+
+    vnavarro@DARKSTAR ~
+    $ cygrunsrv -L
+    xinetd
+
+    vnavarro@DARKSTAR ~
+    $ cygrunsrv -Q xinetd
+    Service             : xinetd
+    Display name        : CYGWIN xinetd
+    Current State       : Stopped
+    Command             : /usr/sbin/xinetd -pidfile /var/run/xinetd.pid
+
+xinetd como servicio de Windows 1
+xinetd como servicio de Windows 2
+
+De momento el servicio está parado, y si intentamos arrancarlo es posible que
+tengamos problemas:
+
+    vnavarro@DARKSTAR ~
+    $ cygrunsrv -S xinetd
+    cygrunsrv: Error starting a service: QueryServiceStatus:  Win32 error 1062:
+    The service has not been started.
+
+Si miramos en el Visor de Eventos de Aplicaciones de Windows, encontraremos el
+siguiente error:
+
+xinetd: PID 3400: creation of default log failed.
+
+Y es que, como leemos en la lista de desitribución de Cygwin: Re: Help me to
+get xinetd/inetd working., si los permisos de /var/log/servicelog no son los
+del usuario SYSTEM, el servicio no arranca:
+
+    vnavarro@DARKSTAR ~
+    $ ll /var/log/servicelog
+    -rw-r--r-- 1 vnavarro mkgroup-l-d 56 Jul 20 17:58 /var/log/servicelog
+
+    vnavarro@DARKSTAR ~
+    $ rm /var/log/servicelog
+
+    vnavarro@DARKSTAR ~
+    $ cygrunsrv -S xinetd
+
+    vnavarro@DARKSTAR ~
+    $ cygrunsrv -Q xinetd
+    Service             : xinetd
+    Display name        : CYGWIN xinetd
+    Current State       : Running
+    Controls Accepted   : Stop
+    Command             : /usr/sbin/xinetd -pidfile /var/run/xinetd.pid
+
+    vnavarro@DARKSTAR ~
+    $ ll /var/log/servicelog
+    -rw-r--r-- 1 SYSTEM Administrators 55 Jul 20 18:30 /var/log/servicelog
+
+xinetd como servicio de Windows 3
+
+Por supuesto, también podemos pararlo y arrancarlo con los comandos de Windows.
+Lo hacemos y comprobamos que efectivamente, podemos conectarnos:
+
+    vnavarro@DARKSTAR ~
+    $ net stop xinetd
+    The CYGWIN xinetd service is stopping.
+    The CYGWIN xinetd service was stopped successfully.
+
+    vnavarro@DARKSTAR ~
+    $ net start xinetd
+    The CYGWIN xinetd service is starting..
+    The CYGWIN xinetd service was started successfully.
+
+    vnavarro@DARKSTAR ~
+    $ telnet localhost
+    Trying 127.0.0.1...
+    Connected to DARKSTAR.
+    Escape character is '^]'.
+
+    CYGWIN_NT-5.1 1.5.24(0.156/4/2) (DARKSTAR) (tty0)
+
+    login: vnavarro
+    Password:
+    Last login: Fri Jul 20 17:42:03 from localhost
+    Fanfare!!!
+    You are successfully logged in to this server!!!
+
+    vnavarro@DARKSTAR ~
+    $ Connection closed by foreign host.
+
+syslogd
+
+Tenemos ya el xinetd funcionando, pero necesitamos saber quién entra y sale del
+sistema… ¡necesitamos el syslogd! (paquete syslogd-ng) Pero esta vez lo tenemos
+más fácil, ya que el script syslogd-config además de crear una configuración
+inicial adecuada, nos instala directamente el servicio (el script hace uso del
+cygrunsrv para ello):
+
+    vnavarro@DARKSTAR ~
+    $ syslogd-config
+    Overwrite existing /etc/syslog.conf file? (yes/no) yes
+    Creating default /etc/syslog.conf file
+
+
+    Warning: The following function requires administrator privileges!
+
+    Do you want to install syslogd as service?
+    (Say "no" if it's already installed as service) (yes/no) yes
+
+    The service has been installed under LocalSystem account.
+    To start the service, call `net start syslogd' or `cygrunsrv -S syslogd'.
+
+    Check /etc/syslog.conf first, if it suits your needs.
+
+    Keep in mind that any file mentioned in /etc/syslog.conf
+    must exist and be readable and writable for the SYSTEM account.
+    Oh and, use tabs, not spaces in /etc/syslog.conf...
+
+    Configuration finished. Have fun!
+
+Tan pronto como arranquemos el servicio:
+
+syslogd como servicio de Windows
+
+y tal y como está configurado en el /etc/syslogd.conf:
+
+    vnavarro@DARKSTAR ~
+    $ cat /etc/syslog.conf
+    # Log anything (except mail) of level info or higher.
+    # Don't log private authentication messages!
+    #*.info;mail.none;authpriv.none         /var/log/messages
+
+    # The authpriv file has restricted access.
+    #authpriv.*                             /var/log/secure
+
+    # Log all the mail messages in one place.
+    #mail.*                                 /var/log/maillog
+
+    #For a start, use this simplifed approach.
+    *.*                                     /var/log/messages
+
+comenzaremos a ver mensajes en el /var/log/messages. Por ejemplo, tras
+reiniciar el xinetd (si lo hemos instalado después del syslogd) veremos:
+
+    Jul 20 18:54:39 DARKSTAR xinetd: PID 5824: xinetd Version 2.3.9 started with no options compiled
+     in.
+    Jul 20 18:54:39 DARKSTAR xinetd: PID 5824: Started working: 13 available services
+    Jul 20 18:54:40 DARKSTAR xinetd: PID 3044: service `xinetd': waiting for fork of 4332 (#1)
+    Jul 20 18:54:41 DARKSTAR xinetd: PID 3044: service `xinetd': waiting for fork of 4332 (#2)
+    Jul 20 18:54:42 DARKSTAR xinetd: PID 3044: service `xinetd': waiting for fork of 4332 (#3)
+    Jul 20 18:54:43 DARKSTAR xinetd: PID 3044: service `xinetd' started, pid 5824 read from /var/run
+    /xinetd.pid
+
+Y si metemos la opción -l del ftpd de forma adecuada en el fichero /etc/
+xinetd.d/ftpd:
+
+    man ftpd
+
+    -l      Each successful and failed ftp(1) session is logged using syslog with a
+            facility of LOG_FTP.  If this option is specified twice, the retrieve (get),
+            store (put), append, delete, make directory, remove directory and rename
+            operations and their filename arguments are also logged.
+
+    vnavarro@DARKSTAR ~
+    $ cat /etc/xinetd.d/ftpd
+    # default: on
+    # description: The FTP server serves FTP connections. It uses \
+    #       normal, unencrypted usernames and passwords for authentication.
+    service ftp
+    {
+            socket_type             = stream
+            wait                    = no
+            server                  = /usr/sbin/in.ftpd
+            server_args             = -l
+            log_on_success          += DURATION USERID
+            log_on_failure          += USERID
+            nice                    = 10
+            user                    = SYSTEM
+            disable                 = no
+    }
+
+tras reiniciar el servicio xinetd, también veremos los mensajes de
+autentificación de FTP:
+
+    Jul 20 19:03:37 DARKSTAR ftpd: PID 2816: connection from localhost
+    Jul 20 19:03:46 DARKSTAR ftpd: PID 2816: FTP LOGIN FAILED FROM localhost, malusuario
+    Jul 20 19:03:52 DARKSTAR ftpd: PID 1752: connection from localhost
+    Jul 20 19:04:10 DARKSTAR ftpd: PID 1752: FTP LOGIN FROM localhost as vnavarro
+
+sshd
+
+El servidor de SSH (paquete openssh) es muy fácil de instalar, ya que como
+ocurría con el syslogd, tenemos a nuestra disposición un script, el
+ssh-host-config, que lo configura todo por nosotros y que instala el servicio
+usando el cygrunsrv:
+
+    vnavarro@DARKSTAR ~
+    $ ssh-host-config
+    Overwrite existing /etc/ssh_config file? (yes/no) yes
+    Generating /etc/ssh_config file
+    Overwrite existing /etc/sshd_config file? (yes/no) yes
+    Privilege separation is set to yes by default since OpenSSH 3.3.
+    However, this requires a non-privileged account called 'sshd'.
+    For more info on privilege separation read /usr/share/doc/openssh/README.privsep.
+
+    Should privilege separation be used? (yes/no) yes
+    Generating /etc/sshd_config file
+
+
+    Warning: The following functions require administrator privileges!
+
+    Do you want to install sshd as service?
+    (Say "no" if it's already installed as service) (yes/no) yes
+
+    Which value should the environment variable CYGWIN have when
+    sshd starts? It's recommended to set at least "ntsec" to be
+    able to change user context without password.
+    Default is "ntsec".  CYGWIN=ntsec
+
+    The service has been installed under LocalSystem account.
+    To start the service, call `net start sshd' or `cygrunsrv -S sshd'.
+
+    Host configuration finished. Have fun!
+
+    vnavarro@DARKSTAR ~
+    $ cygrunsrv -S sshd
+
+    vnavarro@DARKSTAR ~
+    $ cygrunsrv -Q sshd
+    Service             : sshd
+    Display name        : CYGWIN sshd
+    Current State       : Running
+    Controls Accepted   : Stop
+    Command             : /usr/sbin/sshd -D
+
+    vnavarro@DARKSTAR ~
+    $ cygrunsrv -L
+    xinetd
+    syslogd
+    sshd
+
+    vnavarro@DARKSTAR ~
+    $ ssh localhost
+    vnavarro@localhost's password:
+    Last login: Fri Jul 20 19:14:55 2007 from localhost
+    Fanfare!!!
+    You are successfully logged in to this server!!!
+
+    vnavarro@DARKSTAR ~
+    $ logout
+    Connection to localhost closed.
+
+sshd como servicio de Windows
+
+Por cierto, aunque es más típico arrancar el sshd como servidor indicidual, es
+totalmente posible arrancarlo sólo cuando sea necesario bajo el paraguas del
+inetd/xinetd.
+
+nfsd, mountd, portmap
+
+En Cygwin tenemos servidor de NFS (paquete nfs-server) pero no cliente: No
+podemos montar un filesystem de un sistema remoto NFS usando Cygwin.
+
+El servidor NFS de Cygwin está documentado en el fichero /usr/share/doc/Cygwin/
+nfs-server-X.Y.Z.README y en el interesante Cygwin NFS Server HOWTO.
+
+Aunque un servidor de NFS es algo generalmente muy complejo, el Cygwin nos lo
+pone muy sencillo gracias al script nfs-server-config, que lo hace todo por
+nosotros, incluyendo la creación del usuario del servicio y de los tres
+servicios involucrados: portmap, mountd y nfsd.
+
+    vnavarro@DARKSTAR ~
+    $ nfs-server-config
+    This script sets up a default configuration for running an NFS server under
+    Cygwin.  As part of this setup, the script will do the following:
+
+      1) Create a user account to run the services under. [OPTIONAL]
+      2) Install portmap, mountd, and nfsd as Windows services.
+      3) Create a sample exports file.
+      4) Create a sample uid/gid mapping file.
+
+    After installing, please read the nfs-server README for Cygwin:
+
+      /usr/share/doc/Cygwin/nfs-server-2.3-*.README
+
+    This document contains notes on installation and documents known problems
+    and workarounds with the NFS server; ex:
+
+      - ISSUE : Recommend using ntsec
+      - ISSUE : Daemons are single-threaded
+      - ISSUE : Daemons require 'impersonate logged on user' right.
+      - ISSUE : Daemons cannot re-export mapped network drives
+      - ISSUE : Daemons expect 'nobody' or 'Guest' as anonymous user
+      - ISSUE : Portmap service fails to start
+      - ISSUE : Cannot export Windows directories not under Cygwin root
+      - ISSUE : Considerations when mapping UIDs/GIDs
+
+    Do you want to continue? (yes/no) yes
+
+    Checking for other Unix environments on this system ...
+    Good! There doesn't seem to be any other Unix environments installed.
+
+    You can choose to install the services so that they run under the local system
+    account, or under a separate user account.  Which option you should choose
+    depends on which version of Windows you are running:
+
+      Windows 2000 : You may run nfsd under either a local system account or
+                     a separate user account.  You _probably_ want to run under
+                     the local system account.
+      Windows XP   : You _must_ run nfsd under a separate user account.
+
+    If you choose to run nfsd under a separate user account, you will be prompted
+    for a user name and password.  If the user name you supply does not exist,
+    it will be created.
+
+    Do you want to run nfsd under a separate user account? (yes/no) yes
+
+    User name : usuarionfs
+    Password  : passusrnfs
+
+    User usuarionfs already exists
+    Assigning required privileges to user usuarionfs ...
+    Adding user usuarionfs to /etc/passwd ...
+    Ensuring user usuarionfs has write persmissions in /var/log ...
+
+    Installing portmap service ...
+
+    Installing mountd service ...
+
+    Installing nfsd service ...
+
+    Could not find user 'Guest' in /etc/passwd
+
+    In order for mountd and nfsd to function properly, you should add the user
+    'Guest' to your /etc/passwd, for example:
+
+      mkpasswd.exe -l -u Guest >> /etc/passwd
+
+¡Ya vamos teniendo un buen puñado de servicios instalados!
+
+    vnavarro@DARKSTAR ~
+    $ cygrunsrv -L
+    xinetd
+    syslogd
+    sshd
+    portmap
+    mountd
+    nfsd
+
+Creamos un fichero /etc/exports con la configuración que deseamos para nuestro
+servidor NFS y al arrancar los tres servicios involucrados, podremos ver el
+directorio remoto disponible al usar el comando showmount -e:
+
+    vnavarro@DARKSTAR ~
+    $ cat /etc/exports
+    /tmp    *
+
+    vnavarro@DARKSTAR ~
+    $ cygrunsrv -S portmap
+
+    vnavarro@DARKSTAR ~
+    $ cygrunsrv -S mountd
+
+    vnavarro@DARKSTAR ~
+    $ cygrunsrv -S nfsd
+
+    vnavarro@DARKSTAR ~
+    $ showmount -e
+    Export list for DARKSTAR:
+    /tmp *
+
+NFS Server como servicio de Windows
+
+Ahora, desde cualquier máquina UNIX con soporte de NFS, montar el directorio
+exportado es tan fácil como:
+
+    # showmount -e darkstar
+    export list for darkstar:
+    /tmp *
+
+    # mount darkstar:/tmp /mnt/darkstar
+
+Por cierto, es interesante fijarse en que los servicios mountd y nfsd dependen
+del portmap.
+
+nfsd depende de portmap
+
+cygserver
+
+El cygserver es un demonio específico de Cygwin que, tal y como nos cuenta el
+manual (Using Cygserver) permite proporcionar ciertos servicios que han de
+permanecer aunque no haya ninguna aplicación de Cygwin activa o que requieren
+ciertos “arbitrajes de seguridad”. Los servicios implementados hasta ahora son:
+
+  • Control slave tty/pty handle dispersal from tty owner to other processes
+    without compromising the owner processes’ security.
+  • XSI IPC Message Queues.
+  • XSI IPC Semaphores.
+  • XSI IPC Shared Memory.
+
+Entre otras aplicaciones que hacen uso de sus servicios están: PostgreSQL, KDE
+y el apache2.
+
+La documentación está en /usr/share/doc/Cygwin/cygserver.README y el ejecutable
+pertenece al paquete principal, el cygwin:
+
+    vnavarro@DARKSTAR ~
+    $ cygcheck -f /usr/sbin/cygserver.exe
+    cygwin-1.5.24-2
+
+Para la instalación, contamos con el script cygserver-config:
+
+    vnavarro@DARKSTAR ~
+    $ cygserver-config
+    Overwrite existing /etc/cygserver.conf file? (yes/no) yes
+    Generating /etc/cygserver.conf file
+
+
+    Warning: The following function requires administrator privileges!
+
+    Do you want to install cygserver as service?
+    (Say "no" if it's already installed as service) (yes/no) yes
+
+    The service has been installed under LocalSystem account.
+    To start it, call `net start cygserver' or `cygrunsrv -S cygserver'.
+
+    Further configuration options are available by editing the configuration
+    file /etc/cygserver.conf.  Please read the inline information in that
+    file carefully. The best option for the start is to just leave it alone.
+
+    Please keep in mind, that a client application which wants to use
+    the services provided by cygserver *must* have the environment variable
+    CYGWIN set so that it contains the word "server".  So, if you don't
+    need any other special CYGWIN setting, just set it to "server".
+
+    It is advisable to add this setting to the Windows system environment.
+
+    Basic Cygserver configuration finished. Have fun!
+
+    vnavarro@DARKSTAR ~
+    $ cygrunsrv -S cygserver
+
+Y ya tenemos un servicio más:
+
+    vnavarro@DARKSTAR ~
+    $ cygrunsrv -L
+    mountd
+    nfsd
+    portmap
+    sshd
+    syslogd
+    xinetd
+    cygserver
+
+cygserver como servicio de Windows
+
+Eliminar todos los servicios
+
+Antes de finalizar, vamos a desinstalar todos los servicios y vamos a dejar el
+sistema como al principio:
+
+    vnavarro@DARKSTAR ~
+    $ cygrunsrv -L
+    mountd
+    nfsd
+    portmap
+    sshd
+    syslogd
+    xinetd
+    cygserver
+
+    vnavarro@DARKSTAR ~
+    $ cygrunsrv -R nfsd
+
+    vnavarro@DARKSTAR ~
+    $ cygrunsrv -R mountd
+
+    vnavarro@DARKSTAR ~
+    $ cygrunsrv -R portmap
+
+    vnavarro@DARKSTAR ~
+    $ cygrunsrv -R cygserver
+
+    vnavarro@DARKSTAR ~
+    $ cygrunsrv -R sshd
+
+    vnavarro@DARKSTAR ~
+    $ cygrunsrv -R xinetd
+
+    vnavarro@DARKSTAR ~
+    $ cygrunsrv -R syslogd
+
+    vnavarro@DARKSTAR ~
+    $ cygrunsrv -L
+
+Y si algo no funciona…
+
+Tenemos que releer la documentación, examinar detenidamente las entradas del
+Visor de Eventos de Windows correspondientes al servicio en cuestión y repasar
+los logs de /var/log.
+
+Entradas relacionadas
+
+  • Backups con rsync (3)
+  • VPN con OpenSSH (2)
+  • Usando ntfsclone y dd para clonado por red con netcat (2)
+  • Trabajando con Cygwin (2)
+  • Reenvío dinámico de puertos / montar un servidor SOCKS con SSH (2)
+  • rdiffdir: Sincronizando directorios entre sistemas distintos sin usar la
+    red (2)
+
+Esta entrada fue publicada bajo una licencia CC el 20 julio 2007 a las 17:57 y
+pertenece a la categoría UNIX, Windows. Etiquetas: Cygwin, OpenSSH, SSH,
+Windows. Puedes seguir las respuestas a través de RSS. No puedes dejar
+comentarios ni hacer trackback.
+
+Trackbacks y pingbacks:
+
+  • SSH con cygwin | WebLog – Luis Puente
+
+« Trabajando con Cygwin
+Terminales para Cygwin. Notas sobre Terminfo y Termcap. »
+Tema LHYLE09, creado por Vicente Navarro
