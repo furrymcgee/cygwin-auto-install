@@ -51,7 +51,6 @@ LANG=C bash -e
 	) | 
 	grep -o [[:graph:]]\\\+ | 
 	sed -n -f <( cat <&7 ) |
-	cat && exit 3
 	uniq |
 	tr \\\t \\\n |
 	sed 's%.*%echo wget -c -P *cygwin*/$(dirname &) http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/2016/08/30/104223/&%' |
