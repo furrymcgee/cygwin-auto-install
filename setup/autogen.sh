@@ -47,8 +47,10 @@ LANG=C bash -e
 					-type d \
 					-printf %f\\\t%H\\\n \
 				\; | 
+		sed 's/.*/echo $(basename &) $(dirname &)/e' |
 		sort
 	) | 
+	cat && exit
 	grep -o [[:graph:]]\\\+ | 
 	sed -n -f <( cat <&7 ) |
 	uniq |
@@ -100,7 +102,7 @@ LANG=C bash -e
 	exit
 
 	sed s/^\\\t// <&6 |
-	make -f - x86/release/custompackage-0.0.1-1 x86/setup.ini
+	make -C *cygwin* -f - x86/release/custompackage-0.0.1-1 x86/setup.ini
 BASH
 	sdesc: "My favorite packages"
 	ldesc: "My favorite packages"
