@@ -3,7 +3,7 @@
 5<<-'HINT' \
 6<<'MAKE' \
 7<<-'SED' \
-LANG=C.UTF-8 bash -e
+LANG=C bash -e
 	: sed -i /etc/xinetd.d/ftpd \
 		-e /disable/s/yes/no/ \
 		-e /user/s/cyg_server/Administrator/
@@ -51,6 +51,7 @@ LANG=C.UTF-8 bash -e
 	) | 
 	grep -o [[:graph:]]\\\+ | 
 	sed -n -f <( cat <&7 ) |
+	cat && exit 3
 	uniq |
 	tr \\\t \\\n |
 	sed 's%.*%echo wget -c -P *cygwin*/$(dirname &) http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/2016/08/30/104223/&%' |
@@ -101,7 +102,7 @@ LANG=C.UTF-8 bash -e
 	
 
 	sed s/^\\\t// <&6 |
-	make -C *cygwin* -f - x86/release/custompackage-0.0.1-1 x86/setup.ini
+	make -f - x86/release/custompackage-0.0.1-1 x86/setup.ini
 BASH
 	sdesc: "My favorite packages"
 	ldesc: "My favorite packages"
