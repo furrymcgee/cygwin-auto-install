@@ -98,7 +98,6 @@ LANG=C bash -e
 	tr -d ' ' |
 	xargs -I@ echo wget ${SITE}/@
 	exit
-	
 
 	sed s/^\\\t// <&6 |
 	make -f - x86/release/custompackage-0.0.1-1 x86/setup.ini
