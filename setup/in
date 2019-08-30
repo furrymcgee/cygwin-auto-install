@@ -1,75 +1,88 @@
-./x86/release/ImageMagick/setup.hint
-x86/release/ImageMagick/ImageMagick-6.9.5.7-1.tar.xz
-x86/release/ImageMagick/ImageMagick-6.9.5.7-1-src.tar.xz
-./x86/release/OpenSP/setup.hint
-x86/release/OpenSP/OpenSP-1.5.2-2.tar.bz2
-x86/release/OpenSP/OpenSP-1.5.2-2-src.tar.bz2
-./noarch/release/_autorebase/setup.hint
-noarch/release/_autorebase/_autorebase-001004-1.tar.xz
-noarch/release/_autorebase/_autorebase-001004-1-src.tar.xz
-./noarch/release/adwaita-icon-theme/setup.hint
-noarch/release/adwaita-icon-theme/adwaita-icon-theme-3.18.0-1.tar.xz
-noarch/release/adwaita-icon-theme/adwaita-icon-theme-3.18.0-1-src.tar.xz
-./x86/release/alternatives/setup.hint
-x86/release/alternatives/alternatives-1.3.30c-10.tar.bz2
-x86/release/alternatives/alternatives-1.3.30c-10-src.tar.bz2
-./x86/release/antiword/setup.hint
-x86/release/antiword/antiword-0.37-1.tar.bz2
-x86/release/antiword/antiword-0.37-1-src.tar.bz2
-./noarch/release/asciidoc/setup.hint
-noarch/release/asciidoc/asciidoc-8.6.8-1.tar.bz2
-noarch/release/asciidoc/asciidoc-8.6.8-1-src.tar.bz2
-./x86/release/at-spi2-atk/setup.hint
-x86/release/at-spi2-atk/at-spi2-atk-2.18.1-1.tar.xz
-x86/release/at-spi2-atk/at-spi2-atk-2.18.1-1-src.tar.xz
-./x86/release/at-spi2-core/setup.hint
-x86/release/at-spi2-core/at-spi2-core-2.18.3-1.tar.xz
-x86/release/at-spi2-core/at-spi2-core-2.18.3-1-src.tar.xz
-./x86/release/attr/setup.hint
-x86/release/attr/attr-2.4.46-1.tar.bz2
-x86/release/attr/attr-2.4.46-1-src.tar.bz2
-./noarch/release/autoconf/setup.hint
-noarch/release/autoconf/autoconf-13-1.tar.bz2
-noarch/release/autoconf/autoconf-13-1-src.tar.bz2
-./noarch/release/autoconf2.1/setup.hint
-noarch/release/autoconf2.1/autoconf2.1-2.13-12.tar.bz2
-noarch/release/autoconf2.1/autoconf2.1-2.13-12-src.tar.bz2
-./noarch/release/autoconf2.5/setup.hint
-noarch/release/autoconf2.5/autoconf2.5-2.69-3.tar.xz
-noarch/release/autoconf2.5/autoconf2.5-2.69-3-src.tar.xz
-./x86/release/autogen/setup.hint
-x86/release/autogen/autogen-5.18.4-1.tar.xz
-x86/release/autogen/autogen-5.18.4-1-src.tar.xz
-./noarch/release/automake/setup.hint
-noarch/release/automake/automake-9-1.tar.bz2
-noarch/release/automake/automake-9-1-src.tar.bz2
-./noarch/release/automake1.10/setup.hint
-noarch/release/automake1.10/automake1.10-1.10.3-2.tar.bz2
-noarch/release/automake1.10/automake1.10-1.10.3-2-src.tar.bz2
-./noarch/release/automake1.11/setup.hint
-noarch/release/automake1.11/automake1.11-1.11.6-2.tar.bz2
-noarch/release/automake1.11/automake1.11-1.11.6-2-src.tar.bz2
-./noarch/release/automake1.12/setup.hint
-noarch/release/automake1.12/automake1.12-1.12.6-2.tar.bz2
-noarch/release/automake1.12/automake1.12-1.12.6-2-src.tar.bz2
-./noarch/release/automake1.13/setup.hint
-noarch/release/automake1.13/automake1.13-1.13.4-1.tar.bz2
-noarch/release/automake1.13/automake1.13-1.13.4-1-src.tar.bz2
-./noarch/release/automake1.14/setup.hint
-noarch/release/automake1.14/automake1.14-1.14.1-2.tar.xz
-noarch/release/automake1.14/automake1.14-1.14.1-2-src.tar.xz
-./noarch/release/automake1.15/setup.hint
-noarch/release/automake1.15/automake1.15-1.15-1.tar.xz
-noarch/release/automake1.15/automake1.15-1.15-1-src.tar.xz
-./noarch/release/automake1.4/setup.hint
-noarch/release/automake1.4/automake1.4-1.4p6-11.tar.bz2
-noarch/release/automake1.4/automake1.4-1.4p6-11-src.tar.bz2
-./noarch/release/automake1.5/setup.hint
-noarch/release/automake1.5/automake1.5-1.5-11.tar.bz2
-noarch/release/automake1.5/automake1.5-1.5-11-src.tar.bz2
-./noarch/release/automake1.6/setup.hint
-noarch/release/automake1.6/automake1.6-1.6.3-12.tar.bz2
-noarch/release/automake1.6/automake1.6-1.6.3-12-src.tar.bz2
-./noarch/release/automake1.7/setup.hint
-noarch/release/automake1.7/automake1.7-1.7.9-11.tar.bz2
-noarch/release/automake1.7/automake1.7-1.7.9-11-src.tar.bz2
+#!/bin/bash
+: <<-"OUT"
+     1	./x86/release/ImageMagick/setup.hint
+     1	./x86/release/ImageMagick/setup.hint
+OUTPUT
+: <<-"OUT"
+     1	./x86/release/ImageMagick/setup.hint
+    73	./noarch/release/automake1.7/s     1	./x86/release/ImageMagick/setup.hint
+OUT
+
+<<-"IN" tee >(nl) > >(nl) | grep '     1'
+	./x86/release/ImageMagick/setup.hint
+	x86/release/ImageMagick/ImageMagick-6.9.5.7-1.tar.xz
+	x86/release/ImageMagick/ImageMagick-6.9.5.7-1-src.tar.xz
+	./x86/release/OpenSP/setup.hint
+	x86/release/OpenSP/OpenSP-1.5.2-2.tar.bz2
+	x86/release/OpenSP/OpenSP-1.5.2-2-src.tar.bz2
+	./noarch/release/_autorebase/setup.hint
+	noarch/release/_autorebase/_autorebase-001004-1.tar.xz
+	noarch/release/_autorebase/_autorebase-001004-1-src.tar.xz
+	./noarch/release/adwaita-icon-theme/setup.hint
+	noarch/release/adwaita-icon-theme/adwaita-icon-theme-3.18.0-1.tar.xz
+	noarch/release/adwaita-icon-theme/adwaita-icon-theme-3.18.0-1-src.tar.xz
+	./x86/release/alternatives/setup.hint
+	x86/release/alternatives/alternatives-1.3.30c-10.tar.bz2
+	x86/release/alternatives/alternatives-1.3.30c-10-src.tar.bz2
+	./x86/release/antiword/setup.hint
+	x86/release/antiword/antiword-0.37-1.tar.bz2
+	x86/release/antiword/antiword-0.37-1-src.tar.bz2
+	./noarch/release/asciidoc/setup.hint
+	noarch/release/asciidoc/asciidoc-8.6.8-1.tar.bz2
+	noarch/release/asciidoc/asciidoc-8.6.8-1-src.tar.bz2
+	./x86/release/at-spi2-atk/setup.hint
+	x86/release/at-spi2-atk/at-spi2-atk-2.18.1-1.tar.xz
+	x86/release/at-spi2-atk/at-spi2-atk-2.18.1-1-src.tar.xz
+	./x86/release/at-spi2-core/setup.hint
+	x86/release/at-spi2-core/at-spi2-core-2.18.3-1.tar.xz
+	x86/release/at-spi2-core/at-spi2-core-2.18.3-1-src.tar.xz
+	./x86/release/attr/setup.hint
+	x86/release/attr/attr-2.4.46-1.tar.bz2
+	x86/release/attr/attr-2.4.46-1-src.tar.bz2
+	./noarch/release/autoconf/setup.hint
+	noarch/release/autoconf/autoconf-13-1.tar.bz2
+	noarch/release/autoconf/autoconf-13-1-src.tar.bz2
+	./noarch/release/autoconf2.1/setup.hint
+	noarch/release/autoconf2.1/autoconf2.1-2.13-12.tar.bz2
+	noarch/release/autoconf2.1/autoconf2.1-2.13-12-src.tar.bz2
+	./noarch/release/autoconf2.5/setup.hint
+	noarch/release/autoconf2.5/autoconf2.5-2.69-3.tar.xz
+	noarch/release/autoconf2.5/autoconf2.5-2.69-3-src.tar.xz
+	./x86/release/autogen/setup.hint
+	x86/release/autogen/autogen-5.18.4-1.tar.xz
+	x86/release/autogen/autogen-5.18.4-1-src.tar.xz
+	./noarch/release/automake/setup.hint
+	noarch/release/automake/automake-9-1.tar.bz2
+	noarch/release/automake/automake-9-1-src.tar.bz2
+	./noarch/release/automake1.10/setup.hint
+	noarch/release/automake1.10/automake1.10-1.10.3-2.tar.bz2
+	noarch/release/automake1.10/automake1.10-1.10.3-2-src.tar.bz2
+	./noarch/release/automake1.11/setup.hint
+	noarch/release/automake1.11/automake1.11-1.11.6-2.tar.bz2
+	noarch/release/automake1.11/automake1.11-1.11.6-2-src.tar.bz2
+	./noarch/release/automake1.12/setup.hint
+	noarch/release/automake1.12/automake1.12-1.12.6-2.tar.bz2
+	noarch/release/automake1.12/automake1.12-1.12.6-2-src.tar.bz2
+	./noarch/release/automake1.13/setup.hint
+	noarch/release/automake1.13/automake1.13-1.13.4-1.tar.bz2
+	noarch/release/automake1.13/automake1.13-1.13.4-1-src.tar.bz2
+	./noarch/release/automake1.14/setup.hint
+	noarch/release/automake1.14/automake1.14-1.14.1-2.tar.xz
+	noarch/release/automake1.14/automake1.14-1.14.1-2-src.tar.xz
+	./noarch/release/automake1.15/setup.hint
+	noarch/release/automake1.15/automake1.15-1.15-1.tar.xz
+	noarch/release/automake1.15/automake1.15-1.15-1-src.tar.xz
+	./noarch/release/automake1.4/setup.hint
+	noarch/release/automake1.4/automake1.4-1.4p6-11.tar.bz2
+	noarch/release/automake1.4/automake1.4-1.4p6-11-src.tar.bz2
+	./noarch/release/automake1.5/setup.hint
+	noarch/release/automake1.5/automake1.5-1.5-11.tar.bz2
+	noarch/release/automake1.5/automake1.5-1.5-11-src.tar.bz2
+	./noarch/release/automake1.6/setup.hint
+	noarch/release/automake1.6/automake1.6-1.6.3-12.tar.bz2
+	noarch/release/automake1.6/automake1.6-1.6.3-12-src.tar.bz2
+	./noarch/release/automake1.7/setup.hint
+	noarch/release/automake1.7/automake1.7-1.7.9-11.tar.bz2
+	noarch/release/automake1.7/automake1.7-1.7.9-11-src.tar.bz2
+IN
+
