@@ -22,11 +22,7 @@ LANG=C bash -e
 
 	cd *cygwin* || exit 1
 
-	# get source packages of downloaded binaries
-	: wget --continue --directory-prefix=x86 ${SITE}/x86/setup.ini
-
-	# join setup.ini with directories
-	join <( 
+	: join <( 
 		find -mindepth 2 -name setup.ini |
 		xargs -r grep ^@\\\|^install:\\\|^source: |
 		sed s/^@/:@/ |
@@ -56,10 +52,18 @@ LANG=C bash -e
 	sed -n -f <( cat <&7 ) |
 	uniq |
 	tr \\\t \\\n |
-	sed 's%.*%echo wget -c -P $(dirname &) ${SITE}/&%' |
-	sh |
+	cat
+
+	cat ../in |
+	head -n75 | {
+	tee >(
+		nl -n ln
+	) > >(
+		nl -n ln
+	) ; }  | cat
+BASH
+	: sed 's%.*%echo wget -c -P $(dirname &) ${SITE}/&%' |
 	cat && exit
-	sh | sh
 
 	# find setup.hint and print file name, starting point and directory
 	: find * \
@@ -104,12 +108,12 @@ LANG=C bash -e
 	# download external-source
 	xargs -I@ wget --continue --directory-prefix=@ ${SITE}/@/setup.hint 
 
-	find -mindepth 2 -name setup.ini |
-	xargs --no-run-if-empty mv -bvt .
+	: find -mindepth 2 -name setup.ini |
+	: xargs --no-run-if-empty mv -bvt .
 
 	sed s/^\\\t// <&6 |
 	make -f - x86/release/custompackage-0.0.1-1 x86/setup.ini
-BASH
+BASHX
 	sdesc: "My favorite packages"
 	ldesc: "My favorite packages"
 	category: Base
