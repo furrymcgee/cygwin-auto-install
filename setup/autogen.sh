@@ -18,16 +18,17 @@ LANG=C bash -e
 		syslogd
 	SERVICE
 
-	SITE=http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/2016/08/30/104223 
+	export SITE=http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/2016/08/30/104223 
 
 	cd *cygwin* || exit 1
 
 	# get source packages of downloaded binaries
-	: wget -P x86 ${SITE}/x86/setup.ini -c
+	: wget --continue --directory-prefix=x86 ${SITE}/x86/setup.ini
 
 	# join setup.ini with directories
-	: join <( 
-		grep ^@\\\|^install:\\\|^source: */setup.ini |
+	join <( 
+		find -mindepth 2 -name setup.ini |
+		xargs -r grep ^@\\\|^install:\\\|^source: |
 		sed s/^@/:@/ |
 		cut -d: -f2 | 
 		sed -z \
@@ -55,12 +56,13 @@ LANG=C bash -e
 	sed -n -f <( cat <&7 ) |
 	uniq |
 	tr \\\t \\\n |
-	sed 's%.*%echo wget -c -P *cygwin*/$(dirname &) http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/2016/08/30/104223/&%' |
+	sed 's%.*%echo wget -c -P $(dirname &) ${SITE}/&%' |
+	sh |
+	cat && exit
 	sh | sh
 
-
 	# find setup.hint and print file name, starting point and directory
-	find * \
+	: find * \
 		-maxdepth 0 \
 		-mindepth 0 \
 		-type d \
@@ -71,20 +73,19 @@ LANG=C bash -e
 			\; | 
 	sort |
 	tee >(
+		# add find output
+		cat
+	) > >(
 		# grep external-source from setup.hint
 		cut -f3- |
-		grep emacs |
 		xargs -I@ grep --with-filename external-source @/setup.hint |
 		tr : \\\t | tr -d ' ' |
 		join -o1.1,1.3,2.1 -t$'\t' -12 - <(cat <<<external-source) 
-	) > >(
-		# tee find output
-		cat
 	) |
 	# sort by file name
 	sort |
+	# join find output and external-source
 	{
-		# self join stdin
 		coproc { cat; }
 		exec 3<&${COPROC[0]}- 4<&${COPROC[1]}-
 		coproc { cat; }
@@ -93,22 +94,21 @@ LANG=C bash -e
 		exec 4>&- 6>&-
 		join -t$'\t' <(<&3 cat) <(<&5 cat) 
 	} |
-	# grep external source joined with find output
+	# grep external-source joined with starting point
 	sort -k3 |
 	join -t$'\t' -13 - <(cat <<<external-source) |
-	cut -f2- |
-	sort -k5 |
-	join -t$'\t' -o1.3,1.2,1.1,0 -14 - <(cat <<<external-source) -v1 |
-	cat && exit
-	nl |
-	cut -d: -f1,3 |
+	join -t$'\t' -15 -v1 -o1.4,1.3 - <(cat <<<external-source) |
+	join -t$'\t' -j3 -o1.1,0,1.2 -e release - <(echo) |
+	tr \\\t / |
 	uniq |
-	tr -d ' ' |
-	xargs -I@ echo wget ${SITE}/@
-	exit
+	# download external-source
+	xargs -I@ wget --continue --directory-prefix=@ ${SITE}/@/setup.hint 
+
+	find -mindepth 2 -name setup.ini |
+	xargs --no-run-if-empty mv -bvt .
 
 	sed s/^\\\t// <&6 |
-	make -C *cygwin* -f - x86/release/custompackage-0.0.1-1 x86/setup.ini
+	make -f - x86/release/custompackage-0.0.1-1 x86/setup.ini
 BASH
 	sdesc: "My favorite packages"
 	ldesc: "My favorite packages"
