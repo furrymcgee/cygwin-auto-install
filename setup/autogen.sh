@@ -44,29 +44,16 @@ LANG=C bash -e
 					-type d \
 					-printf %f\\\t%H\\\n \
 				\; | 
-		sed 's/.*/echo $(basename &) $(dirname &)/e' |
 		sort
 	) | 
-	cat && exit
 	grep -o [[:graph:]]\\\+ | 
 	sed -n -f <( cat <&7 ) |
 	uniq |
 	tr \\\t \\\n |
-	cat
-
-	cat ../in |
-	head -n75 | {
-	tee >(
-		nl -n ln
-	) > >(
-		nl -n ln
-	) ; }  | cat
-BASH
-	: sed 's%.*%echo wget -c -P $(dirname &) ${SITE}/&%' |
-	cat && exit
+	sed 's%.*%echo wget -c -P $(dirname &) ${SITE}/&%'
 
 	# find setup.hint and print file name, starting point and directory
-	: find * \
+	find * \
 		-maxdepth 0 \
 		-mindepth 0 \
 		-type d \
@@ -106,14 +93,15 @@ BASH
 	tr \\\t / |
 	uniq |
 	# download external-source
-	xargs -I@ wget --continue --directory-prefix=@ ${SITE}/@/setup.hint 
+	xargs -I@ echo wget --continue --directory-prefix=@ ${SITE}/@/setup.hint 
+	exit
 
 	: find -mindepth 2 -name setup.ini |
 	: xargs --no-run-if-empty mv -bvt .
 
 	sed s/^\\\t// <&6 |
 	make -f - x86/release/custompackage-0.0.1-1 x86/setup.ini
-BASHX
+BASH
 	sdesc: "My favorite packages"
 	ldesc: "My favorite packages"
 	category: Base
