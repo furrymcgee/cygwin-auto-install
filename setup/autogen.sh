@@ -22,7 +22,7 @@ LANG=C bash -e
 
 	cd *cygwin* || exit 1
 
-	: join <( 
+	join <( 
 		find -mindepth 2 -name setup.ini |
 		xargs -r grep ^@\\\|^install:\\\|^source: |
 		sed s/^@/:@/ |
@@ -50,7 +50,15 @@ LANG=C bash -e
 	sed -n -f <( cat <&7 ) |
 	uniq |
 	tr \\\t \\\n |
-	sed 's%.*%echo wget -c -P $(dirname &) ${SITE}/&%'
+	xargs -I@ printf \
+		wget\ \
+			--continue\ \
+			--directory-prefix=\$\(dirname\ %q\)\ \
+			${SITE}/%q\\\n @ @ |
+	head |
+	cat && exit 
+	sed 's%.*%echo wget --continue --directory-prefix=$(dirname &) ${SITE}/&%'
+	exit
 
 	# find setup.hint and print file name, starting point and directory
 	find * \
@@ -79,6 +87,7 @@ LANG=C bash -e
 	{
 		coproc { cat; }
 		exec 3<&${COPROC[0]}- 4<&${COPROC[1]}-
+		# warning: execute_coproc: coproc [17750:COPROC] still exists
 		coproc { cat; }
 		exec 5<&${COPROC[0]}- 6<&${COPROC[1]}-
 		tee >(cat >&4) > >(cat >&6) &
