@@ -2,7 +2,7 @@
 0<<-'BASH' \
 5<<-'HINT' \
 6<<'MAKE' \
-8<<-'MISSING' \
+8<<-'SOURCE' \
 LANG=C.UTF-8 bash -e
 	: sed -i /etc/xinetd.d/ftpd \
 		-e /disable/s/yes/no/ \
@@ -25,6 +25,32 @@ LANG=C.UTF-8 bash -e
 	# get source packages of downloaded binaries
 	find x86/setup.ini || wget --continue --directory-prefix=x86 ${SITE}/x86/setup.ini
 	
+		: find -mindepth 2 -name setup.ini |
+		xargs -r grep ^@\\\|^install:\\\|^source: |
+		sed s/^@/:@/ |
+		cut -d: -f2 | 
+		sed -z \
+			-e s/\\\n@\ /\\\x0/g \
+			-e s/\\\n/\ /g | \
+		tr \ \\\000 \\\t\\\n |
+		cut -f1,3,7 
+	
+	sort out |
+	{
+		# add source directories
+		coproc { cat; }
+		exec 3<&${COPROC[0]}- 4<&${COPROC[1]}-
+		coproc { cat; }
+		exec 5<&${COPROC[0]}- 6<&${COPROC[1]}-
+		tee >(cat >&4) > >(cat >&6) &
+		exec 4>&- 6>&-
+		join -j4 <(echo 1) <(cat <&3) | nl &
+		join -j4 <(echo 2) <(cat <&5) | nl &
+		wait
+	} |
+	sort
+	exit
+
 	# join setup.ini with package names
 	: join -t$'\t' -o1.2,2.1,2.2,2.3 <( 
 		find * \
@@ -117,23 +143,6 @@ LANG=C.UTF-8 bash -e
 	# download external-source
 	xargs -I@ wget --continue --directory-prefix=@ ${SITE}/@/setup.hint 
 
-	# skip missing
-	xargs --no-run-if-empty --arg-file=<(
-		xargs <&8 -I@ printf x86/release/%q/setup.hint\\\n @ |
-		{
-			coproc { cat; }
-			exec 3<&${COPROC[0]}- 4<&${COPROC[1]}-
-			coproc { cat; }
-			exec 5<&${COPROC[0]}- 6<&${COPROC[1]}-
-			tee >(cat >&4) > >(cat >&6) &
-			exec 4>&- 6>&-
-			join -v1 <(<&3 cat) <(<&5 xargs find) 
-		}
-	) echo make --makefile=<(
-		cat <<<$'%/setup.hint:\n\tmkdir $(dir $@) || true && echo skip: > $@'
-	)
-	exit
-
 	find -mindepth 2 -name setup.ini |
 	xargs --no-run-if-empty mv -bvt . &&
 	sed s/^.// <&6 |
@@ -195,4 +204,4 @@ MAKE
 	libwebpdemux1
 	perl-CGI
 	postgresql-client
-MISSING
+SOURCE
