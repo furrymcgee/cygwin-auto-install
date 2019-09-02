@@ -25,19 +25,8 @@ LANG=C.UTF-8 bash -e
 	# get source packages of downloaded binaries
 	find x86/setup.ini || wget --continue --directory-prefix=x86 ${SITE}/x86/setup.ini
 	
-	# join setup.ini with directories
-	join -o2.1,2.2,1.2,1.3,1.4 <( 
-		find -mindepth 2 -name setup.ini |
-		xargs -r grep ^@\\\|^install:\\\|^source: |
-		sed s/^@/:@/ |
-		cut -d: -f2 | 
-		sed -z \
-			-e s/\\\n@\ /\\\x0/g \
-			-e s/\\\n/\ /g | \
-		tr \ \\\000 \\\t\\\n |
-		cut -f-3,7 | 
-		sort
-	) <(
+	# join setup.ini with package names
+	join -t$'\t' -o1.2,2.1,2.2,2.3 <( 
 		find * \
 			-maxdepth 0 \
 			-mindepth 0 \
@@ -49,25 +38,36 @@ LANG=C.UTF-8 bash -e
 					-printf %f\\\t%H\\\n \
 				\; | 
 		sort
+	) <(
+		find -mindepth 2 -name setup.ini |
+		xargs -r grep ^@\\\|^install:\\\|^source: |
+		sed s/^@/:@/ |
+		cut -d: -f2 | 
+		sed -z \
+			-e s/\\\n@\ /\\\x0/g \
+			-e s/\\\n/\ /g | \
+		tr \ \\\000 \\\t\\\n |
+		cut -f1,3,7 | 
+		sort
 	) | 
 	{
-		coproc { cat; }
+		coproc { : ; }
 		exec 3<&${COPROC[0]}- 4<&${COPROC[1]}-
 		coproc {
-			sed -e s%\\\t%/% -e s%\\\t%/setup.hint% |
+			sed -e s%\\\t%/% -e s%\\\t%/setup.hint\&% |
 			uniq |
 			tr \\\t \\\n |
 			xargs -I@ printf \
 				wget\ \
 					--continue\ \
 					--directory-prefix=\$\(dirname\ %q\)\ \
-					${SITE}/%q\\\n @ @ |
-			sh
+					${SITE}/%q\\\n @ @
 		}
 		exec 5<&${COPROC[0]}- 6<&${COPROC[1]}-
 		tee >(cat >&4) > >(cat >&6) &
 		exec 4>&- 6>&-
-		cat <(<&3 cat) <(<&5 cat) 
+		cat <(<&3 cat) <(<&5 cat) |
+		cat
 	} |
 	cat
 	exit
