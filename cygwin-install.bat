@@ -22,7 +22,7 @@ REM -- These are the packages we will install (in addition to the default packag
 SET PACKAGES=%PACKAGES%,httpd,cron,po4a,docbook-xml45,libcrypt-devel,lynx
 SET PACKAGES=%PACKAGES%,perl-MIME-Types,poppler,antiword,xlsx2csv,wv,links
 SET PACKAGES=%PACKAGES%,bash,tig,tmux,vim,w3m,mc,bc,gnumeric
-SET PACKAGES=%PACKAGES%,procmail,mailutils,lftp,fdupes
+SET PACKAGES=%PACKAGES%,procmail,mailutils,lftp,exim4,exim4-src
 SET PACKAGES=%PACKAGES%,sqlite3,tcl-sqlite3,git,wget,openssh,patch,sed
 SET PACKAGES=%PACKAGES%,gcc-g++,gcc-fortran,gdb,gperf,flex,bison,ctags
 SET PACKAGES=%PACKAGES%,cmake,dejagnu,make,pkg-config,gettext,check
