@@ -2,7 +2,6 @@
 0<<-'BASH' \
 5<<-'HINT' \
 6<<'MAKE' \
-7<<-'SED' \
 8<<-'MISSING' \
 LANG=C.UTF-8 bash -e
 	: sed -i /etc/xinetd.d/ftpd \
@@ -22,8 +21,12 @@ LANG=C.UTF-8 bash -e
 	export SITE=http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/2016/08/30/104223 
 
 	cd *cygwin* || exit 1
-
-	: join <( 
+	
+	# get source packages of downloaded binaries
+	find x86/setup.ini || wget --continue --directory-prefix=x86 ${SITE}/x86/setup.ini
+	
+	# join setup.ini with directories
+	join -o2.1,2.2,1.2,1.3,1.4 <( 
 		find -mindepth 2 -name setup.ini |
 		xargs -r grep ^@\\\|^install:\\\|^source: |
 		sed s/^@/:@/ |
@@ -47,16 +50,27 @@ LANG=C.UTF-8 bash -e
 				\; | 
 		sort
 	) | 
-	grep -o [[:graph:]]\\\+ | 
-	sed -n -f <( cat <&7 ) |
-	uniq |
-	tr \\\t \\\n |
-	xargs -I@ printf \
-		wget\ \
-			--continue\ \
-			--directory-prefix=\$\(dirname\ %q\)\ \
-			${SITE}/%q\\\n @ @ |
-	sh
+	{
+		coproc { cat; }
+		exec 3<&${COPROC[0]}- 4<&${COPROC[1]}-
+		coproc {
+			sed -e s%\\\t%/% -e s%\\\t%/setup.hint% |
+			uniq |
+			tr \\\t \\\n |
+			xargs -I@ printf \
+				wget\ \
+					--continue\ \
+					--directory-prefix=\$\(dirname\ %q\)\ \
+					${SITE}/%q\\\n @ @ |
+			sh
+		}
+		exec 5<&${COPROC[0]}- 6<&${COPROC[1]}-
+		tee >(cat >&4) > >(cat >&6) &
+		exec 4>&- 6>&-
+		cat <(<&3 cat) <(<&5 cat) 
+	} |
+	cat
+	exit
 
 	# find setup.hint and print file name, starting point and directory
 	: find * \
@@ -69,7 +83,7 @@ LANG=C.UTF-8 bash -e
 				-printf %p\\\t{}\\\t%h\\\n \
 			\; | 
 	sort |
-	# join filename with external-source from setup.hint
+	# print filename and external-source from setup.hint
 	{
 		coproc { cat; }
 		exec 3<&${COPROC[0]}- 4<&${COPROC[1]}-
@@ -85,7 +99,7 @@ LANG=C.UTF-8 bash -e
 		cat <(<&3 cat) <(<&5 cat) 
 	} |
 	sort |
-	# join find output and external-source
+	# cross join
 	{
 		coproc { cat; }
 		exec 3<&${COPROC[0]}- 4<&${COPROC[1]}-
@@ -95,20 +109,20 @@ LANG=C.UTF-8 bash -e
 		exec 4>&- 6>&-
 		join -t$'\t' <(<&3 cat) <(<&5 cat) 
 	} |
-	# grep external-source joined with starting point
 	sort -k3 |
+	# combine lines with external-source and starting point
 	join -t$'\t' -13 - <(cat <<<external-source) |
+	# select only lines with external-source and starting point
 	join -t$'\t' -15 -v1 -o1.4,1.3 - <(cat <<<external-source) |
-	join -t$'\t' -j3 -o1.1,0,1.2 -e release - <(echo) |
-	tr \\\t / |
+	sed s%\\\t%/release/% |
 	uniq |
 	# download external-source
 	xargs -I@ wget --continue --directory-prefix=@ ${SITE}/@/setup.hint 
 
 	# skip missing
-	: xargs -a <(
-		xargs <&8 -I@ printf x86/release/%q/setup.hint\\\t @
-	) make -f <(
+	xargs --no-run-if-empty --arg-file=<(
+		: xargs <&8 -I@ printf x86/release/%q/setup.hint\\\n @
+	) make --makefile=<(
 		cat <<<$'%/setup.hint:\n\tmkdir $(dir $@) || true && echo skip: > $@'
 	)
 
@@ -144,18 +158,10 @@ HINT
 			# --disable-check=missing-depended-package \
 			# --disable-check=missing-curr \
 
-		stat $@ && \
-		bzip2 < $@ > $(dir $@)/setup.bz2 && \
+		stat $@
+		bzip2 < $@ > $(dir $@)/setup.bz2
 		xz -6e < $@ > $(dir $@)/setup.xz
 MAKE
-	s%$%/setup.hint\t%
-	x; n; N
-	s%\n%\t%g
-	H; n; G
-	s%\n%/%g
-	s%\t/%\t%g
-	p
-SED
 	clear
 	db
 	libdconf1
