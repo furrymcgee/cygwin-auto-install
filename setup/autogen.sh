@@ -26,7 +26,7 @@ LANG=C.UTF-8 bash -e
 	find x86/setup.ini || wget --continue --directory-prefix=x86 ${SITE}/x86/setup.ini
 	
 	# join setup.ini with package names
-	join -t$'\t' -o1.2,2.1,2.2,2.3 <( 
+	: join -t$'\t' -o1.2,2.1,2.2,2.3 <( 
 		find * \
 			-maxdepth 0 \
 			-mindepth 0 \
@@ -50,10 +50,10 @@ LANG=C.UTF-8 bash -e
 		cut -f1,3,7 | 
 		sort
 	) | 
-	{
-		coproc { : ; }
-		exec 3<&${COPROC[0]}- 4<&${COPROC[1]}-
-		coproc {
+	#{
+	#	coproc { : ; }
+	#	exec 3<&${COPROC[0]}- 4<&${COPROC[1]}-
+	#	coproc {
 			sed -e s%\\\t%/% -e s%\\\t%/setup.hint\&% |
 			uniq |
 			tr \\\t \\\n |
@@ -62,15 +62,13 @@ LANG=C.UTF-8 bash -e
 					--continue\ \
 					--directory-prefix=\$\(dirname\ %q\)\ \
 					${SITE}/%q\\\n @ @
-		}
-		exec 5<&${COPROC[0]}- 6<&${COPROC[1]}-
-		tee >(cat >&4) > >(cat >&6) &
-		exec 4>&- 6>&-
-		cat <(<&3 cat) <(<&5 cat) |
-		cat
-	} |
-	cat
-	exit
+	#	}
+	#	exec 5<&${COPROC[0]}- 6<&${COPROC[1]}-
+	#	tee >(cat >&4) > >(cat >&6) &
+	#	exec 4>&- 6>&-
+	#	cat <(<&3 cat) <(<&5 cat) |
+	#	cat
+	#}
 
 	# find setup.hint and print file name, starting point and directory
 	: find * \
@@ -121,15 +119,25 @@ LANG=C.UTF-8 bash -e
 
 	# skip missing
 	xargs --no-run-if-empty --arg-file=<(
-		: xargs <&8 -I@ printf x86/release/%q/setup.hint\\\n @
-	) make --makefile=<(
+		xargs <&8 -I@ printf x86/release/%q/setup.hint\\\n @ |
+		{
+			coproc { cat; }
+			exec 3<&${COPROC[0]}- 4<&${COPROC[1]}-
+			coproc { cat; }
+			exec 5<&${COPROC[0]}- 6<&${COPROC[1]}-
+			tee >(cat >&4) > >(cat >&6) &
+			exec 4>&- 6>&-
+			join -v1 <(<&3 cat) <(<&5 xargs find) 
+		}
+	) echo make --makefile=<(
 		cat <<<$'%/setup.hint:\n\tmkdir $(dir $@) || true && echo skip: > $@'
 	)
+	exit
 
 	find -mindepth 2 -name setup.ini |
 	xargs --no-run-if-empty mv -bvt . &&
 	sed s/^.// <&6 |
-	make -f - x86/release/custompackage-0.0.1-1 x86/setup.ini
+	: make -f - x86/release/custompackage-0.0.1-1 x86/setup.ini
 BASH
 	sdesc: "My favorite packages"
 	ldesc: "My favorite packages"
@@ -164,29 +172,27 @@ HINT
 MAKE
 	clear
 	db
+	emacs
+	libGLU1
 	libdconf1
 	libe2p2
-	libss2
-	emacs
-	libgmpxx4
-	libGLU1
-	libglut3
-	libgcrypt-devel
-	libgpg-error-devel
-	liblzo2-doc
-	libsigsegv-devel
-	libglut3
-	libwebpdecoder1
-	libwebpdemux1
-	liblz4_1
-	libpcreposix0
-	perl-CGI
 	libev4
+	libgcrypt-devel
+	libglut3
+	libgmpxx4
+	libgpg-error-devel
+	liblz4_1
+	liblzo2-doc
 	libpcre16_0
 	libpcre32_0
 	libpcreposix0
 	libplot2
-	postgresql-client
 	libprocps-ng5
 	libreadline-devel
+	libsigsegv-devel
+	libss2
+	libwebpdecoder1
+	libwebpdemux1
+	perl-CGI
+	postgresql-client
 MISSING
