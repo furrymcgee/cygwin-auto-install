@@ -131,8 +131,8 @@ LANG=C.UTF-8 bash -e
 	sed s/^.// <&6 |
 	make -f - x86/release/custompackage-0.0.1-1 x86/setup.ini
 BASH
-	sdesc: My favorite packages
-	ldesc: My favorite packages
+	sdesc: "My favorite packages"
+	ldesc: "My favorite packages"
 	category: Base
 	requires: bzip2 clear cygwin-doc file less openssh pinfo rxvt wget
 HINT
