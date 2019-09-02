@@ -25,17 +25,16 @@ LANG=C.UTF-8 bash -e
 	# get source packages of downloaded binaries
 	find x86/setup.ini || wget --continue --directory-prefix=x86 ${SITE}/x86/setup.ini
 	
-		: find -mindepth 2 -name setup.ini |
-		xargs -r grep ^@\\\|^install:\\\|^source: |
-		sed s/^@/:@/ |
-		cut -d: -f2 | 
-		sed -z \
-			-e s/\\\n@\ /\\\x0/g \
-			-e s/\\\n/\ /g | \
-		tr \ \\\000 \\\t\\\n |
-		cut -f1,3,7 
-	
-	sort out |
+	find -mindepth 2 -name setup.ini |
+	xargs -r grep ^@\\\|^install:\\\|^source: |
+	sed s/^@/:@/ |
+	cut -d: -f2 | 
+	sed -z \
+		-e s/\\\n@\ /\\\x0/g \
+		-e s/\\\n/\ /g | \
+	tr \ \\\000 \\\t\\\n |
+	cut -f1,3,7 | 
+	sort |
 	{
 		# add source directories
 		coproc { cat; }
@@ -44,38 +43,46 @@ LANG=C.UTF-8 bash -e
 		exec 5<&${COPROC[0]}- 6<&${COPROC[1]}-
 		tee >(cat >&4) > >(cat >&6) &
 		exec 4>&- 6>&-
-		join -j4 <(echo 1) <(cat <&3) | nl &
-		join -j4 <(echo 2) <(cat <&5) | nl &
+		join -t$'\t' <(cat <&8) <(cat <&3) |
+		join -t$'\t' -j4 <(echo 1) - |
+		nl &
+		join -j4 <(echo 2) <(cat <&5) |
+		nl > /dev/null &
 		wait
 	} |
-	sort
+	sort |
+	cut -f4-6
 	exit
 
 	# join setup.ini with package names
-	: join -t$'\t' -o1.2,2.1,2.2,2.3 <( 
-		find * \
-			-maxdepth 0 \
-			-mindepth 0 \
-			-type d \
-			-execdir \
-				find {}/release \
-					-mindepth 1 \
-					-type d \
-					-printf %f\\\t%H\\\n \
-				\; | 
-		sort
-	) <(
-		find -mindepth 2 -name setup.ini |
-		xargs -r grep ^@\\\|^install:\\\|^source: |
-		sed s/^@/:@/ |
-		cut -d: -f2 | 
-		sed -z \
-			-e s/\\\n@\ /\\\x0/g \
-			-e s/\\\n/\ /g | \
-		tr \ \\\000 \\\t\\\n |
-		cut -f1,3,7 | 
-		sort
-	) | 
+	#join -t$'\t' -o1.2,2.1,2.2,2.3 <( 
+	#	find * \
+	#		-maxdepth 0 \
+	#		-mindepth 0 \
+	#		-type d \
+	#		-execdir \
+	#			find {}/release \
+	#				-mindepth 1 \
+	#				-type d \
+	#				-printf %f\\\t%H\\\n \
+	#			\; | 
+	#	sort
+	#	exit
+	#) <(
+		# add source directories
+		tee >(
+			join -t$'\t' - <(sort <&8)
+		) > >(
+			cat
+		) |
+		sort |
+		uniq |
+		less
+		exit
+		
+	#) | 
+	#cat
+	exit
 	#{
 	#	coproc { : ; }
 	#	exec 3<&${COPROC[0]}- 4<&${COPROC[1]}-
@@ -95,6 +102,7 @@ LANG=C.UTF-8 bash -e
 	#	cat <(<&3 cat) <(<&5 cat) |
 	#	cat
 	#}
+	exit
 
 	# find setup.hint and print file name, starting point and directory
 	: find * \
