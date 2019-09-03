@@ -28,53 +28,43 @@ LANG=C.UTF-8 bash -e
 	
 	# join setup.ini with package names
 	#join -t$'\t' -o1.2,2.1,2.2,2.3 <( 
-	#	find * \
-	#		-maxdepth 0 \
-	#		-mindepth 0 \
-	#		-type d \
-	#		-execdir \
-	#			find {}/release \
-	#				-mindepth 1 \
-	#				-type d \
-	#				-printf %f\\\t%H\\\n \
-	#			\; | 
-	#	sort
-	# ) <(
-		find -mindepth 2 -name setup.ini |
-		xargs -r grep ^@\\\|^install:\\\|^source: |
-		sed s/^@/:@/ |
-		cut -d: -f2 | 
-		sed -z \
-			-e s/@\ /\\\x0/g \
-			-e s/\\\n/\ /g |
-		tr \ \\\000 \\\t\\\n |
-		cut -f1,3,7 | 
-		grep ^. |
-		sort |
 	# ) | 
+	find -mindepth 2 -maxdepth 2 -name setup.ini |
+	xargs -r grep ^@\\\|^install:\\\|^source: |
+	sed s/^@/:@/ |
+	cut -d: -f2 | 
+	sed -z \
+		-e s/@\ /\\\x0/g \
+		-e s/\\\n/\ /g |
+	tr \ \\\000 \\\t\\\n |
+	cut -f1,3,7 | 
+	grep ^. |
+	sort |
 	{
 		# add source directories
-		coproc { cat; }
-		exec 3<&${COPROC[0]}- 4<&${COPROC[1]}-
-		coproc { cat; }
-		exec 5<&${COPROC[0]}- 6<&${COPROC[1]}-
-		tee >(cat >&4) > >(cat >&6) &
-		exec 4>&- 6>&-
-		# cat <(cat <&3) &
-		# cat <(cat <&5) &
-		cat <(cat <&3) <(cat <&5) &
-		#join -t$'\t' <(cat <&3) <(cat <&5) &
-		#join -t$'\t' <(cat <&8) <(cat <&3) |
-		#join -t$'\t' -j4 <(echo 1) - |
-		#nl &
-		#join -t$'\t' -j4 <(echo 2) <(cat <&5) |
-		#nl &
+		coproc { cat; } && exec 3<&${COPROC[0]}- 4<&${COPROC[1]}-
+		coproc { cat; } && exec 5<&${COPROC[0]}- 6<&${COPROC[1]}-
+		tee >( cat >&4) > >( cat >&6) & exec 4>&- 6>&-
+
+		# add source directories
+		join -t$'\t' <(cat <&3) <(cat <&8) &
+		join -t$'\t' <(cat <&5) <(
+			find * \
+				-maxdepth 0 \
+				-mindepth 0 \
+				-type d \
+				-execdir \
+					find {}/release \
+						-mindepth 1 \
+						-type d \
+						-printf %f\\\t%H\\\n \
+					\; | 
+			sort
+		) > /dev/null &
 		wait
 	} |
-	cat
-	exit
 	sort -k4 |
-	nl
+	cat
 	exit
 
 	# join setup.ini with package names
@@ -92,9 +82,8 @@ LANG=C.UTF-8 bash -e
 	#	sort
 	#	exit
 	#) <(
-		# add source directories
 		tee >(
-			join -t$'\t' - <(sort <&8)
+			cat
 		) > >(
 			cat
 		) |
@@ -182,7 +171,7 @@ BASH
 	sdesc: "My favorite packages"
 	ldesc: "My favorite packages"
 	category: Base
-	requires: bzip2 clear cygwin-doc file less openssh pinfo rxvt wget
+	requires: bzip2 cygwin-doc file less openssh pinfo rxvt wget
 HINT
 	PACKAGE=$(lastword $(subst /, ,$(firstword $(subst -, ,$@))))
 	VERSION=$(word 2,$(subst -, ,$@))
@@ -210,37 +199,28 @@ HINT
 		bzip2 < $@ > $(dir $@)/setup.bz2
 		xz -6e < $@ > $(dir $@)/setup.xz
 MAKE
-	clear
-	db
-	libdconf1
-	libe2p2
-	libss2
-	emacs
-	libgmpxx4
-	libGLU1
-	libglut3
-	libgcrypt-devel
-	libgpg-error-devel
-	liblzo2-doc
-	libsigsegv-devel
-	libglut3
-	libwebpdecoder1
-	libwebpdemux1
-	liblz4_1
-	libpcreposix0
-	perl-CGI
-	libev4
-	libpcre16_0
-	libpcre32_0
-	libpcreposix0
-	libplot2
-	postgresql-client
-	libprocps-ng5
-	libreadline-devel
-	libsigsegv-devel
-	libss2
-	libwebpdecoder1
-	libwebpdemux1
-	perl-CGI
-	postgresql-client
+	db	x86/release
+	emacs	x86/release
+	libGLU1	x86/release
+	libdconf1	x86/release
+	libe2p2	x86/release
+	libev4	x86/release
+	libgcrypt-devel	x86/release
+	libglut3	x86/release
+	libgmpxx4	x86/release
+	libgpg-error-devel	x86/release
+	liblz4_1	x86/release
+	liblzo2-doc	x86/release
+	libpcre16_0	x86/release
+	libpcre32_0	x86/release
+	libpcreposix0	x86/release
+	libplot2	x86/release
+	libprocps-ng4	x86/release
+	libreadline-devel	x86/release
+	libsigsegv-devel	x86/release
+	libss2	x86/release
+	libwebpdecoder1	x86/release
+	libwebpdemux1	x86/release
+	perl-CGI	noarch/release
+	postgresql-client	x86/release
 SOURCE
