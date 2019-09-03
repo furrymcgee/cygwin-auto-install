@@ -23,10 +23,10 @@ LANG=C.UTF-8 bash -e
 	cd *cygwin* || exit 1
 	
 	# get source packages of downloaded binaries
-	find x86/setup.ini ||
+	find x86/setup.ini -quit ||
 	wget --continue --directory-prefix=x86 ${SITE}/x86/setup.ini
 	
-	# join setup.ini with downloaded packages and external sources
+	# downloaded setup.hint of installed packages and external sources
 	find -mindepth 2 -maxdepth 2 -name setup.ini |
 	xargs -r grep ^@\\\|^install:\\\|^source: |
 	sed s/^@/:@/ |
@@ -35,51 +35,59 @@ LANG=C.UTF-8 bash -e
 		-e s/@\ /\\\x0/g \
 		-e s/\\\n/\ /g |
 	tr \ \\\000 \\\t\\\n |
-	cut -f1,3,7 | 
+	cut -f1,3,5,7,9 | 
 	grep ^. |
 	sort |
-	join -o2.1,2.2,1.2,1.3 -t$'\t' - <(
-		cat <&8 - <(
-			find * \
-				-maxdepth 0 \
-				-mindepth 0 \
-				-type d \
-				-execdir \
-					find {}/release \
-						-mindepth 1 \
+	{
+		coproc {
+			cut -f2-5 |
+			tr \\\t \\\n |
+			tac |
+			paste - - |
+			sort | uniq
+		}
+		exec 3<&${COPROC[0]}- 4<&${COPROC[1]}-
+
+		coproc { 
+			join -o2.2,2.1,1.2,1.4 -t$'\t' - <(
+				cat <&8 - <(
+					find * \
+						-maxdepth 0 \
+						-mindepth 0 \
 						-type d \
-						-printf %f\\\t%H\\\n \
-					\;
-		) |
-		sort
-	) |
-	sort |
+						-execdir \
+							find {}/release \
+								-mindepth 1 \
+								-type d \
+								-printf %f\\\t%H\\\n \
+							\;
+				) |
+				sort
+			) |
+			sed -e s%\\\t%/% -e s%\\\t%/setup.hint\&% |
+			tr \\\t \\\n |
+			sort | uniq |
+			xargs -I@ printf \
+				:\ wget\ \
+					--continue\ \
+					--directory-prefix=\$\(dirname\ %q\)\ \
+					${SITE}/%q\ \&\&\ \
+					sha512sum\ %q\\\n @ @ @ 
+		}
+		exec 5<&${COPROC[0]}- 6<&${COPROC[1]}-
+	
+		tee >(cat >&4) > >(cat >&6) &
+		exec 4>&- 6>&-
+
+		cat <(cat <&5 | grep -v setup.hint | sort ) > /dev/null &
+		cat <(cat <&3 | sort) &
+		wait
+	} |
 	cat
 	exit
 
-	#{
-	#	coproc { : ; }
-	#	exec 3<&${COPROC[0]}- 4<&${COPROC[1]}-
-	#	coproc {
-			sed -e s%\\\t%/% -e s%\\\t%/setup.hint\&% |
-			uniq |
-			tr \\\t \\\n |
-			xargs -I@ printf \
-				wget\ \
-					--continue\ \
-					--directory-prefix=\$\(dirname\ %q\)\ \
-					${SITE}/%q\\\n @ @
-	#	}
-	#	exec 5<&${COPROC[0]}- 6<&${COPROC[1]}-
-	#	tee >(cat >&4) > >(cat >&6) &
-	#	exec 4>&- 6>&-
-	#	cat <(<&3 cat) <(<&5 cat) |
-	#	cat
-	#}
-	exit
-
-	# find setup.hint and print file name, starting point and directory
-	: find * \
+	# use setup.hint and print file name, starting point and directory
+	find * \
 		-maxdepth 0 \
 		-mindepth 0 \
 		-type d \
@@ -89,10 +97,12 @@ LANG=C.UTF-8 bash -e
 				-printf %p\\\t{}\\\t%h\\\n \
 			\; | 
 	sort |
-	# print filename and external-source from setup.hint
+	# print filename/arch and grep external-source from setup.hint
 	{
+		# print filename and arch
 		coproc { cat; }
 		exec 3<&${COPROC[0]}- 4<&${COPROC[1]}-
+		# pipe filename to xargs grep
 		coproc {
 			cut -f3- |
 			xargs -I@ grep --with-filename external-source @/setup.hint |
@@ -102,17 +112,16 @@ LANG=C.UTF-8 bash -e
 		exec 5<&${COPROC[0]}- 6<&${COPROC[1]}-
 		tee >(cat >&4) > >(cat >&6) &
 		exec 4>&- 6>&-
-		cat <(<&3 cat) <(<&5 cat) 
+		cat <(<&3 cat) &
+		cat <(<&5 cat) &
+		wait
 	} |
 	sort |
-	# cross join
+	# cross join filename/arch and external-source
 	{
-		coproc { cat; }
-		exec 3<&${COPROC[0]}- 4<&${COPROC[1]}-
-		coproc { cat; }
-		exec 5<&${COPROC[0]}- 6<&${COPROC[1]}-
-		tee >(cat >&4) > >(cat >&6) &
-		exec 4>&- 6>&-
+		coproc { cat; } && exec 3<&${COPROC[0]}- 4<&${COPROC[1]}-
+		coproc { cat; } && exec 5<&${COPROC[0]}- 6<&${COPROC[1]}-
+		tee >(cat >&4) > >(cat >&6) & exec 4>&- 6>&-
 		join -t$'\t' <(<&3 cat) <(<&5 cat) 
 	} |
 	sort -k3 |
@@ -122,10 +131,13 @@ LANG=C.UTF-8 bash -e
 	join -t$'\t' -15 -v1 -o1.4,1.3 - <(cat <<<external-source) |
 	sed s%\\\t%/release/% |
 	uniq |
+	cat 
+	exit
 	# download external-source
-	xargs -I@ wget --continue --directory-prefix=@ ${SITE}/@/setup.hint 
+	xargs -I@ echo wget --continue --directory-prefix=@ ${SITE}/@/setup.hint 
+	exit
 
-	find -mindepth 2 -name setup.ini |
+	find -mindepth 2 -maxdepth 2 -name setup.ini |
 	xargs --no-run-if-empty mv -bvt . &&
 	sed s/^.// <&6 |
 	: make -f - x86/release/custompackage-0.0.1-1 x86/setup.ini
