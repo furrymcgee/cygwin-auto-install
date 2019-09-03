@@ -23,18 +23,35 @@ LANG=C.UTF-8 bash -e
 	cd *cygwin* || exit 1
 	
 	# get source packages of downloaded binaries
-	find x86/setup.ini || wget --continue --directory-prefix=x86 ${SITE}/x86/setup.ini
+	find x86/setup.ini ||
+	wget --continue --directory-prefix=x86 ${SITE}/x86/setup.ini
 	
-	find -mindepth 2 -name setup.ini |
-	xargs -r grep ^@\\\|^install:\\\|^source: |
-	sed s/^@/:@/ |
-	cut -d: -f2 | 
-	sed -z \
-		-e s/\\\n@\ /\\\x0/g \
-		-e s/\\\n/\ /g | \
-	tr \ \\\000 \\\t\\\n |
-	cut -f1,3,7 | 
-	sort |
+	# join setup.ini with package names
+	#join -t$'\t' -o1.2,2.1,2.2,2.3 <( 
+	#	find * \
+	#		-maxdepth 0 \
+	#		-mindepth 0 \
+	#		-type d \
+	#		-execdir \
+	#			find {}/release \
+	#				-mindepth 1 \
+	#				-type d \
+	#				-printf %f\\\t%H\\\n \
+	#			\; | 
+	#	sort
+	# ) <(
+		find -mindepth 2 -name setup.ini |
+		xargs -r grep ^@\\\|^install:\\\|^source: |
+		sed s/^@/:@/ |
+		cut -d: -f2 | 
+		sed -z \
+			-e s/@\ /\\\x0/g \
+			-e s/\\\n/\ /g |
+		tr \ \\\000 \\\t\\\n |
+		cut -f1,3,7 | 
+		grep ^. |
+		sort |
+	# ) | 
 	{
 		# add source directories
 		coproc { cat; }
@@ -43,15 +60,21 @@ LANG=C.UTF-8 bash -e
 		exec 5<&${COPROC[0]}- 6<&${COPROC[1]}-
 		tee >(cat >&4) > >(cat >&6) &
 		exec 4>&- 6>&-
-		join -t$'\t' <(cat <&8) <(cat <&3) |
-		join -t$'\t' -j4 <(echo 1) - |
-		nl &
-		join -j4 <(echo 2) <(cat <&5) |
-		nl > /dev/null &
+		# cat <(cat <&3) &
+		# cat <(cat <&5) &
+		cat <(cat <&3) <(cat <&5) &
+		#join -t$'\t' <(cat <&3) <(cat <&5) &
+		#join -t$'\t' <(cat <&8) <(cat <&3) |
+		#join -t$'\t' -j4 <(echo 1) - |
+		#nl &
+		#join -t$'\t' -j4 <(echo 2) <(cat <&5) |
+		#nl &
 		wait
 	} |
-	sort |
-	cut -f4-6
+	cat
+	exit
+	sort -k4 |
+	nl
 	exit
 
 	# join setup.ini with package names
@@ -189,21 +212,29 @@ HINT
 MAKE
 	clear
 	db
-	emacs
-	libGLU1
 	libdconf1
 	libe2p2
-	libev4
-	libgcrypt-devel
-	libglut3
+	libss2
+	emacs
 	libgmpxx4
+	libGLU1
+	libglut3
+	libgcrypt-devel
 	libgpg-error-devel
-	liblz4_1
 	liblzo2-doc
+	libsigsegv-devel
+	libglut3
+	libwebpdecoder1
+	libwebpdemux1
+	liblz4_1
+	libpcreposix0
+	perl-CGI
+	libev4
 	libpcre16_0
 	libpcre32_0
 	libpcreposix0
 	libplot2
+	postgresql-client
 	libprocps-ng5
 	libreadline-devel
 	libsigsegv-devel
