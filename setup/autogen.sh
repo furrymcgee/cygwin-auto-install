@@ -26,9 +26,7 @@ LANG=C.UTF-8 bash -e
 	find x86/setup.ini ||
 	wget --continue --directory-prefix=x86 ${SITE}/x86/setup.ini
 	
-	# join setup.ini with package names
-	#join -t$'\t' -o1.2,2.1,2.2,2.3 <( 
-	# ) | 
+	# join setup.ini with downloaded packages and external sources
 	find -mindepth 2 -maxdepth 2 -name setup.ini |
 	xargs -r grep ^@\\\|^install:\\\|^source: |
 	sed s/^@/:@/ |
@@ -39,14 +37,12 @@ LANG=C.UTF-8 bash -e
 	tr \ \\\000 \\\t\\\n |
 	cut -f1,3,7 | 
 	grep ^. |
-	sort |
-	{
-		# add source directories
+	sort | {
+		# tee setup.ini to 
 		coproc { cat; } && exec 3<&${COPROC[0]}- 4<&${COPROC[1]}-
 		coproc { cat; } && exec 5<&${COPROC[0]}- 6<&${COPROC[1]}-
 		tee >( cat >&4) > >( cat >&6) & exec 4>&- 6>&-
 
-		# add source directories
 		join -t$'\t' <(cat <&3) <(cat <&8) &
 		join -t$'\t' <(cat <&5) <(
 			find * \
@@ -60,10 +56,10 @@ LANG=C.UTF-8 bash -e
 						-printf %f\\\t%H\\\n \
 					\; | 
 			sort
-		) > /dev/null &
+		) &
 		wait
 	} |
-	sort -k4 |
+	sort |
 	cat
 	exit
 
