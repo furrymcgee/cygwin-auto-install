@@ -37,14 +37,9 @@ LANG=C.UTF-8 bash -e
 	tr \ \\\000 \\\t\\\n |
 	cut -f1,3,7 | 
 	grep ^. |
-	sort | {
-		# tee setup.ini to 
-		coproc { cat; } && exec 3<&${COPROC[0]}- 4<&${COPROC[1]}-
-		coproc { cat; } && exec 5<&${COPROC[0]}- 6<&${COPROC[1]}-
-		tee >( cat >&4) > >( cat >&6) & exec 4>&- 6>&-
-
-		join -t$'\t' <(cat <&3) <(cat <&8) &
-		join -t$'\t' <(cat <&5) <(
+	sort |
+	join -o2.1,2.2,1.2,1.3 -t$'\t' - <(
+		cat <&8 - <(
 			find * \
 				-maxdepth 0 \
 				-mindepth 0 \
@@ -54,43 +49,14 @@ LANG=C.UTF-8 bash -e
 						-mindepth 1 \
 						-type d \
 						-printf %f\\\t%H\\\n \
-					\; | 
-			sort
-		) &
-		wait
-	} |
+					\;
+		) |
+		sort
+	) |
 	sort |
 	cat
 	exit
 
-	# join setup.ini with package names
-	#join -t$'\t' -o1.2,2.1,2.2,2.3 <( 
-	#	find * \
-	#		-maxdepth 0 \
-	#		-mindepth 0 \
-	#		-type d \
-	#		-execdir \
-	#			find {}/release \
-	#				-mindepth 1 \
-	#				-type d \
-	#				-printf %f\\\t%H\\\n \
-	#			\; | 
-	#	sort
-	#	exit
-	#) <(
-		tee >(
-			cat
-		) > >(
-			cat
-		) |
-		sort |
-		uniq |
-		less
-		exit
-		
-	#) | 
-	#cat
-	exit
 	#{
 	#	coproc { : ; }
 	#	exec 3<&${COPROC[0]}- 4<&${COPROC[1]}-
