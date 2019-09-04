@@ -44,7 +44,7 @@ LANG=C.UTF-8 bash -e
 		}
 		exec 7<&${COPROC[0]}- 8<&${COPROC[1]}-
 
-		# Filter existing archives
+		# filter existing archives
 		coproc {
 			cut -f2-5 |
 			tr \\\t \\\n |
@@ -61,7 +61,7 @@ LANG=C.UTF-8 bash -e
 		}
 		exec 3<&${COPROC[0]}- 4<&${COPROC[1]}-
 
-		# Find setup.hint and archives of packages
+		# find required setup.hint
 		coproc { 
 			join -o2.2,2.1,1.2,1.4 -t$'\t' - <(
 				cat <&11 - <(
@@ -76,9 +76,13 @@ LANG=C.UTF-8 bash -e
 								-printf %f\\\t%h\\\t%d\\\n \
 							\;
 				) |
-				sort
+				sort |
+				uniq
 			) |
-			sed -e s%\\\t%/% -e s%\\\t%/setup.hint\&% |
+			sed \
+				-e s%\\\t%/% \
+				-e s%\\\t%/setup.hint\&% \
+				-e s%\\\t%\&./%g |
 			tr \\\t \\\n |
 			sort |
 			uniq |
@@ -100,33 +104,29 @@ LANG=C.UTF-8 bash -e
 
 		cat <(
 			# required setup.hint
-			cat <&7 > /dev/null
+			cat <&7
 		) <(
-			join -a2 -22 <(
+			join -22 <(
 				# required archives and setup.hint
-				sort <&5 > /dev/null
+				sort <&5
 			) <(
 				# available packages
 				sort -k2 <&3
-			) |
-			sed s/\\\s\\\+/\\\t/g
+			) 
 		) |
+		sed s/\\\s\\\+/\\\t/g |
 		cut -f1 |
-		cat
-		exit
 		xargs -I@ printf \
-			:\ wget\ \
+			wget\ \
 				--continue\ \
 				--directory-prefix=\$\(dirname\ %q\)\ \
-				${SITE}/%q\ \
+				${SITE}/%q\\\n \
 				@ @ 
 		wait
-	} |
-	cat
-	exit
+	}
 
 	# use setup.hint and print file name, starting point and directory
-	find * \
+	: find * \
 		-maxdepth 0 \
 		-mindepth 0 \
 		-type d \
@@ -170,8 +170,6 @@ LANG=C.UTF-8 bash -e
 	join -t$'\t' -15 -v1 -o1.4,1.3 - <(cat <<<external-source) |
 	sed s%\\\t%/release/% |
 	uniq |
-	cat 
-	exit
 	# download external-source
 	xargs -I@ echo wget --continue --directory-prefix=@ ${SITE}/@/setup.hint 
 	exit
@@ -212,28 +210,28 @@ HINT
 		bzip2 < $@ > $(dir $@)/setup.bz2
 		xz -6e < $@ > $(dir $@)/setup.xz
 MAKE
-	db	x86/release
-	emacs	x86/release
-	glu/libGLU1	x86/release
-	dconf/libdconf1	x86/release
-	e2fsprogs/libe2p2	x86/release
-	libev/libev4	x86/release
-	libgcrypt-devel/libgcrypt-devel	x86/release
-	freeglut/libglut3	x86/release
-	gmp/libgmpxx4	x86/release
-	libgpg-error/libgpg-error-devel	x86/release
-	lz4/liblz4_1	x86/release
-	lz4/liblzo2-doc	x86/release
-	pcre/libpcre16_0	x86/release
-	pcre/libpcreposix0	x86/release
-	pcre2/libpcre2_32_0	x86/release
-	plotutils/libplot2	x86/release
-	procps/libprocps-ng4	x86/release
-	readline/libreadline-devel	x86/release
-	libsigsegv/libsigsegv-devel	x86/release
-	e2fsprogs/libss2	x86/release
-	libwebp/ibwebpdecoder1	x86/release
-	libwebp/libwebpdemux1	x86/release
-	perl/perl-CGI	noarch/release
-	postgrsql/postgresql-client	x86/release
+	db	./x86/release
+	emacs	./x86/release
+	error/libgpg-error-devel	./x86/release/libgpg
+	ibwebpdecoder1	./x86/release/libwebp
+	libGLU1	./x86/release/glu
+	libdconf1	./x86/release/dconf
+	libe2p2	./x86/release/e2fsprogs
+	libev4	./x86/release/libev
+	libgcrypt-devel	./x86/release/libgcrypt
+	libglut3	./x86/release/freeglut
+	libgmpxx4	./x86/release/gmp
+	liblz4_1	./x86/release/lz4
+	liblzo2-doc	./x86/release/lz4
+	libpcre16_0	./x86/release/pcre
+	libpcre2_32_0	./x86/release/pcre2
+	libpcreposix0	./x86/release/pcre
+	libplot2	./x86/release/plotutils
+	libprocps-ng4	./x86/release/procps
+	libreadline-devel	./x86/release/readline
+	libsigsegv-devel	./x86/release/libsigsegv
+	libss2	./x86/release/e2fsprogs
+	libwebpdemux1	./x86/release/libwebp
+	perl-CGI	./noarch/release/perl
+	postgresql-client	./x86/release/postgrsql
 SOURCE
