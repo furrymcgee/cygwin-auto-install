@@ -2,7 +2,7 @@
 0<<-'BASH' \
 5<<-'HINT' \
 6<<'MAKE' \
-9<<-'SOURCE' \
+11<<-'SOURCE' \
 LANG=C.UTF-8 bash -e
 	: sed -i /etc/xinetd.d/ftpd \
 		-e /disable/s/yes/no/ \
@@ -50,11 +50,11 @@ LANG=C.UTF-8 bash -e
 			tr \\\t \\\n |
 			tac |
 			paste - - |
-			sed s%\\\t%\ \ % |
+			sed s%\\\t%\ \ ./% |
 			sort |
 			uniq |
 			join -v1 -t$'\n' - <(
-				find noarch -mindepth 2 -type f |
+				find -type f -name '*cairo*' | 
 				xargs -P 0 -I@ sha512sum @ |
 				sort
 			)
@@ -64,7 +64,7 @@ LANG=C.UTF-8 bash -e
 		# Find setup.hint and archives of packages
 		coproc { 
 			join -o2.2,2.1,1.2,1.4 -t$'\t' - <(
-				cat <&9 - <(
+				cat <&11 - <(
 					find * \
 						-maxdepth 0 \
 						-mindepth 0 \
@@ -100,15 +100,16 @@ LANG=C.UTF-8 bash -e
 
 		cat <(
 			# required setup.hint
-			cat <&7
+			cat <&7 > /dev/null
 		) <(
-			join -22 <(
-				# required package archives
-				sort <&5
+			join -a2 -22 <(
+				# required archives and setup.hint
+				sort <&5 > /dev/null
 			) <(
 				# available packages
 				sort -k2 <&3
-			)
+			) |
+			sed s/\\\s\\\+/\\\t/g
 		) |
 		cut -f1 |
 		cat
@@ -119,7 +120,6 @@ LANG=C.UTF-8 bash -e
 				--directory-prefix=\$\(dirname\ %q\)\ \
 				${SITE}/%q\ \
 				@ @ 
-		# cat <(cat <&5 | grep -v setup.hint | sort ) > /dev/null &
 		wait
 	} |
 	cat
