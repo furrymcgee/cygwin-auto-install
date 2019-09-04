@@ -2,7 +2,7 @@
 0<<-'BASH' \
 5<<-'HINT' \
 6<<'MAKE' \
-8<<-'SOURCE' \
+9<<-'SOURCE' \
 LANG=C.UTF-8 bash -e
 	: sed -i /etc/xinetd.d/ftpd \
 		-e /disable/s/yes/no/ \
@@ -40,17 +40,31 @@ LANG=C.UTF-8 bash -e
 	sort |
 	{
 		coproc {
+			grep setup.hint
+		}
+		exec 7<&${COPROC[0]}- 8<&${COPROC[1]}-
+
+		# Missing files
+		coproc {
 			cut -f2-5 |
 			tr \\\t \\\n |
 			tac |
 			paste - - |
-			sort | uniq
+			sed s%\\\t%\ \ % |
+			sort |
+			uniq |
+			join -v1 -t$'\n' - <(
+				find noarch -mindepth 2 -type f |
+				xargs -P 0 -I@ sha512sum @ |
+				sort
+			)
 		}
 		exec 3<&${COPROC[0]}- 4<&${COPROC[1]}-
 
+		# Required files
 		coproc { 
 			join -o2.2,2.1,1.2,1.4 -t$'\t' - <(
-				cat <&8 - <(
+				cat <&9 - <(
 					find * \
 						-maxdepth 0 \
 						-mindepth 0 \
@@ -59,28 +73,48 @@ LANG=C.UTF-8 bash -e
 							find {}/release \
 								-mindepth 1 \
 								-type d \
-								-printf %f\\\t%H\\\n \
+								-printf %f\\\t%h\\\t%d\\\n \
 							\;
 				) |
 				sort
 			) |
 			sed -e s%\\\t%/% -e s%\\\t%/setup.hint\&% |
 			tr \\\t \\\n |
-			sort | uniq |
-			xargs -I@ printf \
-				:\ wget\ \
-					--continue\ \
-					--directory-prefix=\$\(dirname\ %q\)\ \
-					${SITE}/%q\ \&\&\ \
-					sha512sum\ %q\\\n @ @ @ 
+			sort |
+			uniq |
+			join -v1 -t$'\n' - <(
+				find -mindepth 2 -type f -name setup.hint |
+				sort
+			) |
+			tee >(
+				cat >&8
+			)
 		}
 		exec 5<&${COPROC[0]}- 6<&${COPROC[1]}-
-	
-		tee >(cat >&4) > >(cat >&6) &
-		exec 4>&- 6>&-
 
-		cat <(cat <&5 | grep -v setup.hint | sort ) > /dev/null &
-		cat <(cat <&3 | sort) &
+		tee >(cat >&4) > >(cat >&6) &
+		exec 4>&- 6>&- 8>&-
+
+		paste <(
+			sort -k2 <&3 > /dev/null
+		) <(
+			sort <&5 > /dev/null
+		) <(
+			cat <&7
+		)
+		exit
+		join -t$'\t' <(sort <&3) <(sort <&5) |
+		sort -k2 |
+		cut -f1 |
+		xargs -r -L1 file
+		exit
+		xargs -I@ printf \
+			:\ wget\ \
+				--continue\ \
+				--directory-prefix=\$\(dirname\ %q\)\ \
+				${SITE}/%q\ \
+				@ @ 
+		# cat <(cat <&5 | grep -v setup.hint | sort ) > /dev/null &
 		wait
 	} |
 	cat
