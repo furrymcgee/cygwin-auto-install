@@ -44,7 +44,7 @@ LANG=C.UTF-8 bash -e
 		}
 		exec 7<&${COPROC[0]}- 8<&${COPROC[1]}-
 
-		# Missing files
+		# Filter existing archives
 		coproc {
 			cut -f2-5 |
 			tr \\\t \\\n |
@@ -61,7 +61,7 @@ LANG=C.UTF-8 bash -e
 		}
 		exec 3<&${COPROC[0]}- 4<&${COPROC[1]}-
 
-		# Required files
+		# Find setup.hint and archives of packages
 		coproc { 
 			join -o2.2,2.1,1.2,1.4 -t$'\t' - <(
 				cat <&9 - <(
@@ -82,6 +82,7 @@ LANG=C.UTF-8 bash -e
 			tr \\\t \\\n |
 			sort |
 			uniq |
+			# suppress existing setup.hint
 			join -v1 -t$'\n' - <(
 				find -mindepth 2 -type f -name setup.hint |
 				sort
@@ -95,19 +96,27 @@ LANG=C.UTF-8 bash -e
 		tee >(cat >&4) > >(cat >&6) &
 		exec 4>&- 6>&- 8>&-
 
+		#####################
+
 		paste <(
-			sort -k2 <&3 > /dev/null
+			# required setup.hint
+			cat <&7 > /dev/null
 		) <(
-			sort <&5 > /dev/null
-		) <(
-			cat <&7
-		)
+			join -22 <(
+				# required package archives
+				sort <&5
+			) <(
+				# available packages
+				sort -k2 <&3
+			)
+		) |
+		cat
 		exit
 		join -t$'\t' <(sort <&3) <(sort <&5) |
-		sort -k2 |
-		cut -f1 |
 		xargs -r -L1 file
 		exit
+		sort -k2 |
+		cut -f1 |
 		xargs -I@ printf \
 			:\ wget\ \
 				--continue\ \
