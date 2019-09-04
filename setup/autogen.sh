@@ -98,9 +98,9 @@ LANG=C.UTF-8 bash -e
 
 		#####################
 
-		paste <(
+		cat <(
 			# required setup.hint
-			cat <&7 > /dev/null
+			cat <&7
 		) <(
 			join -22 <(
 				# required package archives
@@ -110,13 +110,9 @@ LANG=C.UTF-8 bash -e
 				sort -k2 <&3
 			)
 		) |
+		cut -f1 |
 		cat
 		exit
-		join -t$'\t' <(sort <&3) <(sort <&5) |
-		xargs -r -L1 file
-		exit
-		sort -k2 |
-		cut -f1 |
 		xargs -I@ printf \
 			:\ wget\ \
 				--continue\ \
@@ -218,26 +214,26 @@ HINT
 MAKE
 	db	x86/release
 	emacs	x86/release
-	libGLU1	x86/release
-	libdconf1	x86/release
-	libe2p2	x86/release
-	libev4	x86/release
-	libgcrypt-devel	x86/release
-	libglut3	x86/release
-	libgmpxx4	x86/release
-	libgpg-error-devel	x86/release
-	liblz4_1	x86/release
-	liblzo2-doc	x86/release
-	libpcre16_0	x86/release
-	libpcre32_0	x86/release
-	libpcreposix0	x86/release
-	libplot2	x86/release
-	libprocps-ng4	x86/release
-	libreadline-devel	x86/release
-	libsigsegv-devel	x86/release
-	libss2	x86/release
-	libwebpdecoder1	x86/release
-	libwebpdemux1	x86/release
-	perl-CGI	noarch/release
-	postgresql-client	x86/release
+	glu/libGLU1	x86/release
+	dconf/libdconf1	x86/release
+	e2fsprogs/libe2p2	x86/release
+	libev/libev4	x86/release
+	libgcrypt-devel/libgcrypt-devel	x86/release
+	freeglut/libglut3	x86/release
+	gmp/libgmpxx4	x86/release
+	libgpg-error/libgpg-error-devel	x86/release
+	lz4/liblz4_1	x86/release
+	lz4/liblzo2-doc	x86/release
+	pcre/libpcre16_0	x86/release
+	pcre/libpcreposix0	x86/release
+	pcre2/libpcre2_32_0	x86/release
+	plotutils/libplot2	x86/release
+	procps/libprocps-ng4	x86/release
+	readline/libreadline-devel	x86/release
+	libsigsegv/libsigsegv-devel	x86/release
+	e2fsprogs/libss2	x86/release
+	libwebp/ibwebpdecoder1	x86/release
+	libwebp/libwebpdemux1	x86/release
+	perl/perl-CGI	noarch/release
+	postgrsql/postgresql-client	x86/release
 SOURCE
