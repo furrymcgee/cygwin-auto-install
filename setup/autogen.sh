@@ -1,5 +1,7 @@
 #!/bin/bash
 0<<-'BASH' \
+9<<-'PACKAGES' \
+10<<-'EXTSOURCE' \
 5<<-'HINT' \
 6<<'MAKE' \
 11<<-'SOURCE' \
@@ -23,9 +25,19 @@ LANG=C.UTF-8 bash -e
 	cd *cygwin* || exit 1
 	
 	# get source packages of downloaded binaries
-	find x86/setup.ini -quit ||
+	find x86/setup.ini -quit -maxdepth 0 ||
 	wget --continue --directory-prefix=x86 ${SITE}/x86/setup.ini
 	
+
+	: bash -x <&9
+	bash -x <&10
+	exit
+
+	find -mindepth 2 -maxdepth 2 -name setup.ini |
+	xargs --no-run-if-empty mv -bvt . &&
+	sed s/^.// <&6 |
+	: make -f - x86/release/custompackage-0.0.1-1 x86/setup.ini
+BASH
 	# downloaded setup.hint of installed packages and external sources
 	find -mindepth 2 -maxdepth 2 -name setup.ini |
 	xargs -r grep ^@\\\|^install:\\\|^source: |
@@ -54,7 +66,7 @@ LANG=C.UTF-8 bash -e
 			sort |
 			uniq |
 			join -v1 -t$'\n' - <(
-				find -type f -name '*cairo*' | 
+				find -type f | 
 				xargs -P 0 -I@ sha512sum @ |
 				sort
 			)
@@ -124,9 +136,9 @@ LANG=C.UTF-8 bash -e
 				@ @ 
 		wait
 	}
-
+PACKAGES
 	# use setup.hint and print file name, starting point and directory
-	: find * \
+	find * \
 		-maxdepth 0 \
 		-mindepth 0 \
 		-type d \
@@ -172,15 +184,9 @@ LANG=C.UTF-8 bash -e
 	uniq |
 	# download external-source
 	xargs -I@ echo wget --continue --directory-prefix=@ ${SITE}/@/setup.hint 
-	exit
-
-	find -mindepth 2 -maxdepth 2 -name setup.ini |
-	xargs --no-run-if-empty mv -bvt . &&
-	sed s/^.// <&6 |
-	: make -f - x86/release/custompackage-0.0.1-1 x86/setup.ini
-BASH
-	sdesc: "My favorite packages"
-	ldesc: "My favorite packages"
+EXTSOURCE
+	sdesc: "My custom package"
+	ldesc: "My custom package"
 	category: Base
 	requires: bzip2 cygwin-doc file less openssh pinfo rxvt wget
 HINT
