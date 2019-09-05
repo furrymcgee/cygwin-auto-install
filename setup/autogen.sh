@@ -1,11 +1,12 @@
 #!/bin/bash
 0<<-'BASH' \
-9<<-'PACKAGES' \
 10<<-'EXTSOURCE' \
 5<<-'HINT' \
 6<<'MAKE' \
-11<<-'SOURCE' \
+15<<-'SOURCE' \
 LANG=C.UTF-8 bash -e
+
+	##### START SERVICES #####
 	: sed -i /etc/xinetd.d/ftpd \
 		-e /disable/s/yes/no/ \
 		-e /user/s/cyg_server/Administrator/
@@ -24,13 +25,13 @@ LANG=C.UTF-8 bash -e
 
 	cd *cygwin* || exit 1
 	
+	##### DOWNLOAD SETUP.INI #####
 	# get source packages of downloaded binaries
 	find x86/setup.ini -quit -maxdepth 0 ||
 	wget --continue --directory-prefix=x86 ${SITE}/x86/setup.ini
 	
-
-	: bash -x <&9
-	bash -x <&10
+	##### DOWNLOAD PACKAGES #####
+	source <(cat <&10)
 	exit
 
 	find -mindepth 2 -maxdepth 2 -name setup.ini |
@@ -38,6 +39,11 @@ LANG=C.UTF-8 bash -e
 	sed s/^.// <&6 |
 	: make -f - x86/release/custompackage-0.0.1-1 x86/setup.ini
 BASH
+	coproc {
+		grep setup.hint
+	}
+	exec 11<&${COPROC[0]}- 12<&${COPROC[1]}-
+
 	# downloaded setup.hint of installed packages and external sources
 	find -mindepth 2 -maxdepth 2 -name setup.ini |
 	xargs -r grep ^@\\\|^install:\\\|^source: |
@@ -76,7 +82,7 @@ BASH
 		# find required setup.hint
 		coproc { 
 			join -o2.2,2.1,1.2,1.4 -t$'\t' - <(
-				cat <&11 - <(
+				cat <&15 - <(
 					find * \
 						-maxdepth 0 \
 						-mindepth 0 \
@@ -101,18 +107,15 @@ BASH
 			# suppress existing setup.hint
 			join -v1 -t$'\n' - <(
 				find -mindepth 2 -type f -name setup.hint |
-				sort
+				sort |
+				tee >(cat >&12)
 			) |
-			tee >(
-				cat >&8
-			)
+			tee >(cat >&8)
 		}
 		exec 5<&${COPROC[0]}- 6<&${COPROC[1]}-
 
 		tee >(cat >&4) > >(cat >&6) &
 		exec 4>&- 6>&- 8>&-
-
-		#####################
 
 		cat <(
 			# required setup.hint
@@ -135,8 +138,12 @@ BASH
 				${SITE}/%q\\\n \
 				@ @ 
 		wait
-	}
-PACKAGES
+	} |
+	cat > /dev/null
+	exec 12>&-
+
+	##### EXTERNAL SOURCES #####
+
 	# use setup.hint and print file name, starting point and directory
 	find * \
 		-maxdepth 0 \
@@ -182,8 +189,17 @@ PACKAGES
 	join -t$'\t' -15 -v1 -o1.4,1.3 - <(cat <<<external-source) |
 	sed s%\\\t%/release/% |
 	uniq |
+	xargs -I@ printf %q/setup.hint\\\n @ |
+	join -v1 - <(cat <&11)
+	exit
+
 	# download external-source
-	xargs -I@ echo wget --continue --directory-prefix=@ ${SITE}/@/setup.hint 
+	xargs -I@ \
+		printf wget\ \
+			--continue\ \
+			--directory-prefix=%q\ \
+			${SITE}/%q/setup.hint\\\n \
+			@ @ 
 EXTSOURCE
 	sdesc: "My custom package"
 	ldesc: "My custom package"
