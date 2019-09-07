@@ -25,7 +25,7 @@ LANG=C.UTF-8 bash
 	{
 		: cat <&15
 		cat <&16
-		cat <&17
+		: cat <&17
 	} |
 	bash
 	
@@ -106,12 +106,12 @@ SOURCE
 		syslogd
 	SERVICE
 SERVICES
-	coproc {
-		grep setup.hint
-	}
-	exec 11<&${COPROC[0]}- 12<&${COPROC[1]}-
-	cat >&12
-	exit
+	#coproc {
+	#	grep setup.hint
+	#}
+	#exec 11<&${COPROC[0]}- 12<&${COPROC[1]}-
+	#cat >&12
+	#exit
 
 	# downloaded setup.hint of installed packages and external sources
 	find -mindepth 2 -maxdepth 2 -name setup.ini |
@@ -177,7 +177,7 @@ SERVICES
 			join -v1 -t$'\n' - <(
 				find -mindepth 2 -type f -name setup.hint |
 				sort |
-				tee >(cat >&12)
+				tee >(cat > /dev/null)
 			) |
 			tee >(cat >&8)
 		}
@@ -209,8 +209,8 @@ SERVICES
 		wait
 	} |
 	cat
-	exit
 	# exec 12>&-
+	exit
 
 SETUP
 
