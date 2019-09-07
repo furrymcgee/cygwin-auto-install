@@ -1,12 +1,97 @@
 #!/bin/bash
 0<<-'BASH' \
-10<<-'EXTSOURCE' \
 5<<-'HINT' \
 6<<'MAKE' \
-15<<-'SOURCE' \
-LANG=C.UTF-8 bash -e
+14<<-'SOURCE' \
+15<<-'SERVICES' \
+16<<-'SETUP' \
+17<<-'EXTSOURCE' \
+LANG=C.UTF-8 bash
 
 	##### START SERVICES #####
+
+	export SITE=http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/2016/08/30/104223 
+
+	cd *cygwin* || exit 1
+	
+	##### DOWNLOAD #####
+
+	##### DOWNLOAD SETUP.INI #####
+	# get source packages of downloaded binaries
+	find x86/setup.ini -quit -maxdepth 0 ||
+	wget --continue --directory-prefix=x86 ${SITE}/x86/setup.ini
+	
+	##### DOWNLOAD PACKAGES #####
+	{
+		: cat <&15
+		cat <&16
+		cat <&17
+	} |
+	bash
+	
+	exit
+
+	find -mindepth 2 -maxdepth 2 -name setup.ini |
+	xargs --no-run-if-empty mv -bvt . &&
+	sed s/^.// <&6 |
+	: make -f - x86/release/custompackage-0.0.1-1 x86/setup.ini
+BASH
+	sdesc: "My custom package"
+	ldesc: "My custom package"
+	category: Base
+	requires: bzip2 cygwin-doc file less openssh pinfo rxvt wget
+HINT
+	PACKAGE=$(lastword $(subst /, ,$(firstword $(subst -, ,$@))))
+	VERSION=$(word 2,$(subst -, ,$@))
+	RELEASE=$(lastword $(subst -, ,$@))
+
+	$(addsuffix /release/%,x86 x86_64):
+		mkdir $(dir $@)/$(PACKAGE) || true
+		cat > $(dir $@)/$(PACKAGE)/setup.hint <&5
+		tar -Jcf $(dir $@)/$(PACKAGE)/$(PACKAGE)-$(VERSION)-$(RELEASE).tar.xz  --files-from /dev/null
+		tar -Jcf $(dir $@)/$(PACKAGE)/$(PACKAGE)-$(VERSION)-$(RELEASE)-src.tar.xz --files-from /dev/null
+
+	$(addsuffix /setup.ini,x86 x86_64):
+		mksetupini \
+			--verbose \
+			--arch $(firstword $(subst /, ,$@)) \
+			--inifile=$@ \
+			--releasearea=. \
+			--setup-version=2.874 \
+			# --okmissing required-package \
+			# --disable-check=missing-required-package \
+			# --disable-check=missing-depended-package \
+			# --disable-check=missing-curr \
+
+		stat $@
+		bzip2 < $@ > $(dir $@)/setup.bz2
+		xz -6e < $@ > $(dir $@)/setup.xz
+MAKE
+	db	./x86/release
+	emacs	./x86/release
+	error/libgpg-error-devel	./x86/release/libgpg
+	ibwebpdecoder1	./x86/release/libwebp
+	libGLU1	./x86/release/glu
+	libdconf1	./x86/release/dconf
+	libe2p2	./x86/release/e2fsprogs
+	libev4	./x86/release/libev
+	libgcrypt-devel	./x86/release/libgcrypt
+	libglut3	./x86/release/freeglut
+	libgmpxx4	./x86/release/gmp
+	liblz4_1	./x86/release/lz4
+	liblzo2-doc	./x86/release/lz4
+	libpcre16_0	./x86/release/pcre
+	libpcre2_32_0	./x86/release/pcre2
+	libpcreposix0	./x86/release/pcre
+	libplot2	./x86/release/plotutils
+	libprocps-ng4	./x86/release/procps
+	libreadline-devel	./x86/release/readline
+	libsigsegv-devel	./x86/release/libsigsegv
+	libss2	./x86/release/e2fsprogs
+	libwebpdemux1	./x86/release/libwebp
+	perl-CGI	./noarch/release/perl
+	postgresql-client	./x86/release/postgrsql
+SOURCE
 	: sed -i /etc/xinetd.d/ftpd \
 		-e /disable/s/yes/no/ \
 		-e /user/s/cyg_server/Administrator/
@@ -20,29 +105,13 @@ LANG=C.UTF-8 bash -e
 		xinetd
 		syslogd
 	SERVICE
-
-	export SITE=http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/2016/08/30/104223 
-
-	cd *cygwin* || exit 1
-	
-	##### DOWNLOAD SETUP.INI #####
-	# get source packages of downloaded binaries
-	find x86/setup.ini -quit -maxdepth 0 ||
-	wget --continue --directory-prefix=x86 ${SITE}/x86/setup.ini
-	
-	##### DOWNLOAD PACKAGES #####
-	source <(cat <&10)
-	exit
-
-	find -mindepth 2 -maxdepth 2 -name setup.ini |
-	xargs --no-run-if-empty mv -bvt . &&
-	sed s/^.// <&6 |
-	: make -f - x86/release/custompackage-0.0.1-1 x86/setup.ini
-BASH
+SERVICES
 	coproc {
 		grep setup.hint
 	}
 	exec 11<&${COPROC[0]}- 12<&${COPROC[1]}-
+	cat >&12
+	exit
 
 	# downloaded setup.hint of installed packages and external sources
 	find -mindepth 2 -maxdepth 2 -name setup.ini |
@@ -119,7 +188,7 @@ BASH
 
 		cat <(
 			# required setup.hint
-			cat <&7
+			cat <&14
 		) <(
 			join -22 <(
 				# required archives and setup.hint
@@ -139,8 +208,11 @@ BASH
 				@ @ 
 		wait
 	} |
-	cat > /dev/null
-	exec 12>&-
+	cat
+	exit
+	# exec 12>&-
+
+SETUP
 
 	##### EXTERNAL SOURCES #####
 
@@ -201,59 +273,3 @@ BASH
 			${SITE}/%q/setup.hint\\\n \
 			@ @ 
 EXTSOURCE
-	sdesc: "My custom package"
-	ldesc: "My custom package"
-	category: Base
-	requires: bzip2 cygwin-doc file less openssh pinfo rxvt wget
-HINT
-	PACKAGE=$(lastword $(subst /, ,$(firstword $(subst -, ,$@))))
-	VERSION=$(word 2,$(subst -, ,$@))
-	RELEASE=$(lastword $(subst -, ,$@))
-
-	$(addsuffix /release/%,x86 x86_64):
-		mkdir $(dir $@)/$(PACKAGE) || true
-		cat > $(dir $@)/$(PACKAGE)/setup.hint <&5
-		tar -Jcf $(dir $@)/$(PACKAGE)/$(PACKAGE)-$(VERSION)-$(RELEASE).tar.xz  --files-from /dev/null
-		tar -Jcf $(dir $@)/$(PACKAGE)/$(PACKAGE)-$(VERSION)-$(RELEASE)-src.tar.xz --files-from /dev/null
-
-	$(addsuffix /setup.ini,x86 x86_64):
-		mksetupini \
-			--verbose \
-			--arch $(firstword $(subst /, ,$@)) \
-			--inifile=$@ \
-			--releasearea=. \
-			--setup-version=2.874 \
-			# --okmissing required-package \
-			# --disable-check=missing-required-package \
-			# --disable-check=missing-depended-package \
-			# --disable-check=missing-curr \
-
-		stat $@
-		bzip2 < $@ > $(dir $@)/setup.bz2
-		xz -6e < $@ > $(dir $@)/setup.xz
-MAKE
-	db	./x86/release
-	emacs	./x86/release
-	error/libgpg-error-devel	./x86/release/libgpg
-	ibwebpdecoder1	./x86/release/libwebp
-	libGLU1	./x86/release/glu
-	libdconf1	./x86/release/dconf
-	libe2p2	./x86/release/e2fsprogs
-	libev4	./x86/release/libev
-	libgcrypt-devel	./x86/release/libgcrypt
-	libglut3	./x86/release/freeglut
-	libgmpxx4	./x86/release/gmp
-	liblz4_1	./x86/release/lz4
-	liblzo2-doc	./x86/release/lz4
-	libpcre16_0	./x86/release/pcre
-	libpcre2_32_0	./x86/release/pcre2
-	libpcreposix0	./x86/release/pcre
-	libplot2	./x86/release/plotutils
-	libprocps-ng4	./x86/release/procps
-	libreadline-devel	./x86/release/readline
-	libsigsegv-devel	./x86/release/libsigsegv
-	libss2	./x86/release/e2fsprogs
-	libwebpdemux1	./x86/release/libwebp
-	perl-CGI	./noarch/release/perl
-	postgresql-client	./x86/release/postgrsql
-SOURCE
