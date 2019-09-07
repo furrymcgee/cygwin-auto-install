@@ -25,7 +25,7 @@ LANG=C.UTF-8 bash
 	{
 		: cat <&15
 		cat <&16
-		: cat <&17
+		cat <&17
 	} |
 	bash
 	
@@ -106,12 +106,10 @@ SOURCE
 		syslogd
 	SERVICE
 SERVICES
-	#coproc {
-	#	grep setup.hint
-	#}
-	#exec 11<&${COPROC[0]}- 12<&${COPROC[1]}-
-	#cat >&12
-	#exit
+	coproc {
+		grep setup.hint
+	}
+	exec 11<&${COPROC[0]}- 12<&${COPROC[1]}-
 
 	# downloaded setup.hint of installed packages and external sources
 	find -mindepth 2 -maxdepth 2 -name setup.ini |
@@ -138,12 +136,12 @@ SERVICES
 			tac |
 			paste - - |
 			sed s%\\\t%\ \ ./% |
-			sort |
+			sort -k2 |
 			uniq |
-			join -v1 -t$'\n' - <(
+			join -v1 -j2 - <(
 				find -type f | 
-				xargs -P 0 -I@ sha512sum @ |
-				sort
+				sort -k2
+				# xargs -P 0 -I@ sha512sum @
 			)
 		}
 		exec 3<&${COPROC[0]}- 4<&${COPROC[1]}-
@@ -151,7 +149,7 @@ SERVICES
 		# find required setup.hint
 		coproc { 
 			join -o2.2,2.1,1.2,1.4 -t$'\t' - <(
-				cat <&15 - <(
+				cat <&14 - <(
 					find * \
 						-maxdepth 0 \
 						-mindepth 0 \
@@ -177,7 +175,7 @@ SERVICES
 			join -v1 -t$'\n' - <(
 				find -mindepth 2 -type f -name setup.hint |
 				sort |
-				tee >(cat > /dev/null)
+				tee >(cat >&12)
 			) |
 			tee >(cat >&8)
 		}
@@ -188,18 +186,16 @@ SERVICES
 
 		cat <(
 			# required setup.hint
-			cat <&14
+			cat <&7  > /dev/null
 		) <(
-			join -22 <(
+			join -v1 -o1.1 <(
 				# required archives and setup.hint
 				sort <&5
 			) <(
 				# available packages
-				sort -k2 <&3
-			) 
+				sort <&3
+			)
 		) |
-		sed s/\\\s\\\+/\\\t/g |
-		cut -f1 |
 		xargs -I@ printf \
 			wget\ \
 				--continue\ \
@@ -207,13 +203,10 @@ SERVICES
 				${SITE}/%q\\\n \
 				@ @ 
 		wait
-	} |
-	cat
-	# exec 12>&-
-	exit
+	}
+	exec 12>&-
 
 SETUP
-
 	##### EXTERNAL SOURCES #####
 
 	# use setup.hint and print file name, starting point and directory
@@ -262,8 +255,7 @@ SETUP
 	sed s%\\\t%/release/% |
 	uniq |
 	xargs -I@ printf %q/setup.hint\\\n @ |
-	join -v1 - <(cat <&11)
-	exit
+	join -v1 - <(cat <&11) |
 
 	# download external-source
 	xargs -I@ \
