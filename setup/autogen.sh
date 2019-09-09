@@ -19,11 +19,10 @@ LANG=C.UTF-8 bash
 	wget --continue --directory-prefix=x86 ${SITE}/x86/setup.ini
 	
 	##### DOWNLOAD PACKAGES #####
-	set -x
 	source <(
 		: cat <&15
 		cat <&16
-		cat <&17
+		: cat <&17
 	)
 	
 	exit
@@ -171,7 +170,7 @@ SERVICES
 			tr \\\t \\\n |
 			sort |
 			uniq |
-			# suppress existing setup.hint
+			# exclude existing setup.hint
 			join -v1 -t$'\n' - <(
 				find -mindepth 2 -type f -name setup.hint |
 				sort |
@@ -184,27 +183,22 @@ SERVICES
 		tee >(cat >&4) > >(cat >&6) &
 		exec 4>&- 6>&- 8>&-
 
-		cat <(
-			# required setup.hint
-			cat <&7  > /dev/null
+		join -v2 <(
+			# available packages
+			sort <&3
 		) <(
-			join -v1 -o1.1 <(
-				# required archives and setup.hint
-				sort <&5
-			) <(
-				# available packages
-				sort <&3
-			)
+			# required archives and setup.hint
+			sort <&5
 		) |
 		xargs -I@ printf \
 			wget\ \
 				--continue\ \
 				--directory-prefix=\$\(dirname\ %q\)\ \
 				${SITE}/%q\\\n \
-				@ @ 
+				@ @
 		wait
 	} |
-	sh
+	cat >&2
 	exec 12>&-
 	exit
 
