@@ -81,7 +81,7 @@ MAKE
 	libpcre2_32_0	./x86/release/pcre2
 	libpcreposix0	./x86/release/pcre
 	libplot2	./x86/release/plotutils
-	libprocps-ng4	./x86/release/procps
+	libprocps-ng4	./x86/release/procps-ng
 	libreadline-devel	./x86/release/readline
 	libsigsegv-devel	./x86/release/libsigsegv
 	libss2	./x86/release/e2fsprogs
