@@ -19,11 +19,7 @@ LANG=C.UTF-8 bash
 	wget --continue --directory-prefix=x86 ${SITE}/x86/setup.ini
 	
 	##### DOWNLOAD PACKAGES #####
-	source <(
-		: cat <&15
-		cat <&16
-		: cat <&17
-	)
+	source <(cat <&16)
 	
 	exit
 
@@ -105,11 +101,6 @@ SOURCE
 		syslogd
 	SERVICE
 SERVICES
-	coproc {
-		grep setup.hint
-	}
-	exec 11<&${COPROC[0]}- 12<&${COPROC[1]}-
-
 	# downloaded setup.hint of installed packages and external sources
 	find -mindepth 2 -maxdepth 2 -name setup.ini |
 	xargs -r grep ^@\\\|^install:\\\|^source: |
@@ -123,30 +114,11 @@ SERVICES
 	grep ^. |
 	sort |
 	{
-		coproc {
-			grep setup.hint
-		}
-		exec 7<&${COPROC[0]}- 8<&${COPROC[1]}-
-
-		# filter existing archives
-		coproc {
-			cut -f2-5 |
-			tr \\\t \\\n |
-			tac |
-			paste - - |
-			sed s%\\\t%\ \ ./% |
-			sort -k2 |
-			uniq |
-			join -v1 -j2 - <(
-				find -type f | 
-				sort -k2
-				# xargs -P 0 -I@ sha512sum @
-			)
-		}
-		exec 3<&${COPROC[0]}- 4<&${COPROC[1]}-
-
-		# find required setup.hint
 		coproc { 
+			coproc { grep setup.hint; }
+			exec 11<&${COPROC[0]}- 12<&${COPROC[1]}-
+
+			# find required setup.hint
 			join -o2.2,2.1,1.2,1.4 -t$'\t' - <(
 				cat <&14 - <(
 					find * \
@@ -174,33 +146,49 @@ SERVICES
 			join -v1 -t$'\n' - <(
 				find -mindepth 2 -type f -name setup.hint |
 				sort |
-				tee >(cat >&12)
-			) |
-			tee >(cat >&8)
+				tee >(
+					cat >&12
+				)
+			)
+
+
+			##############
+			source <(cat <&17)
+
+			exec 12>&-
+			wait
 		}
 		exec 5<&${COPROC[0]}- 6<&${COPROC[1]}-
 
-		tee >(cat >&4) > >(cat >&6) &
-		exec 4>&- 6>&- 8>&-
-
-		join -v2 <(
-			# available packages
-			sort <&3
-		) <(
+		tee >(cat >&6) | 
+		# available packages
+		cut -f2-5 |
+		tr \\\t \\\n |
+		tac |
+		paste - - |
+		sed s%\\\t%\ \ ./% |
+		sort -k2 |
+		uniq |
+		join -v1 -j2 - <(
+			find -type f | 
+			sort -k2
+			# xargs -P 0 -I@ sha512sum @
+		) |
+		sort |
+		join -v2 - <(
 			# required archives and setup.hint
-			sort <&5
+			sort <&5 &
 		) |
 		xargs -I@ printf \
 			wget\ \
 				--continue\ \
 				--directory-prefix=\$\(dirname\ %q\)\ \
 				${SITE}/%q\\\n \
-				@ @
+				@ @ &
+		exec 6>&- 8>&-
+
 		wait
-	} |
-	cat >&2
-	exec 12>&-
-	exit
+	}
 
 SETUP
 	##### EXTERNAL SOURCES #####
@@ -231,6 +219,7 @@ SETUP
 		exec 5<&${COPROC[0]}- 6<&${COPROC[1]}-
 		tee >(cat >&4) > >(cat >&6) &
 		exec 4>&- 6>&-
+
 		cat <(<&3 cat) &
 		cat <(<&5 cat) &
 		wait
@@ -251,7 +240,7 @@ SETUP
 	sed s%\\\t%/release/% |
 	uniq |
 	xargs -I@ printf %q/setup.hint\\\n @ |
-	join -v1 - <(cat <&11) |
+	join -v1 - <(cat <&11 &) |
 
 	# download external-source
 	xargs -I@ \
@@ -259,5 +248,5 @@ SETUP
 			--continue\ \
 			--directory-prefix=%q\ \
 			${SITE}/%q/setup.hint\\\n \
-			@ @ 
+			@ @ &
 EXTSOURCE
