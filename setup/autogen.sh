@@ -7,9 +7,6 @@
 16<<-'SETUP' \
 17<<-'EXTSOURCE' \
 LANG=C.UTF-8 bash
-
-	##### START SERVICES #####
-
 	export SITE=http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/2016/08/30/104223 
 
 	cd *cygwin* || exit 1
@@ -22,12 +19,12 @@ LANG=C.UTF-8 bash
 	wget --continue --directory-prefix=x86 ${SITE}/x86/setup.ini
 	
 	##### DOWNLOAD PACKAGES #####
-	{
+	set -x
+	source <(
 		: cat <&15
 		cat <&16
 		cat <&17
-	} |
-	bash
+	)
 	
 	exit
 
@@ -79,7 +76,7 @@ MAKE
 	libglut3	./x86/release/freeglut
 	libgmpxx4	./x86/release/gmp
 	liblz4_1	./x86/release/lz4
-	liblzo2-doc	./x86/release/lz4
+	liblzo2-doc	./x86/release/liblzo2
 	libpcre16_0	./x86/release/pcre
 	libpcre2_32_0	./x86/release/pcre2
 	libpcreposix0	./x86/release/pcre
@@ -89,9 +86,12 @@ MAKE
 	libsigsegv-devel	./x86/release/libsigsegv
 	libss2	./x86/release/e2fsprogs
 	libwebpdemux1	./x86/release/libwebp
-	perl-CGI	./noarch/release/perl
-	postgresql-client	./x86/release/postgrsql
+	perl-CGI	./noarch/release
+	postgresql-client	./x86/release/postgresql
 SOURCE
+
+	##### START SERVICES #####
+
 	: sed -i /etc/xinetd.d/ftpd \
 		-e /disable/s/yes/no/ \
 		-e /user/s/cyg_server/Administrator/
@@ -203,8 +203,10 @@ SERVICES
 				${SITE}/%q\\\n \
 				@ @ 
 		wait
-	}
+	} |
+	sh
 	exec 12>&-
+	exit
 
 SETUP
 	##### EXTERNAL SOURCES #####
