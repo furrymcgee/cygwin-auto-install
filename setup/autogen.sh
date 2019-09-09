@@ -1,34 +1,163 @@
 #!/bin/bash
 0<<-'BASH' \
-5<<-'HINT' \
-6<<'MAKE' \
-14<<-'SOURCE' \
-15<<-'SERVICES' \
-16<<-'SETUP' \
-17<<-'FIND' \
-18<<-'EXTSOURCE' \
+15<<-'SETUP' \
+16<<-'JOIN' \
+17<<-'PACKAGES' \
+18<<-'EXTERNAL' \
+19<<-'HINT' \
+20<<'MAKE' \
+21<<-'SOURCE' \
+22<<-'SERVICES' \
 LANG=C.UTF-8 bash
-	export SITE=http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/2016/08/30/104223 
 
-	cd *cygwin* || exit 1
-	
 	##### DOWNLOAD #####
 
+	export SITE=http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/2016/08/30/104223 
+	cd *cygwin* || exit 1
+	
 	##### DOWNLOAD SETUP.INI #####
 	# get source packages of downloaded binaries
 	find x86/setup.ini -quit -maxdepth 0 ||
 	wget --continue --directory-prefix=x86 ${SITE}/x86/setup.ini
 	
 	##### DOWNLOAD PACKAGES #####
-	source <(cat <&16) >&2
-	
+	# downloaded setup.hint of installed packages and external sources
+	bash <&15
+
 	exit
 
+	##### MAKE SETUP.INI #####
 	find -mindepth 2 -maxdepth 2 -name setup.ini |
 	xargs --no-run-if-empty mv -bvt . &&
 	sed s/^.// <&6 |
 	: make -f - x86/release/custompackage-0.0.1-1 x86/setup.ini
 BASH
+	coproc { 
+		xargs -I@ printf \
+			wget\ \
+				--continue\ \
+				--directory-prefix=\$\(dirname\ %q\)\ \
+				${SITE}/%q\\\n \
+				@ @ 
+	}
+	exec 7<&${COPROC[0]}- 8<&${COPROC[1]}-
+	
+	# grep available packages from setup.ini
+	find -mindepth 2 -maxdepth 2 -name setup.ini |
+	xargs -r grep ^@\\\|^install:\\\|^source: |
+	sed s/^@/:@/ |
+	cut -d: -f2 | 
+	sed -z \
+		-e s/@\ /\\\x0/g \
+		-e s/\\\n/\ /g |
+	tr \ \\\000 \\\t\\\n |
+	cut -f1,3,5,7,9 | 
+	grep ^. |
+	sort |
+	bash <(cat <&16) |
+	cat >&8 &
+	cat <&7 &
+	exec 8<&-
+	wait
+SETUP
+	# cut available packages
+	coproc { 
+		bash <(cat <&17) # print source directories and additional packages
+	}
+	exec 5<&${COPROC[0]}- 6<&${COPROC[1]}-
+	
+	# cut available packages
+	coproc { 
+		bash <(cat <&18) # grep external sources from existing files
+	}
+	exec 7<&${COPROC[0]}- 8<&${COPROC[1]}-
+
+	# cut available packages
+	coproc { 
+		cat # grep external sources from existing files
+	}
+	exec 9<&${COPROC[0]}- 10<&${COPROC[1]}-
+	
+	# tee setup.ini
+	# todo recurse external source
+	tee >(cat >&6) | # -> coproc
+	cut -f2-5 |
+	tr \\\t \\\n |
+	tac |
+	paste - - |
+	sed s%\\\t%\ \ ./% |
+	cut -f2 |
+	sort |
+	join -v1 <(sort <&5 &) - | # <- coproc
+	join -v1 - <( find -type f | sort | tee >(cat >10 &) &) | # exclude existing files
+	cat | join -j2 - <(echo 1) >&2 &
+	exec 6<&-
+	exec 8<&-
+	join -v1 <(cat <&7 &) <(cat <&9 &) | join -j2 - <(echo 2) >&2 &
+	exec 10<&-
+	wait
+JOIN
+	# join existing directories and external sources
+	join -o2.2,2.1,1.2,1.4 -t$'\t' - <(
+		cat <&21 - <(
+			find * \
+				-maxdepth 0 \
+				-mindepth 0 \
+				-type d \
+				-execdir \
+					find {}/release \
+						-mindepth 1 \
+						-type d \
+						-printf %f\\\t%h\\\t%d\\\n \
+					\;
+		) |
+		sort |
+		uniq
+	) |
+	sed \
+		-e s%\\\t%/% \
+		-e s%\\\t%/setup.hint\&% \
+		-e s%\\\t%\&./%g |
+	tr \\\t \\\n |
+	sort |
+	uniq
+PACKAGES
+	# find setup.hint and print file name, starting point and directory
+	find * \
+		-maxdepth 0 \
+		-mindepth 0 \
+		-type d \
+		-execdir \
+			find {}/release \
+				-name setup.hint \
+				-printf %p\\\t{}\\\t%h\\\n \
+			\; | 
+	sort |
+	tee >(
+		cut -f3- |
+		xargs -I@ grep --with-filename external-source @/setup.hint |
+		tr : \\\t | tr -d ' ' |
+		join -o1.1,1.3,2.1 -t$'\t' -12 - <(cat <<<external-source)
+	) |
+	sort |
+	{
+		# cross join filename/arch and external-source
+		coproc { cat; }
+		exec 3<&${COPROC[0]}- 4<&${COPROC[1]}-
+		tee >(cat >&4) | # -> coproc
+		join -t$'\t' - <(<&3 cat &) & # <- coproc
+		exec 4>&-
+		wait
+	} |
+	sort -k3 |
+	# combine lines with external-source and starting point
+	join -t$'\t' -13 - <(cat <<<external-source) |
+	# select only lines with external-source and starting point
+	join -t$'\t' -15 -v1 -o1.4,1.3 - <(cat <<<external-source) |
+	sed s%\\\t%/release/% |
+	uniq |
+	xargs -I@ printf %q/setup.hint\\\n @ 
+EXTERNAL
 	sdesc: "My custom package"
 	ldesc: "My custom package"
 	category: Base
@@ -102,152 +231,3 @@ SOURCE
 		syslogd
 	SERVICE
 SERVICES
-	# downloaded setup.hint of installed packages and external sources
-	find -mindepth 2 -maxdepth 2 -name setup.ini |
-	xargs -r grep ^@\\\|^install:\\\|^source: |
-	sed s/^@/:@/ |
-	cut -d: -f2 | 
-	sed -z \
-		-e s/@\ /\\\x0/g \
-		-e s/\\\n/\ /g |
-	tr \ \\\000 \\\t\\\n |
-	cut -f1,3,5,7,9 | 
-	grep ^. |
-	sort |
-	{
-		coproc { 
-			source <(
-				cat <&17
-				cat <&18
-			)
-
-			exec 12>&-
-			wait
-		}
-		exec 5<&${COPROC[0]}- 6<&${COPROC[1]}-
-
-		tee >(cat >&6) | 
-		# available packages
-		cut -f2-5 |
-		tr \\\t \\\n |
-		tac |
-		paste - - |
-		sed s%\\\t%\ \ ./% |
-		sort -k2 |
-		uniq |
-		join -v1 -j2 - <(
-			find -type f | 
-			sort -k2
-			# xargs -P 0 -I@ sha512sum @
-		) |
-		sort |
-		join -v2 - <(
-			# required archives and setup.hint
-			sort <&5 &
-		) |
-		xargs -I@ printf \
-			wget\ \
-				--continue\ \
-				--directory-prefix=\$\(dirname\ %q\)\ \
-				${SITE}/%q\\\n \
-				@ @ &
-		exec 6>&- 8>&-
-
-		wait
-	}
-
-SETUP
-	coproc { grep setup.hint; }
-	exec 11<&${COPROC[0]}- 12<&${COPROC[1]}-
-
-	# find required setup.hint
-	join -o2.2,2.1,1.2,1.4 -t$'\t' - <(
-		cat <&14 - <(
-			find * \
-				-maxdepth 0 \
-				-mindepth 0 \
-				-type d \
-				-execdir \
-					find {}/release \
-						-mindepth 1 \
-						-type d \
-						-printf %f\\\t%h\\\t%d\\\n \
-					\;
-		) |
-		sort |
-		uniq
-	) |
-	sed \
-		-e s%\\\t%/% \
-		-e s%\\\t%/setup.hint\&% \
-		-e s%\\\t%\&./%g |
-	tr \\\t \\\n |
-	sort |
-	uniq |
-	# exclude existing setup.hint
-	join -v1 -t$'\n' - <(
-		find -mindepth 2 -type f -name setup.hint |
-		sort |
-		tee >(
-			cat >&12
-		)
-	)
-FIND
-	# use setup.hint and print file name, starting point and directory
-	find * \
-		-maxdepth 0 \
-		-mindepth 0 \
-		-type d \
-		-execdir \
-			find {}/release \
-				-name setup.hint \
-				-printf %p\\\t{}\\\t%h\\\n \
-			\; | 
-	sort |
-	# print filename/arch and grep external-source from setup.hint
-	{
-		# print filename and arch
-		coproc { cat; }
-		exec 3<&${COPROC[0]}- 4<&${COPROC[1]}-
-		# pipe filename to xargs grep
-		coproc {
-			cut -f3- |
-			xargs -I@ grep --with-filename external-source @/setup.hint |
-			tr : \\\t | tr -d ' ' |
-			join -o1.1,1.3,2.1 -t$'\t' -12 - <(cat <<<external-source) 
-		}
-		exec 5<&${COPROC[0]}- 6<&${COPROC[1]}-
-		tee >(cat >&4) > >(cat >&6) &
-		exec 4>&- 6>&-
-
-		cat <(<&3 cat) &
-		cat <(<&5 cat) &
-		wait
-	} |
-	sort |
-	# cross join filename/arch and external-source
-	{
-		coproc { cat; } && exec 3<&${COPROC[0]}- 4<&${COPROC[1]}-
-		coproc { cat; } && exec 5<&${COPROC[0]}- 6<&${COPROC[1]}-
-		tee >(cat >&4) > >(cat >&6) & exec 4>&- 6>&-
-		join -t$'\t' <(<&3 cat) <(<&5 cat) 
-	} |
-	sort -k3 |
-	# combine lines with external-source and starting point
-	join -t$'\t' -13 - <(cat <<<external-source) |
-	# select only lines with external-source and starting point
-	join -t$'\t' -15 -v1 -o1.4,1.3 - <(cat <<<external-source) |
-	sed s%\\\t%/release/% |
-	uniq |
-	xargs -I@ printf %q/setup.hint\\\n @ |
-	join -v1 - <(cat <&11 &) |
-
-	# download external-source
-	xargs -I@ \
-		printf wget\ \
-			--continue\ \
-			--directory-prefix=%q\ \
-			${SITE}/%q/setup.hint\\\n \
-			@ @ \
-	&
-EXTSOURCE
