@@ -5,7 +5,8 @@
 14<<-'SOURCE' \
 15<<-'SERVICES' \
 16<<-'SETUP' \
-17<<-'EXTSOURCE' \
+17<<-'FIND' \
+18<<-'EXTSOURCE' \
 LANG=C.UTF-8 bash
 	export SITE=http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/2016/08/30/104223 
 
@@ -19,7 +20,7 @@ LANG=C.UTF-8 bash
 	wget --continue --directory-prefix=x86 ${SITE}/x86/setup.ini
 	
 	##### DOWNLOAD PACKAGES #####
-	source <(cat <&16)
+	source <(cat <&16) >&2
 	
 	exit
 
@@ -115,45 +116,10 @@ SERVICES
 	sort |
 	{
 		coproc { 
-			coproc { grep setup.hint; }
-			exec 11<&${COPROC[0]}- 12<&${COPROC[1]}-
-
-			# find required setup.hint
-			join -o2.2,2.1,1.2,1.4 -t$'\t' - <(
-				cat <&14 - <(
-					find * \
-						-maxdepth 0 \
-						-mindepth 0 \
-						-type d \
-						-execdir \
-							find {}/release \
-								-mindepth 1 \
-								-type d \
-								-printf %f\\\t%h\\\t%d\\\n \
-							\;
-				) |
-				sort |
-				uniq
-			) |
-			sed \
-				-e s%\\\t%/% \
-				-e s%\\\t%/setup.hint\&% \
-				-e s%\\\t%\&./%g |
-			tr \\\t \\\n |
-			sort |
-			uniq |
-			# exclude existing setup.hint
-			join -v1 -t$'\n' - <(
-				find -mindepth 2 -type f -name setup.hint |
-				sort |
-				tee >(
-					cat >&12
-				)
+			source <(
+				cat <&17
+				cat <&18
 			)
-
-
-			##############
-			source <(cat <&17)
 
 			exec 12>&-
 			wait
@@ -191,8 +157,42 @@ SERVICES
 	}
 
 SETUP
-	##### EXTERNAL SOURCES #####
+	coproc { grep setup.hint; }
+	exec 11<&${COPROC[0]}- 12<&${COPROC[1]}-
 
+	# find required setup.hint
+	join -o2.2,2.1,1.2,1.4 -t$'\t' - <(
+		cat <&14 - <(
+			find * \
+				-maxdepth 0 \
+				-mindepth 0 \
+				-type d \
+				-execdir \
+					find {}/release \
+						-mindepth 1 \
+						-type d \
+						-printf %f\\\t%h\\\t%d\\\n \
+					\;
+		) |
+		sort |
+		uniq
+	) |
+	sed \
+		-e s%\\\t%/% \
+		-e s%\\\t%/setup.hint\&% \
+		-e s%\\\t%\&./%g |
+	tr \\\t \\\n |
+	sort |
+	uniq |
+	# exclude existing setup.hint
+	join -v1 -t$'\n' - <(
+		find -mindepth 2 -type f -name setup.hint |
+		sort |
+		tee >(
+			cat >&12
+		)
+	)
+FIND
 	# use setup.hint and print file name, starting point and directory
 	find * \
 		-maxdepth 0 \
@@ -248,5 +248,6 @@ SETUP
 			--continue\ \
 			--directory-prefix=%q\ \
 			${SITE}/%q/setup.hint\\\n \
-			@ @ &
+			@ @ \
+	&
 EXTSOURCE
