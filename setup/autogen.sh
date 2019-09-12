@@ -66,18 +66,17 @@ SETUP
 	}
 	exec 5<&${COPROC[0]}- 6<&${COPROC[1]}-
 	
-	# cut available packages
 	coproc { 
-		bash <(cat <&18) # grep external sources from existing files
+		cat # grep external sources from existing files
 	}
 	exec 7<&${COPROC[0]}- 8<&${COPROC[1]}-
 
-	# cut available packages
 	coproc { 
 		cat # grep external sources from existing files
 	}
 	exec 9<&${COPROC[0]}- 10<&${COPROC[1]}-
-	
+	find -type f | sort | tee >(cat >&8) > >(cat >&10) &
+
 	# tee setup.ini
 	# todo recurse external source
 	tee >(cat >&6) | # -> coproc
@@ -89,12 +88,16 @@ SETUP
 	cut -f2 |
 	sort |
 	join -v1 <(sort <&5 &) - | # <- coproc
-	join -v1 - <( find -type f | sort | tee >(cat >10 &) &) | # exclude existing files
+	join -v1 - <(cat <&7 &) | # exclude existing files
 	cat | join -j2 - <(echo 1) >&2 &
+
+	join -a2 <(bash <(cat <&18)|sort &) <(sort <&9 &) |
+	join -j2 - <(echo 2) >&2 &
+
 	exec 6<&-
-	exec 8<&-
-	join -v1 <(cat <&7 &) <(cat <&9 &) | join -j2 - <(echo 2) >&2 &
 	exec 10<&-
+	exec 12<&-
+	exec 8<&-
 	wait
 JOIN
 	# join existing directories and external sources
