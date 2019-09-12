@@ -32,16 +32,6 @@ LANG=C.UTF-8 bash
 	sed s/^.// <&6 |
 	: make -f - x86/release/custompackage-0.0.1-1 x86/setup.ini
 BASH
-	coproc { 
-		xargs -I@ printf \
-			wget\ \
-				--continue\ \
-				--directory-prefix=\$\(dirname\ %q\)\ \
-				${SITE}/%q\\\n \
-				@ @ 
-	}
-	exec 7<&${COPROC[0]}- 8<&${COPROC[1]}-
-	
 	# grep available packages from setup.ini
 	find -mindepth 2 -maxdepth 2 -name setup.ini |
 	xargs -r grep ^@\\\|^install:\\\|^source: |
@@ -54,28 +44,13 @@ BASH
 	cut -f1,3,5,7,9 | 
 	grep ^. |
 	sort |
-	bash <(cat <&16) |
-	cat >&8 &
-	cat <&7 &
-	exec 8<&-
-	wait
+	bash <(cat <&16) 
 SETUP
 	# cut available packages
 	coproc { 
 		bash <(cat <&17) # print source directories and additional packages
 	}
 	exec 5<&${COPROC[0]}- 6<&${COPROC[1]}-
-	
-	coproc { 
-		cat # grep external sources from existing files
-	}
-	exec 7<&${COPROC[0]}- 8<&${COPROC[1]}-
-
-	coproc { 
-		cat # grep external sources from existing files
-	}
-	exec 9<&${COPROC[0]}- 10<&${COPROC[1]}-
-	find -type f | sort | tee >(cat >&8) > >(cat >&10) &
 
 	# tee setup.ini
 	# todo recurse external source
@@ -88,17 +63,29 @@ SETUP
 	cut -f2 |
 	sort |
 	join -v1 <(sort <&5 &) - | # <- coproc
-	join -v1 - <(cat <&7 &) | # exclude existing files
-	cat | join -j2 - <(echo 1) >&2 &
-
-	join -a2 <(bash <(cat <&18)|sort &) <(sort <&9 &) |
-	join -j2 - <(echo 2) >&2 &
-
+	join -v1 - <(find -type f | sort &) | # exclude existing files
+	xargs -I@ printf \
+		wget\ \
+			--continue\ \
+			--directory-prefix=\$\(dirname\ %q\)\ \
+			${SITE}/%q\\\n \
+			@ @ &
 	exec 6<&-
-	exec 10<&-
-	exec 12<&-
-	exec 8<&-
 	wait
+
+	# external source
+	bash <&18 |
+	sort |
+	join -v1 - <(
+		find -type f -name setup.hint| sort & # exclude existing files
+	) |
+	xargs -I@ printf \
+		wget\ \
+			--continue\ \
+			--directory-prefix=\$\(dirname\ %q\)\ \
+			${SITE}/%q\\\n \
+			@ @ 
+
 JOIN
 	# join existing directories and external sources
 	join -o2.2,2.1,1.2,1.4 -t$'\t' - <(
