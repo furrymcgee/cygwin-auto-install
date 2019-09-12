@@ -46,23 +46,34 @@ BASH
 	sort |
 	bash <(cat <&16) 
 SETUP
-	# cut available packages
-	coproc { 
-		bash <(cat <&17) # print source directories and additional packages
-	}
-	exec 5<&${COPROC[0]}- 6<&${COPROC[1]}-
-
-	# tee setup.ini
-	# todo recurse external source
-	tee >(cat >&6) | # -> coproc
-	cut -f2-5 |
+	join -t$'\t' -o1.1,1.2,2.2,2.4 <(
+		cat <&21 - <(
+			find * \
+				-maxdepth 0 \
+				-mindepth 0 \
+				-type d \
+				-execdir \
+					find {}/release \
+						-mindepth 1 \
+						-type d \
+						-printf %f\\\t%h\\\t%d\\\n \
+					\;
+		) |
+		sort |
+		uniq
+	) - |
 	tr \\\t \\\n |
 	tac |
 	paste - - |
-	sed s%\\\t%\ \ ./% |
-	cut -f2 |
+	tac |
+	paste - - |
+	sed \
+		-e s%\\\t%/% \
+		-e s%\\\t%/setup.hint\&% \
+		-e s%\\\t%\&./%g |
+	tr \\\t \\\n |
 	sort |
-	join -v1 <(sort <&5 &) - | # <- coproc
+	uniq |
 	join -v1 - <(find -type f | sort &) | # exclude existing files
 	xargs -I@ printf \
 		wget\ \
@@ -89,28 +100,8 @@ SETUP
 JOIN
 	# join existing directories and external sources
 	join -o2.2,2.1,1.2,1.4 -t$'\t' - <(
-		cat <&21 - <(
-			find * \
-				-maxdepth 0 \
-				-mindepth 0 \
-				-type d \
-				-execdir \
-					find {}/release \
-						-mindepth 1 \
-						-type d \
-						-printf %f\\\t%h\\\t%d\\\n \
-					\;
-		) |
-		sort |
-		uniq
-	) |
-	sed \
-		-e s%\\\t%/% \
-		-e s%\\\t%/setup.hint\&% \
-		-e s%\\\t%\&./%g |
-	tr \\\t \\\n |
-	sort |
-	uniq
+		:;
+	)
 PACKAGES
 	# find setup.hint and print file name, starting point and directory
 	find * \
