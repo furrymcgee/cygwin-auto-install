@@ -1,8 +1,7 @@
 #!/bin/bash
 0<<-'BASH' \
-15<<-'SETUP' \
-16<<-'JOIN' \
-17<<-'PACKAGES' \
+16<<-'SETUP' \
+17<<-'JOIN' \
 18<<-'EXTERNAL' \
 19<<-'HINT' \
 20<<'MAKE' \
@@ -22,7 +21,7 @@ LANG=C.UTF-8 bash
 	
 	##### DOWNLOAD PACKAGES #####
 	# downloaded setup.hint of installed packages and external sources
-	bash <&15
+	bash <&16
 
 	exit
 
@@ -33,7 +32,7 @@ LANG=C.UTF-8 bash
 	: make -f - x86/release/custompackage-0.0.1-1 x86/setup.ini
 BASH
 	# grep available packages from setup.ini
-	find -mindepth 2 -maxdepth 2 -name setup.ini |
+	: find -mindepth 2 -maxdepth 2 -name setup.ini |
 	xargs -r grep ^@\\\|^install:\\\|^source: |
 	sed s/^@/:@/ |
 	cut -d: -f2 | 
@@ -44,7 +43,22 @@ BASH
 	cut -f1,3,5,7,9 | 
 	grep ^. |
 	sort |
-	bash <(cat <&16) 
+	bash <(cat <&17) 
+
+	# external source
+	bash <&18 |
+	sort |
+	join -a1 - <(
+		find -type f -name setup.hint| sort & # exclude existing files
+	) |
+	xargs -I@ printf \
+		wget\ \
+			--continue\ \
+			--directory-prefix=\$\(dirname\ %q\)\ \
+			${SITE}/%q\\\n \
+			@ @ |
+	sh
+
 SETUP
 	join -t$'\t' -o1.1,1.2,2.2,2.4 <(
 		cat <&21 - <(
@@ -80,29 +94,12 @@ SETUP
 			--continue\ \
 			--directory-prefix=\$\(dirname\ %q\)\ \
 			${SITE}/%q\\\n \
-			@ @ &
+			@ @ |
+	sh &
 	exec 6<&-
 	wait
 
-	# external source
-	bash <&18 |
-	sort |
-	join -v1 - <(
-		find -type f -name setup.hint| sort & # exclude existing files
-	) |
-	xargs -I@ printf \
-		wget\ \
-			--continue\ \
-			--directory-prefix=\$\(dirname\ %q\)\ \
-			${SITE}/%q\\\n \
-			@ @ 
-
 JOIN
-	# join existing directories and external sources
-	join -o2.2,2.1,1.2,1.4 -t$'\t' - <(
-		:;
-	)
-PACKAGES
 	# find setup.hint and print file name, starting point and directory
 	find * \
 		-maxdepth 0 \
