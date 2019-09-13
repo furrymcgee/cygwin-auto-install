@@ -1,38 +1,38 @@
 #!/bin/bash
 0<<-'BASH' \
-16<<-'SETUP' \
-17<<-'JOIN' \
+17<<-'REQUIRED' \
 18<<-'EXTERNAL' \
-19<<-'HINT' \
-20<<'MAKE' \
+19<<'MAKE' \
+20<<-'HINT' \
 21<<-'SOURCE' \
 22<<-'SERVICES' \
 LANG=C.UTF-8 bash
-
-	##### DOWNLOAD #####
+	
+	##### START SERVICES #####
+	: bash <&22
 
 	export SITE=http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/2016/08/30/104223 
 	cd *cygwin* || exit 1
 	
 	##### DOWNLOAD SETUP.INI #####
 	# get source packages of downloaded binaries
-	find x86/setup.ini -quit -maxdepth 0 ||
+	: find x86/setup.ini -quit -maxdepth 0 ||
 	wget --continue --directory-prefix=x86 ${SITE}/x86/setup.ini
 	
 	##### DOWNLOAD PACKAGES #####
-	# downloaded setup.hint of installed packages and external sources
-	bash <&16
-
-	exit
+	# downloaded setup.hint of installed packages
+	bash <&17
+	# second process required because of external dependencies
+	bash <&18
 
 	##### MAKE SETUP.INI #####
-	find -mindepth 2 -maxdepth 2 -name setup.ini |
-	xargs --no-run-if-empty mv -bvt . &&
-	sed s/^.// <&6 |
-	: make -f - x86/release/custompackage-0.0.1-1 x86/setup.ini
+	sed s/^.// <&19 |
+	make -f - x86/release/custompackage-0.0.1-1 x86/setup.ini
 BASH
 	# grep available packages from setup.ini
-	: find -mindepth 2 -maxdepth 2 -name setup.ini |
+	# join with downloaded packages
+	# download setup.ini
+	find -mindepth 2 -maxdepth 2 -name setup.ini |
 	xargs -r grep ^@\\\|^install:\\\|^source: |
 	sed s/^@/:@/ |
 	cut -d: -f2 | 
@@ -43,23 +43,6 @@ BASH
 	cut -f1,3,5,7,9 | 
 	grep ^. |
 	sort |
-	bash <(cat <&17) 
-
-	# external source
-	bash <&18 |
-	sort |
-	join -a1 - <(
-		find -type f -name setup.hint| sort & # exclude existing files
-	) |
-	xargs -I@ printf \
-		wget\ \
-			--continue\ \
-			--directory-prefix=\$\(dirname\ %q\)\ \
-			${SITE}/%q\\\n \
-			@ @ |
-	sh
-
-SETUP
 	join -t$'\t' -o1.1,1.2,2.2,2.4 <(
 		cat <&21 - <(
 			find * \
@@ -98,9 +81,14 @@ SETUP
 	sh &
 	exec 6<&-
 	wait
+REQUIRED
 
-JOIN
-	# find setup.hint and print file name, starting point and directory
+	# wait until required packages downloaded
+	# download external sources after process finished
+	# find required setup.hint 
+	# print file name, starting point and directory
+	# grep and join external-source
+	# download external source
 	find * \
 		-maxdepth 0 \
 		-mindepth 0 \
@@ -134,20 +122,26 @@ JOIN
 	join -t$'\t' -15 -v1 -o1.4,1.3 - <(cat <<<external-source) |
 	sed s%\\\t%/release/% |
 	uniq |
-	xargs -I@ printf %q/setup.hint\\\n @ 
+	sort |
+	xargs -I@ printf %q/setup.hint\\\n @ |
+	join -v1 - <(
+		find -type f -name setup.hint| sort & # exclude existing files
+	) |
+	xargs -I@ printf \
+		wget\ \
+			--continue\ \
+			--directory-prefix=\$\(dirname\ %q\)\ \
+			${SITE}/%q\\\n \
+			@ @ |
+	sh
 EXTERNAL
-	sdesc: "My custom package"
-	ldesc: "My custom package"
-	category: Base
-	requires: bzip2 cygwin-doc file less openssh pinfo rxvt wget
-HINT
 	PACKAGE=$(lastword $(subst /, ,$(firstword $(subst -, ,$@))))
 	VERSION=$(word 2,$(subst -, ,$@))
 	RELEASE=$(lastword $(subst -, ,$@))
 
 	$(addsuffix /release/%,x86 x86_64):
 		mkdir $(dir $@)/$(PACKAGE) || true
-		cat > $(dir $@)/$(PACKAGE)/setup.hint <&5
+		cat > $(dir $@)/$(PACKAGE)/setup.hint <&20
 		tar -Jcf $(dir $@)/$(PACKAGE)/$(PACKAGE)-$(VERSION)-$(RELEASE).tar.xz  --files-from /dev/null
 		tar -Jcf $(dir $@)/$(PACKAGE)/$(PACKAGE)-$(VERSION)-$(RELEASE)-src.tar.xz --files-from /dev/null
 
@@ -167,6 +161,11 @@ HINT
 		bzip2 < $@ > $(dir $@)/setup.bz2
 		xz -6e < $@ > $(dir $@)/setup.xz
 MAKE
+	sdesc: "My custom package"
+	ldesc: "My custom package"
+	category: Base
+	requires: bzip2 cygwin-doc file less openssh pinfo rxvt wget
+HINT
 	db	./x86/release
 	emacs	./x86/release
 	error/libgpg-error-devel	./x86/release/libgpg
@@ -192,17 +191,14 @@ MAKE
 	perl-CGI	./noarch/release
 	postgresql-client	./x86/release/postgresql
 SOURCE
-
-	##### START SERVICES #####
-
-	: sed -i /etc/xinetd.d/ftpd \
+	sed -i /etc/xinetd.d/ftpd \
 		-e /disable/s/yes/no/ \
 		-e /user/s/cyg_server/Administrator/
 
 	while read SERVICE
 	do
-		: ${SERVICE}-config --yes
-		: cygrunsvr -S ${SERVICE}
+		${SERVICE}-config --yes
+		cygrunsrv -S ${SERVICE}
 	done \
 	<<-'SERVICE'
 		xinetd
