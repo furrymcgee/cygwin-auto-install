@@ -1,0 +1,4 @@
+category: Base
+requires: libblkid1 libgcc1 libintl8 libncursesw10 libsmartcols1 libuuid1 zlib0 cygwin
+sdesc: "Collection of basic system utilities"
+ldesc: "Collection of basic system utilities"

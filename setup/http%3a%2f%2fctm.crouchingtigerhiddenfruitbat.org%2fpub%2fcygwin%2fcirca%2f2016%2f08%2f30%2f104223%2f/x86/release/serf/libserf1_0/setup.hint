@@ -1,0 +1,9 @@
+category: Web Libs
+requires: libapr1 libaprutil1 libgssapi_krb5_2 libopenssl100 zlib0 cygwin
+sdesc: "High-performance asynchronous HTTP client library (runtime and docs)"
+ldesc: "The serf library is a C-based HTTP client library built upon
+the Apache Portable Runtime (APR) library. It multiplexes
+connections, running the read/write communication
+asynchronously. Memory copies and transformations are kept to a
+minimum to provide high performance operation."
+external-source: serf

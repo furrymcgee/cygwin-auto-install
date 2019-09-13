@@ -1,0 +1,7 @@
+category: Perl
+requires: perl_base 
+sdesc: "Perl distribution Class-Accessor"
+ldesc: "Perl distribution Class-Accessor, providing Perl modules:
+Class::Accessor Class::Accessor::Fast Class::Accessor::Faster.
+
+Automated accessor generation."

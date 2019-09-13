@@ -1,0 +1,7 @@
+category: Devel
+requires: bash libguile17 libopts-devel libopts25 libxml2 perl cygwin
+sdesc: "Automated text and program generation tool"
+ldesc: "AutoGen is a tool designed to simplify the creation and
+maintenance of programs that contain large amounts of repetitious text.
+It is especially valuable in programs that have several blocks of text
+that must be kept synchronized."

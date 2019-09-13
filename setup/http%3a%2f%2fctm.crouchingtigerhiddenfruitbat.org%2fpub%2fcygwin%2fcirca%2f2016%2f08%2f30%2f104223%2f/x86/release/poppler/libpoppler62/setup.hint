@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libcurl4 libfontconfig1 libfreetype6 libgcc1 libjpeg8 liblcms2_2 libnspr4 libnss3 libopenjpeg1 libpng16 libstdc++6 libtiff6 zlib0 poppler-data
+sdesc: "PDF rendering library (core runtime)"
+ldesc: "Poppler is a fork of the xpdf PDF viewer which provides PDF
+rendering functionality as a shared library and replaces built-in code
+with dependencies that are now available as standard components of modern
+Unix desktop environments."
+external-source: poppler

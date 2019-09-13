@@ -1,0 +1,4 @@
+category: Libs
+requires: cygwin libglib2.0_0 libgnutls28 libp11-kit0 libproxy1 ca-certificates
+sdesc: "GIO networking modules"
+ldesc: "Network-related GIO modules for GLib."

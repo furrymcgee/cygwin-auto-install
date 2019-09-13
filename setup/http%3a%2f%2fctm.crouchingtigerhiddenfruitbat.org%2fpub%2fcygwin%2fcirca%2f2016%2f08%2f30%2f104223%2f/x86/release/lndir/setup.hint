@@ -1,0 +1,4 @@
+category: X11 Utils
+requires: cygwin
+sdesc: "X.Org recursive directory symlink tool"
+ldesc: "X.Org recursive directory symlink tool"

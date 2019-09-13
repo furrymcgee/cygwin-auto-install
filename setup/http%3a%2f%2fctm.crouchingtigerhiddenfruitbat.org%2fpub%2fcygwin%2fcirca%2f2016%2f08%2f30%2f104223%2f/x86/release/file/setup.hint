@@ -1,0 +1,7 @@
+category: Base
+requires: cygwin libgcc1 zlib0 
+sdesc: "A utility for determining file types"
+ldesc: "The file command is used to identify a particular file according to the
+type of data contained by the file.  File can identify many different
+file types, including ELF binaries, system libraries, RPM packages, and
+different graphics formats."

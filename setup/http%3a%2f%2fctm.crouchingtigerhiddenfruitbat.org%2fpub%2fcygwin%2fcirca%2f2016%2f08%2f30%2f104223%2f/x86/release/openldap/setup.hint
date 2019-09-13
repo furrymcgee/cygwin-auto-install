@@ -1,0 +1,5 @@
+category: Net
+requires: cygwin libopenldap2_4_2 libsasl2_3 
+sdesc: "Lightweight Directory Access Protocol suite (clients)"
+ldesc: "A suite of the Lightweight Directory Access Protocol (v3) servers, clients,
+utilities, and development tools."

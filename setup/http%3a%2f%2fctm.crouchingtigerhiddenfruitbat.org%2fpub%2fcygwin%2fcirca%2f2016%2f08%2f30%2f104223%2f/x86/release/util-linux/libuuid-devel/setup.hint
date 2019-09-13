@@ -1,0 +1,5 @@
+category: Libs
+requires: libintl-devel libuuid1 
+sdesc: "Universally Unique ID library (development)"
+ldesc: "Universally Unique ID library (development)"
+external-source: util-linux

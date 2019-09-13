@@ -1,0 +1,10 @@
+category: Libs
+requires: cygwin libexpat1 libfreetype6 libjpeg8 libpng16 libX11_6 zlib0 ghostscript
+sdesc: "MS Windows Metafile Format library"
+ldesc: "libwmf is a library for reading vector images in Microsoft's
+native Windows Metafile Format (WMF) and for either (a) displaying them
+in, e.g., an X window; or (b) converting them to more standard/open file
+formats such as, e.g., the W3C's XML-based Scaleable Vector Graphic
+(SVG) format. Currently bindings exist for conversion to vector image
+formats EPS, PS, FIG, SVG, and raster image formats PNG and JPEG."
+external-source: libwmf

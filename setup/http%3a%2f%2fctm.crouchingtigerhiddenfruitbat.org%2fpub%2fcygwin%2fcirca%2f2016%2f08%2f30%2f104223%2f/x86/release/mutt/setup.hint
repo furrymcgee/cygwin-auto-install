@@ -1,0 +1,4 @@
+category: Mail
+requires: bash cygwin libgcc1 libgdbm4 libgpgme11 libgssapi_krb5_2 libiconv2 libidn11 libintl8 libopenssl100 libsasl2_3 libslang2 perl_base 
+sdesc: "A text mode mail user agent (MUA)"
+ldesc: "A text mode mail user agent (MUA)"

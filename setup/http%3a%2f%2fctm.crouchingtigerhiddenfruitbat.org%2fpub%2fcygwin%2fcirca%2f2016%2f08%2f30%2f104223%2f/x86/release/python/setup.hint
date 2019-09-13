@@ -1,0 +1,9 @@
+category: Python Interpreters
+requires: bash cygwin cygwin-devel libbz2_1 libcrypt0 libdb4.8 libexpat1 libffi6 libgcc1 libgdbm4 libintl8 libncursesw10 libopenssl100 libreadline7 libsqlite3_0 zlib0 binutils libuuid-devel
+sdesc: "Python language interpreter"
+ldesc: "Python is an interpreted, interactive, object-oriented programming
+language. It incorporates modules, exceptions, dynamic typing, very high level
+dynamic data types, and classes. Python combines remarkable power with very
+clear syntax. It has interfaces to many system calls and libraries, as well as
+to various window systems, and is extensible in C or C++. It is also usable as
+an extension language for applications that need a programmable interface."

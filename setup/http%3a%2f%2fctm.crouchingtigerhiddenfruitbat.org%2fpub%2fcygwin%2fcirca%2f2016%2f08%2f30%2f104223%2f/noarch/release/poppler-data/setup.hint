@@ -1,0 +1,7 @@
+category: Graphics Text
+requires:  
+sdesc: "PDF rendering library (encoding data)"
+ldesc: "Poppler is a fork of the xpdf PDF viewer which provides PDF
+rendering functionality as a shared library and replaces built-in code
+with dependencies that are now available as standard components of modern
+Unix desktop environments."

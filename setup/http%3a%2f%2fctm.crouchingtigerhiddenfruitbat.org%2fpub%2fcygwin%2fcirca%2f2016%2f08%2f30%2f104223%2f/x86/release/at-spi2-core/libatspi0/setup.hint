@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libdbus1_3 libglib2.0_0 libintl8 libX11_6 at-spi2-core
+sdesc: "AT-SPI/D-Bus accessibility library (runtime)"
+ldesc: "Next generation GNOME accessibility framework, based on D-Bus"
+external-source: at-spi2-core

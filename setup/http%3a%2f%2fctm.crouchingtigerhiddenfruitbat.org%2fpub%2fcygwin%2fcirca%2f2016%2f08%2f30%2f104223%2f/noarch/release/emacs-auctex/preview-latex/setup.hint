@@ -1,0 +1,8 @@
+category: Editors
+requires: texlive-collection-basic texlive-collection-latex texlive-collection-latexrecommended
+sdesc: "Extract bits of a LaTeX source for output"
+ldesc: "This is a self-contained subpackage of emacs-auctex that allows
+appropriately selected parts of a LaTeX document to be formatted and
+displayed within the Emacs editor.  It also has uses that do not
+require Emacs."
+external-source: emacs-auctex

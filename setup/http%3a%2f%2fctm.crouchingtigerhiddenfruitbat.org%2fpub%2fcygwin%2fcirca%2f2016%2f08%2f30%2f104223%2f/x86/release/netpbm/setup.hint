@@ -1,0 +1,7 @@
+category: Graphics
+requires: bash cygwin libjasper1 libjbig2 libjpeg8 libnetpbm10 libpng16 libtiff6 libX11_6 libxml2 perl_base zlib0 ghostscript
+sdesc: "Toolkit for manipulation of graphic images"
+ldesc: "Netpbm is a toolkit for manipulation of graphic images, including
+conversion of images between a variety of different formats.  There
+are over 220 separate tools in the package including converters for
+about 100 graphics formats."

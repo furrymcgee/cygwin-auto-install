@@ -1,0 +1,5 @@
+category: Libs Math
+requires: cygwin 
+sdesc: "Fast Fourier transforms C library - runtime"
+ldesc: "Fast Fourier transforms C library"
+external-source: fftw3

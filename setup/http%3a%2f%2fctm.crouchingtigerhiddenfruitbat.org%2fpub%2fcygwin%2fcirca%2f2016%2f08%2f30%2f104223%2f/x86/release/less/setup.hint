@@ -1,0 +1,8 @@
+category: Text
+requires: cygwin libgcc1 libncursesw10 
+sdesc: "A file pager program, similar to more(1)"
+ldesc: "The less utility is a text file browser that resembles more, but has
+more capabilities.  Less allows you to move backwards in the file as
+well as forwards.  Since less doesn't have to read the entire input file
+before it starts, less starts up more quickly than text editors (for
+example, vi)."

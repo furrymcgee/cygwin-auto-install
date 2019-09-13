@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libatk1.0_0 libatspi0 libdbus1_3 libglib2.0_0 at-spi2-core
+sdesc: "AT-SPI/D-Bus GTK+ bridge"
+ldesc: "Next generation GNOME accessibility framework, based on D-Bus"
+external-source: at-spi2-atk

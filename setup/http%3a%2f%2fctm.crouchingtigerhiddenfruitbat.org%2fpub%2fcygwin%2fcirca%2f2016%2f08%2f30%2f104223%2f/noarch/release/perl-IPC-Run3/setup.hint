@@ -1,0 +1,7 @@
+category: Perl
+requires: perl perl_base 
+sdesc: "Perl distribution IPC-Run3"
+ldesc: "Perl distribution IPC-Run3, providing Perl modules:
+IPC::Run3.
+
+Run a subprocess with input/ouput redirection."

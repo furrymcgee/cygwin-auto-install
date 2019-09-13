@@ -1,0 +1,13 @@
+category: Devel Libs
+requires: cygwin 
+sdesc: "Interface for parsing command-line arguments"
+ldesc: "Argp is an interface for parsing unix-style argument vectors. Argp
+provides features unavailable in the more commonly used getopt interface,
+including automatically producing output in response to the '--help' and
+'--version' options.  Argp also provides the ability to merge several
+independently defined option parsers into one, mediating conflicts between
+them and making the result appear seamless. A library can export an argp option
+parser that user programs might employ in conjunction with their own option
+parsers, resulting in less work for the user programs. Some programs may use
+only argument parsers exported by libraries, thereby achieving consistent and
+efficient option-parsing for abstractions implemented by the libraries."

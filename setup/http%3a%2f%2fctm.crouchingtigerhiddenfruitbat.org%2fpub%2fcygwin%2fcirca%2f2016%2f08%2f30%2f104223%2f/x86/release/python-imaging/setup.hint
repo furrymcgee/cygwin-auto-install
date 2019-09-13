@@ -1,0 +1,6 @@
+category: Python
+requires: cygwin libfreetype6 libjpeg8 liblcms2_2 libopenjp2_7 libtiff6 libwebp5 libwebpmux1 python python-cffi zlib0 
+sdesc: "Python Imaging Library"
+ldesc: "The Python Imaging Library (PIL) adds image processing capabilities
+to your Python interpreter. This library supports many file formats, and provides
+powerful image processing and graphics capabilities."

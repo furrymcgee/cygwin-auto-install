@@ -1,0 +1,5 @@
+category: Ruby
+requires: ruby rubygems 
+sdesc: "Ruby build system"
+ldesc: "Rake is a Make-like program implemented in Ruby. Tasks and
+dependencies are specified in standard Ruby syntax."

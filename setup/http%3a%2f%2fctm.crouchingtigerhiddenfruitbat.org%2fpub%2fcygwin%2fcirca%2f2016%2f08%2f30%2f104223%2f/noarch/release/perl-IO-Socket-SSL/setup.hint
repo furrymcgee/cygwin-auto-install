@@ -1,0 +1,10 @@
+category: Perl
+requires: perl perl_base perl-Net-SSLeay
+sdesc: "Perl distribution IO-Socket-SSL"
+ldesc: "Perl distribution IO-Socket-SSL, providing Perl modules:
+IO::Socket::SSL IO::Socket::SSL::Intercept IO::Socket::SSL::OCSP_Cache
+IO::Socket::SSL::OCSP_Resolver IO::Socket::SSL::PublicSuffix
+IO::Socket::SSL::SSL_Context IO::Socket::SSL::SSL_HANDLE
+IO::Socket::SSL::Session_Cache IO::Socket::SSL::Utils.
+
+Nearly transparent SSL encapsulation for IO::Socket::INET."

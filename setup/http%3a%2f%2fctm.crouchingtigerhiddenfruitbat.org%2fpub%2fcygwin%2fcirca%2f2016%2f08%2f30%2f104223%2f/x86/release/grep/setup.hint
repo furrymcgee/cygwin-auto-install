@@ -1,0 +1,7 @@
+category: Base
+requires: bash cygwin libgcc1 libiconv2 libintl8 libpcre1 
+sdesc: "search for regular expression matches in text files"
+ldesc: "GNU Grep searches one or more input files for lines
+containing a match to a specified pattern.  By default, Grep
+outputs the matching lines.  The GNU implementation includes several
+useful extensions over POSIX."

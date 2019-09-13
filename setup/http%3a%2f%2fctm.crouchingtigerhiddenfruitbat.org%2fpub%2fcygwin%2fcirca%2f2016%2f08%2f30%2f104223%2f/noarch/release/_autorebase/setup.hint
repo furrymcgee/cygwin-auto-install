@@ -1,0 +1,19 @@
+category: Base
+requires: dash 
+sdesc: "Incremental autorebase script"
+ldesc: "Incremental autorebase script.
+
+This gets run after every installation to keep the installation
+properly rebased and additionally provides an easier interface for
+manual full rebase.  This script uses the rebase database and a cache
+directory in /var/cache/rebase to avoid rebasing files that already
+are rebased.
+
+Dynamic language modules/libraries, e.g. for Octave, Perl, PHP,
+Python, R and Ruby can automatically be included in rebasing.  The
+path(s) to search in are specified in /var/lib/rebase/dynpath.d (one
+file per package).
+
+Users can additionally customize autorebase by adding list(s) of such
+files under /var/lib/rebase/user.d the to rebase additional files that
+have not been installed along with a package."

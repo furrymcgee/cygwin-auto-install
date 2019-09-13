@@ -1,0 +1,6 @@
+category: Text
+requires: python ghostscript ImageMagick libxslt texlive texlive-collection-bibtexextra texlive-collection-binextra texlive-collection-latexextra texlive-collection-mathextra transfig
+sdesc: "Converts DocBook SGML/XML to DVI/PS/PDF"
+ldesc: "dblatex is a program that transforms your SGML/XML DocBook
+documents to DVI, PostScript or PDF by translating them into pure LaTeX
+as a first process.  MathML 2.0 markups are supported, too."

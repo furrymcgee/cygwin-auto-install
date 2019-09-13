@@ -1,0 +1,9 @@
+category: Perl
+requires: cygwin libssp0 libxml2 libxslt perl_base perl-XML-LibXML
+sdesc: "Perl distribution XML-LibXSLT"
+ldesc: "Perl distribution XML-LibXSLT, providing Perl modules:
+Driver::BaseClass Driver::LibXSLT Driver::Sablotron
+Driver::Sablotron::Handler XML::LibXSLT XML::LibXSLT::Security
+XML::LibXSLT::StylesheetWrapper.
+
+Interface to GNOME libxslt library."

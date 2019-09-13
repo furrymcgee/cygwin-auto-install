@@ -1,0 +1,10 @@
+category: Perl
+requires: perl perl_base perl-File-Which
+sdesc: "Perl distribution File-HomeDir"
+ldesc: "Perl distribution File-HomeDir, providing Perl modules:
+File::HomeDir File::HomeDir::Darwin File::HomeDir::Darwin::Carbon
+File::HomeDir::Darwin::Cocoa File::HomeDir::Driver
+File::HomeDir::FreeDesktop File::HomeDir::MacOS9 File::HomeDir::TIE
+File::HomeDir::Test File::HomeDir::Unix File::HomeDir::Windows.
+
+Find your home and other directories on any platform."

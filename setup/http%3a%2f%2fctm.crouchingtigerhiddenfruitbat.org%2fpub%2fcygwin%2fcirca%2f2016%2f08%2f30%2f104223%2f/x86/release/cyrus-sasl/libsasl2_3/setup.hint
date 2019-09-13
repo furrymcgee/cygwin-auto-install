@@ -1,0 +1,5 @@
+category: Utils
+requires: libcrypt0 libdb4.8 libgssapi_krb5_2 libkrb5_3 libopenldap2_4_2 libopenssl100 cygwin
+sdesc: "The Cyrus SASL API implementation. (Runtime library and Daemon)"
+ldesc: "The Cyrus SASL library allows for client/server authentication in conformance with RFC 2222."
+external-source: cyrus-sasl

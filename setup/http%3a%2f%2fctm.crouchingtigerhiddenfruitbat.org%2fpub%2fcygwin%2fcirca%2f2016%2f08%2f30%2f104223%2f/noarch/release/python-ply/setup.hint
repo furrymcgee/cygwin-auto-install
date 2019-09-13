@@ -1,0 +1,7 @@
+category: Python
+requires: python 
+sdesc: "Python 2 lex and yacc"
+ldesc: "PLY is yet another implementation of lex and yacc for Python.
+Some notable features include the fact that its implemented entirely in Python
+and it uses LALR(1) parsing which is efficient and well suited for larger
+grammars."

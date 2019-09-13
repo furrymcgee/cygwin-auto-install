@@ -1,0 +1,6 @@
+category: Libs
+requires: gamin cygwin
+sdesc: "File Alteration Monitor system (runtime library)"
+ldesc: "Gamin is a file and directory monitoring system defined to be
+a subset of the FAM (File Alteration Monitor) system."
+external-source: gamin

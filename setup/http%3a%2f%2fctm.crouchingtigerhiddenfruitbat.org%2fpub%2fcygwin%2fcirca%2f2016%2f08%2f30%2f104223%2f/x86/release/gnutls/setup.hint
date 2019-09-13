@@ -1,0 +1,8 @@
+category: Net
+requires: cygwin libgnutls28 libintl8 libopts25 
+sdesc: "Library implementing TLS 1.0 and SSL 3.0 protocols (utilities)"
+ldesc: "GnuTLS is a secure communications library implementing the SSL,
+TLS and DTLS protocols and technologies around them. It provides a simple C
+language application programming interface (API) to access the secure
+communications protocols as well as APIs to parse and write X.509, PKCS#12,
+OpenPGP and other required structures."

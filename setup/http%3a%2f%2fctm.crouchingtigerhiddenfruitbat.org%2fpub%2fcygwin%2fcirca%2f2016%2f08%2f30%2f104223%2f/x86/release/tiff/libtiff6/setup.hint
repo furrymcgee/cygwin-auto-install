@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libgcc1 libjbig2 libjpeg8 liblzma5 libstdc++6 zlib0 
+sdesc: "TIFF image library"
+ldesc: "Included in this software distribution is a library, libtiff, for
+reading and writing TIFF images, a small collection of tools for doing
+simple manipulations of TIFF images on UNIX systems, and documentation
+on the library and tools."
+external-source: tiff

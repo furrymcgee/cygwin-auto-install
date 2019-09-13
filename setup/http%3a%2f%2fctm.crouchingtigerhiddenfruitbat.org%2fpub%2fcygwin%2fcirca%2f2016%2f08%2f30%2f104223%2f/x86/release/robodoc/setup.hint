@@ -1,0 +1,7 @@
+category: Devel
+requires: cygwin ctags
+sdesc: "API documentation generator"
+ldesc: "ROBODoc is an API documentation tool for C, C++, Java, Assembler,
+Basic, Fortran, LaTeX, Postscript, Tcl/Tk, LISP, Forth, Perl, Shell Scripts,
+Makefiles, Occam, COBOL, DCL, Visual Basic, HTML, DB/C, XML, and many other
+languages. It can be made to work with any language that supports comments."

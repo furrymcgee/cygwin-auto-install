@@ -1,0 +1,10 @@
+category: Interpreters Base
+requires: bash cygwin libgcc1 libgmp10 libintl8 libmpfr4 libreadline7 
+sdesc: "GNU awk, a pattern scanning and processing language"
+ldesc: "The gawk package contains the GNU version of awk, a text
+processing utility. Awk interprets a special-purpose programming
+language to do quick and easy text pattern matching and
+reformatting jobs.
+
+Install the gawk package if you need a text processing utility.
+Gawk is considered to be a standard Linux tool for processing text."

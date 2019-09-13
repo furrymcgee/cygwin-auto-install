@@ -1,0 +1,5 @@
+category: Graphics
+requires: cygwin libpstoedit0 libstdc++6 ghostscript
+sdesc: "A tool converting PostScript and PDF files into various vector graphic formats (utilities)"
+ldesc: "Converts Postscript and PDF files to various editable vector graphics formats, 
+including xfig, ai, idraw, metapost, gnu metafile, and others."

@@ -1,0 +1,7 @@
+category: Perl
+requires: perl_base 
+sdesc: "Perl distribution Text-Roman"
+ldesc: "Perl distribution Text-Roman, providing Perl modules:
+Text::Roman.
+
+Allows conversion between Roman and Arabic algarisms."

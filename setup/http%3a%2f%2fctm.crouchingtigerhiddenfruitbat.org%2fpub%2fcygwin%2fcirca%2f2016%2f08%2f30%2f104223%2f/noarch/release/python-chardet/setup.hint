@@ -1,0 +1,4 @@
+category: Python
+requires: python python-setuptools 
+sdesc: "Python character encoding detection library"
+ldesc: "Character encoding auto-detection in Python 2 and 3."

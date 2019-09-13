@@ -1,0 +1,7 @@
+category: Text
+requires: bash cygwin libglib2.0_0 libgsf1_114 libwmf027 libwv1.2_4 
+sdesc: "MS Word conversion utilities"
+ldesc: "wvWare includes a library and sample apps that convert MS Word
+2,6,7,8,9 files to html and latex. The Word 2 conversion is still incomplete
+(no formatting), but it will do a passable job extracting the text, which is
+what you probably want anyway."

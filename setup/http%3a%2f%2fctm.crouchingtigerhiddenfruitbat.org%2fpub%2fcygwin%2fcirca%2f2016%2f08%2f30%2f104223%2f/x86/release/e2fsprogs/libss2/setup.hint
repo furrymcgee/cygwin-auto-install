@@ -1,0 +1,6 @@
+category: System
+requires: libcom_err2 cygwin
+sdesc: "Subsystem command parsing library (runtime)"
+ldesc: "This package contains all of the standard utilities for creating,
+fixing, configuring, and debugging ext2/3/4 filesystems."
+external-source: e2fsprogs

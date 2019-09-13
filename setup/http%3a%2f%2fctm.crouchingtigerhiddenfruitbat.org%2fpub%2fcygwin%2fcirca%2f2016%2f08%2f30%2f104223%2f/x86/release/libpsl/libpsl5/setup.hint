@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libiconv2 libidn11 libunistring2 
+sdesc: "Public Suffix List library"
+ldesc: "A public suffix is one under which Internet users can (or
+historically could) directly register names. Some examples of public
+suffixes are .com, .co.uk and pvt.k12.ma.us. The Public Suffix List is a
+list of all known public suffixes."
+external-source: libpsl

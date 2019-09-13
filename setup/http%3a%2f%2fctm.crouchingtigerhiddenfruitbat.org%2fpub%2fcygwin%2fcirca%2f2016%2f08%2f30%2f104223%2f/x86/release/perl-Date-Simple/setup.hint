@@ -1,0 +1,7 @@
+category: Perl
+requires: libgcc1 libssp0 perl_base cygwin
+sdesc: "Perl distribution Date-Simple"
+ldesc: "Perl distribution Date-Simple, providing Perl modules:
+Date::Simple Date::Simple::D8 Date::Simple::Fmt Date::Simple::ISO.
+
+A simple date object."

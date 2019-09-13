@@ -1,0 +1,6 @@
+category: Libs
+requires: libiconv2 libintl8 cygwin
+sdesc: "International Domain Name library (runtime)"
+ldesc: "An implementation of the Stringprep, Punycode and IDNA specifications defined
+by the IETF Internationalized Domain Names (IDN) working group."
+external-source: libidn

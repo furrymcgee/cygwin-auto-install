@@ -1,0 +1,7 @@
+category: Utils
+requires: libintl8 libiconv2 libgcc1
+sdesc: "Line Break Conversion"
+ldesc: "The dos2unix package provides conversion utilities to manipulate
+the line breaks of text files. These tools can convert between Unix,
+DOS/Windows, and (pre OS-X) Mac, as well as perform certain other character
+set manipulations."

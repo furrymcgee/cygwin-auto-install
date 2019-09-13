@@ -1,0 +1,5 @@
+category: Libs Net
+requires: libidn11 libintl8 cygwin
+sdesc: "International Domain Name library (utilities)"
+ldesc: "An implementation of the Stringprep, Punycode and IDNA specifications defined
+by the IETF Internationalized Domain Names (IDN) working group."

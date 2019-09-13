@@ -1,0 +1,7 @@
+category: Perl
+requires: perl_base perl-Module-Load-Conditional
+sdesc: "Perl distribution IPC-Cmd"
+ldesc: "Perl distribution IPC-Cmd, providing Perl modules:
+IPC::Cmd.
+
+A cross platform way of running (interactive) commandline programs."

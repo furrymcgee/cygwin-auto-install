@@ -1,0 +1,4 @@
+sdesc: "Shared lib for managing filesystem extended attributes"
+ldesc: "Shared lib for managing filesystem extended attributes"
+category: System Admin Libs
+external-source: attr

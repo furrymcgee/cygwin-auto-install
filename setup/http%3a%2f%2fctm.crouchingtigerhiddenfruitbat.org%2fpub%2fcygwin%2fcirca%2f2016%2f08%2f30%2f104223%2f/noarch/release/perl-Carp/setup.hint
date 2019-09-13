@@ -1,0 +1,7 @@
+category: Perl
+requires: perl_base 
+sdesc: "Perl distribution Carp"
+ldesc: "Perl distribution Carp, providing Perl modules:
+Carp Carp::Heavy.
+
+Alternative warn and die for modules."

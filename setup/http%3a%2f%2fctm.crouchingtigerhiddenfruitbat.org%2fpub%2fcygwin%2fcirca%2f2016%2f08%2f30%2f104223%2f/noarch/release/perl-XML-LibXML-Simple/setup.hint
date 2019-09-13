@@ -1,0 +1,7 @@
+category: Perl
+requires: perl_base perl-File-Slurp-Tiny perl-XML-LibXML
+sdesc: "Perl distribution XML-LibXML-Simple"
+ldesc: "Perl distribution XML-LibXML-Simple, providing Perl modules:
+XML::LibXML::Simple.
+
+XML::LibXML based XML::Simple clone."

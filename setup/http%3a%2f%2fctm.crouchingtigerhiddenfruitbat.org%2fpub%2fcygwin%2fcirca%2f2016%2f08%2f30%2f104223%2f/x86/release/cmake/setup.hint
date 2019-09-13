@@ -1,0 +1,9 @@
+category: Devel
+requires: bash cygwin libarchive13 libcurl4 libexpat1 libgcc1 libncursesw10 libstdc++6 zlib0 
+sdesc: "Cross-platform makefile generation system"
+ldesc: "CMake is used to control the software compilation process using
+simple platform and compiler independent configuration files. CMake generates
+native makefiles and workspaces that can be used in the compiler environment
+of your choice. CMake is quite sophisticated: it is possible to support
+complex environments requiring system configuration, pre-processor generation,
+code generation, and template instantiation."

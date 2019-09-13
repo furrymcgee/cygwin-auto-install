@@ -1,0 +1,8 @@
+category: Libs Graphics
+requires: cygwin libfontconfig1 libfreetype6 libiconv2 libjpeg8 libpng16 libtiff6 libwebp5 libXpm4 zlib0 
+sdesc: "A library for the dynamic creation of images by programmers (runtime)"
+ldesc: "GD is an open source code library for the dynamic creation of images by programmers.
+GD creates PNG, JPEG and GIF images, among other formats. GD is commonly used to
+generate charts, graphics, thumbnails, and most anything else, on the fly. While not
+restricted to use on the web, the most common applications of GD involve web site development."
+external-source: gd

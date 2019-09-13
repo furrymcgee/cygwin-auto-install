@@ -1,0 +1,7 @@
+category: Shells
+requires: cygwin libX11_6 libXpm4 
+sdesc: "Lightweight VT102 terminal emulator"
+ldesc: "rxvt is a colour vt102 terminal emulator intended as an xterm(1)
+replacement for users who do not require features such as Tektronix 4014
+emulation and toolkit-style configurability. The rxvt terminal is light on
+system resources and otherwise packed with features."

@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libglib2.0_0 dconf-service
+sdesc: "GNOME configuration system client library (GDBus runtime)"
+ldesc: "dconf is a low-level configuration system. Its main purpose is
+to provide a backend to GSettings on platforms that don't already have
+configuration storage systems."
+external-source: dconf

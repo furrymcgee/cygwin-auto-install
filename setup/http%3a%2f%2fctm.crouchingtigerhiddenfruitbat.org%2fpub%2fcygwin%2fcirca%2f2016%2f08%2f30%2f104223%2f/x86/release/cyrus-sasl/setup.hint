@@ -1,0 +1,4 @@
+category: Utils
+requires: libdb4.8 libsasl2_3 cygwin
+sdesc: "The Cyrus SASL API implementation. (Documentation and Utilities)"
+ldesc: "The Cyrus SASL library allows for client/server authentication in conformance with RFC 2222."

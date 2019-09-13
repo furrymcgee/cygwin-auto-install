@@ -1,0 +1,5 @@
+category: Interpreters
+requires: cygwin libdialog13 libintl8 libncursesw10 
+sdesc: "Curses widget-based script interpreter"
+ldesc: "A script-interpreter which provides a set of curses widgets.
+Widgets are objects whose appearance and behavior can be customized."

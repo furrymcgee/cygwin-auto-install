@@ -1,0 +1,7 @@
+category: Net
+requires: libncursesw10 libreadline7 inetutils-server cygwin
+sdesc: "Common networking clients and servers (clients)"
+ldesc: "inetutils provides common networking clients and
+servers, including the inetd super-server, telnetd and
+telnet, ftpd and ftp, talkd and talk, uucpd (but no uucp
+client), and syslogd."

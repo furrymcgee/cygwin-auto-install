@@ -1,0 +1,7 @@
+category: Perl
+requires: perl_base 
+sdesc: "Perl distribution File-Slurp"
+ldesc: "Perl distribution File-Slurp, providing Perl modules:
+File::Slurp FileSlurp_12.
+
+Simple and Efficient Reading/Writing/Modifying of Complete Files."

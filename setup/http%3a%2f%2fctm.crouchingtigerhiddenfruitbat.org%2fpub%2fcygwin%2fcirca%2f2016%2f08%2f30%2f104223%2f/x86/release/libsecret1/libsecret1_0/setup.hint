@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libgcrypt20 libglib2.0_0 gnome-keyring
+sdesc: "GObject secrets client library"
+ldesc: "GObject based library for accessing the Secret Service API."
+external-source: libsecret1

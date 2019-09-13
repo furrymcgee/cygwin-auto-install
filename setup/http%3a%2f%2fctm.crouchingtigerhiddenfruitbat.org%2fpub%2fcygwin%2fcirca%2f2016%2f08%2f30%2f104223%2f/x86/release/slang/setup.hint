@@ -1,0 +1,4 @@
+category: Libs
+requires:  
+sdesc: "S-Lang interpreter library (source)"
+ldesc: "S-Lang is a multi-platform programmer's library"

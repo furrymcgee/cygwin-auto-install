@@ -1,0 +1,7 @@
+category: Perl
+requires: perl_base 
+sdesc: "Perl distribution MIME-Types"
+ldesc: "Perl distribution MIME-Types, providing Perl modules:
+MIME::Type MIME::Types MojoX::MIME::Types.
+
+Definition of MIME types."

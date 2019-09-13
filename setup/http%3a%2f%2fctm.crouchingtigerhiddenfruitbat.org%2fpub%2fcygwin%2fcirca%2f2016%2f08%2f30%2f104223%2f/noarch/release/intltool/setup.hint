@@ -1,0 +1,7 @@
+category: GNOME Devel
+requires: bash perl perl-XML-Parser perl_base gettext-devel
+sdesc: "GNOME XML internalization scripts"
+ldesc: "Utility scripts for internationalizing XML.  Automatically extracts
+translatable strings from oaf, glade, bonobo ui, nautilus theme and other XML
+files into the po files, and merges translations from po files back into .oaf
+files and other types of XML files."

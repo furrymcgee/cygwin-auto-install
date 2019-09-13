@@ -1,0 +1,7 @@
+category: Publishing
+requires: bash cygwin dash libcairo2 libfontconfig1 libfreetype6 libgcc1 libgd3 libgmp10 libgraphite2_3 libgs9 libharfbuzz-icu0 libharfbuzz0 libicu57 libkpathsea6 libmpfr4 libpaper1 libpixman1_0 libpng16 libpoppler62 libptexenc1 libstdc++6 libsynctex1 libtexlua52_5 libtexluajit2 libX11_6 libXaw7 libXi6 libXmu6 libXpm4 libXt6 libzzip0.13 zlib0 texlive-collection-basic
+sdesc: "TeX Live binaries"
+ldesc: "TeX Live provides a comprehensive, cross-platform TeX system. It 
+includes all the major TeX-related programs, macro packages, and fonts 
+that are free software, including support for many languages around the 
+world."

@@ -1,0 +1,6 @@
+category: System
+requires: libgcc1 cygwin
+sdesc: "Common error description library (runtime)"
+ldesc: "This package contains all of the standard utilities for creating,
+fixing, configuring, and debugging ext2/3/4 filesystems."
+external-source: e2fsprogs

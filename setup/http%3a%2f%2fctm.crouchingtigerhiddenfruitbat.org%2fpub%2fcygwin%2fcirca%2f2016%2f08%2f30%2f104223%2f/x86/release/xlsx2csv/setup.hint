@@ -1,0 +1,8 @@
+sdesc: "Convert xslx xml files to csv format"
+ldesc: "The xlsx files are zip archives. In order to process the file, various
+bits inside the archive need to be located. Due to memory
+requirements, the conversion is handled by the expat SAX parser which
+can collect the strings into a simple dictionary, keyed by their
+relative position in the XML file."
+category: Python Text
+requires: python

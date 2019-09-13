@@ -1,0 +1,8 @@
+category: Database
+requires:  
+sdesc: "MySQL common runtime files"
+ldesc: "MySQL delivers a very fast, multi-threaded, multi-user, and robust
+SQL (Structured Query Language) database server.  The client components are
+stable, but the daemon should be considered experimental and not ready for
+mission-critical deployment."
+external-source: mysql

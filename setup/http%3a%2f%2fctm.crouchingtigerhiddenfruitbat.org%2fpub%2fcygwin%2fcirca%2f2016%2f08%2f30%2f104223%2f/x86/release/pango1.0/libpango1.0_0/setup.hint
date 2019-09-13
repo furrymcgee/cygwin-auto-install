@@ -1,0 +1,9 @@
+category: Libs
+requires: cygwin libcairo2 libfontconfig1 libfreetype6 libgcc1 libglib2.0_0 libharfbuzz0 libthai0 libX11_6 libXft2 libXrender1 
+sdesc: "GNOME text layout and rendering library"
+ldesc: "Pango is a library for layout and rendering of text, with an emphasis
+on internationalization. Pango can be used anywhere that text layout
+is needed; however, most of the work on Pango so far has been done using
+the GTK+ widget toolkit as a test platform. Pango forms the core of text
+and font handling for GTK+."
+external-source: pango1.0

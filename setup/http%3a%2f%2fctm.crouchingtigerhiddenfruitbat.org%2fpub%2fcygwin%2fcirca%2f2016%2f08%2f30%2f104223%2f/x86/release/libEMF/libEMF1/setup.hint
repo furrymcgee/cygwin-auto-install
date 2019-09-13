@@ -1,0 +1,9 @@
+category: Graphics Libs
+requires: cygwin libgcc1 libiconv2 libstdc++6 
+sdesc: "A library for generating Enhanced Metafiles (runtime)"
+ldesc: "libEMF is a library for generating Enhanced Metafiles on systems which
+don't natively support the ECMA-234 Graphics Device Interface
+(GDI). The library is intended to be used as a driver for other
+graphics programs such as Grace or gnuplot. Therefore, it implements a
+very limited subset of the GDI."
+external-source: libEMF

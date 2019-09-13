@@ -1,0 +1,10 @@
+category: Graphics
+requires: libjbig2 cygwin
+sdesc: "Converts JBIG1 to/from PBM format"
+ldesc: "JBIG-KIT is a software implementation of the JBIG1 data compression
+standard (ITU-T T.82), which was designed for bi-level high-resolution image
+data such as scanned documents. This library is available in portable C code
+and has been widely used in fax products, printer firmware and drivers, and
+document management systems. The package includes a variant implementation of
+just the ITU-T T.85 profile, with memory management optimized for embedded and
+fax applications."

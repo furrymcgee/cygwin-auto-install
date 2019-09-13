@@ -1,0 +1,8 @@
+category: Publishing
+requires: cygwin libgcc1 
+sdesc: "TeX Just-In-Time lua compiler library (runtime)"
+ldesc: "TeX Live provides a comprehensive, cross-platform TeX system. It 
+includes all the major TeX-related programs, macro packages, and fonts 
+that are free software, including support for many languages around the 
+world."
+external-source: texlive

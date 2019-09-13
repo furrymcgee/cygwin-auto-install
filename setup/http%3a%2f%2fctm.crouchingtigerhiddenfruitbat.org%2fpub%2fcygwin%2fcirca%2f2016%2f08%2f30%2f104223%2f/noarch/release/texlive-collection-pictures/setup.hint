@@ -1,0 +1,7 @@
+category: Publishing
+requires: bash coreutils perl perl_base python python-numpy tcl-tk texlive-collection-basic 
+sdesc: "TeX Live pictures package collection"
+ldesc: "TeX Live is an easy way to get up and running with the TeX
+document production system.  It includes all the major TeX-related
+programs, macro packages, and fonts that are free software, including
+support for many languages around the world."

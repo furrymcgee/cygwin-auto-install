@@ -1,0 +1,7 @@
+category: Interpreters Perl
+requires: cygwin libcrypt0 libgcc1 libssp0
+sdesc: "Perl programming language interpreter"
+ldesc: "Perl programming language interpreter
+
+Minimal install intended for use by Base packages."
+external-source: perl

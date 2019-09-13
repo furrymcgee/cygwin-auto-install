@@ -1,0 +1,8 @@
+category: Net
+requires: bash cygwin libexpat1 libgcc1 libiconv2 libintl8 libncursesw10 libopenssl100 libreadline7 libstdc++6 zlib0 
+sdesc: "Sophisticated file transfer program"
+ldesc: "lftp is a sophisticated file transfer program and ftp/http/bittorrent
+client.  It supports multiple network protocols.  It uses the readline library
+for input, so it offers tab completion and command history.  It has job control
+and bookmarks.  It can mirror sites and transfer multiple files in parallel.
+It keeps trying interrupted operations until it can complete them."

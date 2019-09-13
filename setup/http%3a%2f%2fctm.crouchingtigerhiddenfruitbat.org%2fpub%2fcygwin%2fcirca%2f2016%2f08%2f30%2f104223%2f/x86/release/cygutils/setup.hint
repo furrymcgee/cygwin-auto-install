@@ -1,0 +1,5 @@
+category: Base
+requires: cygwin libpopt0 
+sdesc: "A collection of simple utilities (core collection)"
+ldesc: "A collection of simple (single source file) utilities, including
+cygstart, mkshortcut, and readshortcut."

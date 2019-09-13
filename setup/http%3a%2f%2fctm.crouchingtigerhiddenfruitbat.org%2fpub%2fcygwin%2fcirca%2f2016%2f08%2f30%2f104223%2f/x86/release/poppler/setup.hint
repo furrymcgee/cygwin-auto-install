@@ -1,0 +1,7 @@
+category: Graphics
+requires: cygwin libcairo2 libfreetype6 libgcc1 liblcms2_2 libpoppler62 libstdc++6 
+sdesc: "PDF manipulation utilities"
+ldesc: "Poppler is a fork of the xpdf PDF viewer which provides PDF
+rendering functionality as a shared library and replaces built-in code
+with dependencies that are now available as standard components of modern
+Unix desktop environments."

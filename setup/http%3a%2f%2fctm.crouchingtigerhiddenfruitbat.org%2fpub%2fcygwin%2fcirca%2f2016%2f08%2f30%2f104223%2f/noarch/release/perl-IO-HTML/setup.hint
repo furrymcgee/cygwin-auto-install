@@ -1,0 +1,7 @@
+category: Perl
+requires: perl perl_base 
+sdesc: "Perl distribution IO-HTML"
+ldesc: "Perl distribution IO-HTML, providing Perl modules:
+IO::HTML.
+
+Open an HTML file with automatic charset detection."

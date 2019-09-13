@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libbz2_1 libgcc1 libglib2.0_0 libintl8 libxml2 zlib0 libgsf-common
+sdesc: "GNOME Structured File library"
+ldesc: "The project aims to provide an efficient extensible I/O
+abstraction for dealing with different structured file formats."
+external-source: libgsf

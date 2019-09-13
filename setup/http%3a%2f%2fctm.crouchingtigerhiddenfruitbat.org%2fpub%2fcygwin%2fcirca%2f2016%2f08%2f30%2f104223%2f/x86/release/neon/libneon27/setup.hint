@@ -1,0 +1,5 @@
+category: Libs Web
+requires: libexpat1 libgssapi_krb5_2 libintl8 libopenssl100 libproxy1 zlib0 cygwin
+sdesc: "HTTP and WebDAV library (runtime)"
+ldesc: "neon is an HTTP and WebDAV client library, with a C interface."
+external-source: neon

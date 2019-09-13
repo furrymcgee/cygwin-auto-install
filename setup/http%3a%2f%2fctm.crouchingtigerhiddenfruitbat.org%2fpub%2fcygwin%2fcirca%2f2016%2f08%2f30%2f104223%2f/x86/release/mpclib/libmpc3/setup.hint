@@ -1,0 +1,9 @@
+category: Math Libs
+requires: libgmp10 libmpfr4 cygwin
+sdesc: "C library for multiple-precision floating-point computations with exact rounding (runtime)"
+ldesc: "The MPC library is a C library for multiple-precision
+complex floating point computations with exact rounding (also called
+correct rounding). It is based on the GMP and MPFR multiple-precision
+libraries.
+(runtime support files)"
+external-source: mpclib

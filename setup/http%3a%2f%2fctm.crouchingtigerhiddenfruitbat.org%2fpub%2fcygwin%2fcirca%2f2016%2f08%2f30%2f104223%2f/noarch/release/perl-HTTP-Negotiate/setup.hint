@@ -1,0 +1,7 @@
+category: Perl
+requires: perl_base perl-HTTP-Message
+sdesc: "Perl distribution HTTP-Negotiate"
+ldesc: "Perl distribution HTTP-Negotiate, providing Perl modules:
+HTTP::Negotiate.
+
+Choose a variant to serve."

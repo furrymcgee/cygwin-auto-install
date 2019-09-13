@@ -1,0 +1,7 @@
+category: Perl
+requires: perl_base 
+sdesc: "Perl distribution Digest-HMAC"
+ldesc: "Perl distribution Digest-HMAC, providing Perl modules:
+Digest::HMAC Digest::HMAC_MD5 Digest::HMAC_SHA1.
+
+Keyed-Hashing for Message Authentication."

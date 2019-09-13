@@ -1,0 +1,6 @@
+category: Net Libs
+requires: cygwin libgcc1 
+sdesc: "ASN.1 library (runtime)"
+ldesc: "A library for Abstract Syntax Notation One (ASN.1) and Distinguish
+Encoding Rules (DER) manipulation."
+external-source: libtasn1

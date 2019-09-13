@@ -1,0 +1,7 @@
+category: Web
+requires: cygwin libgc1 libgcc1 libintl8 libncursesw10 libopenssl100 perl_base zlib0 
+sdesc: "Text-mode web browser"
+ldesc: "w3m is a text-based web browser as well as a pager like
+'more' or 'less'. With w3m you can browse web pages through a terminal
+emulator window (xterm, rxvt, etc.). Moreover, w3m can be used as a text
+formatting tool which typesets HTML into plain text."

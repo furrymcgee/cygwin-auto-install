@@ -1,0 +1,5 @@
+category: Libs
+requires: libgcc1 cygwin
+sdesc: "S-Lang interpreter library (runtime)"
+ldesc: "S-Lang is a multi-platform programmer's library"
+external-source: slang

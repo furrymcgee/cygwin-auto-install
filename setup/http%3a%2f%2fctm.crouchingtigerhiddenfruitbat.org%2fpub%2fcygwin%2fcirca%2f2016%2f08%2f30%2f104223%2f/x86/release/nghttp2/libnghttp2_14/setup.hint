@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin 
+sdesc: "HTTP/2 C library"
+ldesc: "nghttp2 is an implementation of HTTP/2 and its header compression
+algorithm HPACK in C.  The framing layer of HTTP/2 is implemented as a form of
+reusable C library.  Also included are an HTTP/2 client, server, proxy, and a
+load test and benchmarking tool for HTTP/2."
+external-source: nghttp2

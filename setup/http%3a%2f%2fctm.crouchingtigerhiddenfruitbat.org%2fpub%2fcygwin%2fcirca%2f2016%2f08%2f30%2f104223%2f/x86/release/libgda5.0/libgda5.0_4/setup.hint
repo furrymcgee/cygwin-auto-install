@@ -1,0 +1,10 @@
+category: Libs
+requires: cygwin libgcc1 libgdk_pixbuf2.0_0 libglib2.0_0 libintl8 libmdb1 libmysqlclient18 libopenldap2_4_2 libopenssl100 libpq5 libreadline7 libsecret1_0 libsoup2.4_1 libxml2 libxslt python python-reportlab 
+sdesc: "GNOME Data Access libraries (runtime libs)"
+ldesc: "GNU Data Access (GDA) is an attempt to provide uniform access to
+different kinds of data sources (databases, information servers, mail spools,
+etc).  It is a complete architecture that provides all you need to access your
+data.  It is defined by a set of plugin APIs as generic as possible (but very
+powerful at the same time) so that any kind of data source can be accessed
+through them."
+external-source: libgda5.0

@@ -1,0 +1,7 @@
+category: Perl
+requires: cygwin libssp0 perl_base 
+sdesc: "Perl distribution Socket"
+ldesc: "Perl distribution Socket, providing Perl modules:
+Socket.
+
+Networking constants and support functions."

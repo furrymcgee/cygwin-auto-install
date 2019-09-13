@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin
+sdesc: "X.Org Display Manager Control Protocol library"
+ldesc: "X.Org Display Manager Control Protocol library"
+external-source: libXdmcp

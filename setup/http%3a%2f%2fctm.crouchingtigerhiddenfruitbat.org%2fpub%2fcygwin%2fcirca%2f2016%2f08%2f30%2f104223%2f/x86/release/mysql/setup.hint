@@ -1,0 +1,7 @@
+category: Database
+requires: bash cygwin libbz2_1 libcrypt0 libedit0 libgcc1 liblz4_1 liblzma5 liblzo2_2 libncursesw10 libopenssl100 libpcre1 libpcreposix0 libssp0 libstdc++6 perl perl-CGI perl_base zlib0 mysql-common
+sdesc: "MySQL database client apps"
+ldesc: "MySQL delivers a very fast, multi-threaded, multi-user, and robust
+SQL (Structured Query Language) database server.  The client components are
+stable, but the daemon should be considered experimental and not ready for
+mission-critical deployment."

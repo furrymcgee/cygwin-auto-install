@@ -1,0 +1,6 @@
+category: Python
+requires: cygwin libffi6 libgcc1 python python-pycparser 
+sdesc: "Python 2 Foreign Function Interface"
+ldesc: "C Foreign Function Interface for Python. The goal is to provide a
+convenient and reliable way to call compiled C code from Python using interface
+declarations written in C."

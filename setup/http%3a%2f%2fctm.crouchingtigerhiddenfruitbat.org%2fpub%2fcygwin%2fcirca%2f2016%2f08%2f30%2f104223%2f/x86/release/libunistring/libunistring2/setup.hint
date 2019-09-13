@@ -1,0 +1,6 @@
+category: Libs
+requires: libgcc1 libiconv2 cygwin
+external-source: libunistring
+sdesc: "Library for manipulating Unicode strings - runtime."
+ldesc: "This library provides functions for manipulating Unicode
+strings and for manipulating C strings according to the Unicode standard."

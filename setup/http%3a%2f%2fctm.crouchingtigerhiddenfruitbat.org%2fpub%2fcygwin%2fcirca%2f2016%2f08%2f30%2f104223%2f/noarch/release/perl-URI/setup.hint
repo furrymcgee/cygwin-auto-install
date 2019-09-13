@@ -1,0 +1,15 @@
+category: Perl
+requires: perl perl_base 
+sdesc: "Perl distribution URI"
+ldesc: "Perl distribution URI, providing Perl modules:
+URI URI::Escape URI::Heuristic URI::IRI URI::QueryParam URI::Split URI::URL
+URI::WithBase URI::_foreign URI::_generic URI::_idna URI::_ldap URI::_login
+URI::_punycode URI::_query URI::_segment URI::_server URI::_userpass
+URI::data URI::file URI::file::Base URI::file::FAT URI::file::Mac
+URI::file::OS2 URI::file::QNX URI::file::Unix URI::file::Win32 URI::ftp
+URI::gopher URI::http URI::https URI::ldap URI::ldapi URI::ldaps
+URI::mailto URI::mms URI::news URI::nntp URI::pop URI::rlogin URI::rsync
+URI::rtsp URI::rtspu URI::sftp URI::sip URI::sips URI::snews URI::ssh
+URI::telnet URI::tn3270 URI::urn URI::urn::isbn URI::urn::oid.
+
+Uniform Resource Identifiers (absolute and relative)."

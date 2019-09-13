@@ -1,0 +1,11 @@
+sdesc: "Oracle Berkeley DB (db4.8 - C and C++ libs)"
+ldesc: "Oracle Berkeley DB is the industry-leading open source, embeddable
+database engine that provides developers with fast, reliable, local persistence
+with zero administration. Oracle Berkeley DB is a library that links directly
+into your application. Your application makes simple function calls, rather than
+sending messages to a remote server, eliminating the performance penalty of
+client-server architectures. Oracle Berkeley DB eliminates the overhead of SQL query
+processing, enabling applications with predictable access patterns to run faster."
+category: Database Libs
+requires: libgcc1 libstdc++6 cygwin
+external-source: db4.8

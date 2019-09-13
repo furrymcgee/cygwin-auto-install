@@ -1,0 +1,13 @@
+category: Net
+requires: libwrap0 cygwin
+sdesc: "Tools providing host-based access restrictions on tcp services"
+ldesc: "This package provides facilities for monitoring and
+filtering incoming requests for the SSHD, SYSTAT, FINGER, FTP,
+TELNET, RLOGIN, RSH, EXEC, TFTP, TALK, and other network services.
+
+The package provides a tiny daemon wrapper program that can be installed
+without any changes to existing software or to existing configuration
+files.  The wrappers report the name of the client host and of the
+requested service; the wrappers do not exchange information with the
+client or server applications, and impose no overhead on the actual
+conversation between the client and server applications."

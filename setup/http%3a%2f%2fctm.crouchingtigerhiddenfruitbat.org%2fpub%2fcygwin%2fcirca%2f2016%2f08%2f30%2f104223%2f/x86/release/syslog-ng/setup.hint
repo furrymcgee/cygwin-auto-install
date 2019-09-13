@@ -1,0 +1,6 @@
+category: Admin
+requires: bash gawk libevtlog0 libgcc1 libglib2.0_0 libopenssl100 libpcre1 libwrap0 tzdata cygwin
+sdesc: "Next generation system logging daemon"
+ldesc: "Syslog-ng is a next generation system logger daemon which provides more
+capabilities and has a more flexible configuration then the traditional
+syslog daemon."

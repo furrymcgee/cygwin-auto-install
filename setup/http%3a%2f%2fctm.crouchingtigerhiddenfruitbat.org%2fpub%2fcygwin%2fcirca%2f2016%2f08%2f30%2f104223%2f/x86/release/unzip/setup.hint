@@ -1,0 +1,7 @@
+category: Archive
+requires: bash cygwin libbz2_1 libgcc1 
+sdesc: "Info-ZIP decompression utility"
+ldesc: "UnZip is an extraction utility for archives compressed in .zip
+format. Although highly compatible both with PKWARE's PKZIP and PKUNZIP
+utilities for MS-DOS and with Info-ZIP's own Zip program, the primary objective
+is portability and non-MSDOS functionality."

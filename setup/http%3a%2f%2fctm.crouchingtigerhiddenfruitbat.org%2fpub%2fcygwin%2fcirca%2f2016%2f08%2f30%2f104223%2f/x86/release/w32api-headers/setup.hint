@@ -1,0 +1,4 @@
+category: Devel
+requires:  
+sdesc: "MinGW-w64 Windows API headers for Cygwin"
+ldesc: "MinGW-w64 Windows API headers for Cygwin"

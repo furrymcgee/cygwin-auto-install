@@ -1,0 +1,7 @@
+category: Perl
+requires: perl_base 
+sdesc: "Perl distribution File-Slurp-Tiny"
+ldesc: "Perl distribution File-Slurp-Tiny, providing Perl modules:
+File::Slurp::Tiny.
+
+A simple, sane and efficient file slurper [DISCOURAGED]."

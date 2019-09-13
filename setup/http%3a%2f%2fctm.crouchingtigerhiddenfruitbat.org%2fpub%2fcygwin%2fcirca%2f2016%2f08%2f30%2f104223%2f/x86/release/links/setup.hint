@@ -1,0 +1,8 @@
+sdesc: "Text mode WWW browser"
+ldesc: "A lynx-like character mode browser. It includes support for
+rendering tables and frames, features background downloads, can
+display colors and has many other features. Unlike lynx, links supports
+the HTML TABLE tag. Links also allows you to download files in the
+background."
+category: Web
+requires: libbz2_1 liblzma5 libopenssl100 zlib0 cygwin

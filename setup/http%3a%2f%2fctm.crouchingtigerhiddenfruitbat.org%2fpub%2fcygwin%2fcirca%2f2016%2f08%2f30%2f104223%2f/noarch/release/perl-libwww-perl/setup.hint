@@ -1,0 +1,14 @@
+category: Perl
+requires: perl perl_base perl-Encode-Locale perl-File-Listing perl-HTML-Parser perl-HTTP-Cookies perl-HTTP-Daemon perl-HTTP-Date perl-HTTP-Message perl-HTTP-Negotiate perl-LWP-MediaTypes perl-Net-HTTP perl-URI perl-WWW-RobotRules
+sdesc: "Perl distribution libwww-perl"
+ldesc: "Perl distribution libwww-perl, providing Perl modules:
+LWP LWP::Authen::Basic LWP::Authen::Digest LWP::Authen::Ntlm LWP::ConnCache
+LWP::Debug LWP::DebugFile LWP::MemberMixin LWP::Protocol
+LWP::Protocol::GHTTP LWP::Protocol::MyFTP LWP::Protocol::cpan
+LWP::Protocol::data LWP::Protocol::file LWP::Protocol::ftp
+LWP::Protocol::gopher LWP::Protocol::http LWP::Protocol::http::Socket
+LWP::Protocol::http::SocketMethods LWP::Protocol::loopback
+LWP::Protocol::mailto LWP::Protocol::nntp LWP::Protocol::nogo LWP::RobotUA
+LWP::Simple LWP::UserAgent.
+
+The World-Wide Web library for Perl."

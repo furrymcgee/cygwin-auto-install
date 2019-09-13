@@ -1,0 +1,6 @@
+category: Libs
+requires: libgcc1 libintl8 cygwin
+sdesc: "Tabular data formatting library (runtime)"
+ldesc: "The libsmartcols library is used for smart
+adaptive formatting of tabular data."
+external-source: util-linux

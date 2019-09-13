@@ -1,0 +1,8 @@
+category: Perl
+requires: perl perl_base 
+sdesc: "Perl distribution Data-Dump"
+ldesc: "Perl distribution Data-Dump, providing Perl modules:
+Data::Dump Data::Dump::FilterContext Data::Dump::Filtered Data::Dump::Trace
+Data::Dump::Trace::Call Data::Dump::Trace::Wrapper.
+
+Pretty printing of data structures."

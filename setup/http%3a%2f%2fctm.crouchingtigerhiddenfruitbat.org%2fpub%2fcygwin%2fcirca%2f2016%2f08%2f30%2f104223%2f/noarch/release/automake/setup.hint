@@ -1,0 +1,5 @@
+category: Devel
+requires: bash gawk automake1.4 automake1.5 automake1.6 automake1.7 automake1.8 automake1.9 automake1.10 automake1.11 automake1.12 automake1.13 automake1.14 automake1.15
+sdesc: "Wrapper scripts for automake and aclocal"
+ldesc: "Wrapper scripts for automake and aclocal"
+

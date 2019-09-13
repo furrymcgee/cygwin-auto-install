@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin 
+sdesc: "High-performance event loop library"
+ldesc: "libev is a high-performance event loop/event model with lots of
+features.  Libev is loosely modelled after libevent and the Event perl module,
+but is smaller, faster, scales better, is more correct, and more featureful."
+external-source: libev

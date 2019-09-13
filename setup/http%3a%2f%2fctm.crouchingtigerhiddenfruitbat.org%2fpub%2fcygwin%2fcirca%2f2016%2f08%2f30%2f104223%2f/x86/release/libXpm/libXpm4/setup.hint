@@ -1,0 +1,5 @@
+category: Libs
+requires: libX11_6 cygwin
+sdesc: "X.Org X Pixmap library"
+ldesc: "X Pixmap (XPM) image file format library"
+external-source: libXpm

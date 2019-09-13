@@ -1,0 +1,19 @@
+category: Perl
+requires: cygwin libssp0 libxml2 perl_base perl-XML-NamespaceSupport perl-XML-SAX perl-XML-SAX-Base
+sdesc: "Perl distribution XML-LibXML"
+ldesc: "Perl distribution XML-LibXML, providing Perl modules:
+XML::LibXML XML::LibXML::Attr XML::LibXML::AttributeHash
+XML::LibXML::Boolean XML::LibXML::CDATASection XML::LibXML::Comment
+XML::LibXML::Common XML::LibXML::Devel XML::LibXML::Document
+XML::LibXML::DocumentFragment XML::LibXML::Dtd XML::LibXML::Element
+XML::LibXML::ErrNo XML::LibXML::Error XML::LibXML::InputCallback
+XML::LibXML::Literal XML::LibXML::NamedNodeMap XML::LibXML::Namespace
+XML::LibXML::Node XML::LibXML::NodeList XML::LibXML::Number XML::LibXML::PI
+XML::LibXML::Pattern XML::LibXML::Reader XML::LibXML::RegExp
+XML::LibXML::RelaxNG XML::LibXML::SAX XML::LibXML::SAX::AttributeNode
+XML::LibXML::SAX::Builder XML::LibXML::SAX::Generator
+XML::LibXML::SAX::Parser XML::LibXML::Schema XML::LibXML::Text
+XML::LibXML::XPathContext XML::LibXML::XPathExpression
+XML::LibXML::_SAXParser.
+
+Interface to Gnome libxml2 xml parsing and DOM library."

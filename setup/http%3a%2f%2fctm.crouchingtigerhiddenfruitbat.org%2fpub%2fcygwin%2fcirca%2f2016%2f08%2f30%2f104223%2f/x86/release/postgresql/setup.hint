@@ -1,0 +1,4 @@
+category: Database
+requires: bash cygwin libgcc1 libintl8 libopenldap2_4_2 libopenssl100 libpq5 postgresql-client crypt openssl
+sdesc: "PostgreSQL Data Base Management System"
+ldesc: "object-relational SQL database management system"

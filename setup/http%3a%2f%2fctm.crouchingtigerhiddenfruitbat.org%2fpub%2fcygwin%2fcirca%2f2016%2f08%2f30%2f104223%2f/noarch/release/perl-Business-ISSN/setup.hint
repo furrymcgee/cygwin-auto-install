@@ -1,0 +1,7 @@
+category: Perl
+requires: perl_base 
+sdesc: "Perl distribution Business-ISSN"
+ldesc: "Perl distribution Business-ISSN, providing Perl modules:
+Business::ISSN.
+
+Work with International Standard Serial Numbers."

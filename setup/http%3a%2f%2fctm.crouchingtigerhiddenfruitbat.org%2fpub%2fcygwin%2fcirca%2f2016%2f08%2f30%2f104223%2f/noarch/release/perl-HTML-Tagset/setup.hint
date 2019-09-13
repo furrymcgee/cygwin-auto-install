@@ -1,0 +1,7 @@
+category: Perl
+requires:  
+sdesc: "Perl distribution HTML-Tagset"
+ldesc: "Perl distribution HTML-Tagset, providing Perl modules:
+HTML::Tagset.
+
+Data tables useful in parsing HTML."

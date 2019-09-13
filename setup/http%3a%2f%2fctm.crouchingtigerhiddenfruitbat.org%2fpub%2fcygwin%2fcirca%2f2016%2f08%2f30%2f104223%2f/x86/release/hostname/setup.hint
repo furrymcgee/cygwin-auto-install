@@ -1,0 +1,6 @@
+category: Base
+requires: cygwin
+sdesc: "Show host name, domain name or network addresses"
+ldesc: "This package provides the Debian version of the hostname command.
+It can be used to display the system's host name, DNS domain name or
+network addresses."

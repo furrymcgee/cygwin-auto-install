@@ -1,0 +1,6 @@
+category: Libs Graphics
+requires: cygwin libEMF1 libgcc1 libgd3 libMagickC++6_6 libming1 libplotter2 libstdc++6 libzip2 
+sdesc: "A tool converting PostScript and PDF files into various vector graphic formats (runtime)"
+ldesc: "Converts Postscript and PDF files to various editable vector graphics formats, 
+including xfig, ai, idraw, metapost, gnu metafile, and others."
+external-source: pstoedit

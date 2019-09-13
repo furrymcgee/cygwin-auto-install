@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgcc1 
+sdesc: "Low-level pixel manipulation library"
+ldesc: "pixman is a library that provides low-level pixel manipulation
+features such as image compositing and trapezoid rasterization.  It is used
+primarily by the cairo library and the X server."
+external-source: pixman

@@ -1,0 +1,7 @@
+category: Perl
+requires: perl perl_base perl-HTTP-Date perl-HTTP-Message
+sdesc: "Perl distribution HTTP-Cookies"
+ldesc: "Perl distribution HTTP-Cookies, providing Perl modules:
+HTTP::Cookies HTTP::Cookies::Microsoft HTTP::Cookies::Netscape.
+
+HTTP cookie jars."

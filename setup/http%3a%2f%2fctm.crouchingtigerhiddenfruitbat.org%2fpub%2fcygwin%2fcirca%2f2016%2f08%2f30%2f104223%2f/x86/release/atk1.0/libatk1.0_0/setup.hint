@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libglib2.0_0 libintl8 
+sdesc: "Accessibility Toolkit library"
+ldesc: "The GNOME Accessibility Toolkit library"
+external-source: atk1.0

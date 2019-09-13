@@ -1,0 +1,7 @@
+category: Graphics Libs
+requires: libgcc1 libstdc++6 cygwin
+sdesc: "FlashPIX image library (runtime)"
+ldesc: "This package is the Flashpix OpenSource Toolkit and is based on
+source code obtained from the Digital Imaging Group Inc and the
+Eastman Kodak Company."
+external-source: libfpx

@@ -1,0 +1,7 @@
+category: Perl
+requires: perl_base perl-File-Find-Rule
+sdesc: "Perl distribution Data-Compare"
+ldesc: "Perl distribution Data-Compare, providing Perl modules:
+Data::Compare Data::Compare::Plugins::Scalar::Properties.
+
+Compare perl data structures."

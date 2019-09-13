@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libfam0 libffi6 libgcc1 libiconv2 libintl8 libpcre1 zlib0 desktop-file-utils gsettings-desktop-schemas shared-mime-info tzdata
+sdesc: "GNOME core C function library (runtime)"
+ldesc: "GLib is the low-level core library that forms the basis for
+projects such as GTK+ and GNOME. It provides data structure handling for C,
+portability wrappers, and interfaces for such runtime functionality as
+an event loop, threads, dynamic loading, and an object system."
+external-source: glib2.0

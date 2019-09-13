@@ -1,0 +1,4 @@
+category: Graphics
+requires: cygwin libgcc1 libplot2 libstdc++6 
+sdesc: "2-D scientific data plotting utilities"
+ldesc: "2-D vector graphics library and scientific data plotting programs"

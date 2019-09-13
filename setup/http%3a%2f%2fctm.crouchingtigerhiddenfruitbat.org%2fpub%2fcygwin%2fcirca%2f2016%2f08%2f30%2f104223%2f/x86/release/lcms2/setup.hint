@@ -1,0 +1,8 @@
+category: Graphics Libs
+requires: libjpeg8 liblcms2_2 libtiff6 cygwin
+sdesc: "Little color management engine (utilities)"
+ldesc: "Little CMS intends to be a small-footprint color management engine, with special
+focus on accuracy and performance. It uses the International Color Consortium
+standard (ICC), which is the modern standard when regarding to color management.
+The ICC specification is widely used and is referred to in many International and
+other de-facto standards."

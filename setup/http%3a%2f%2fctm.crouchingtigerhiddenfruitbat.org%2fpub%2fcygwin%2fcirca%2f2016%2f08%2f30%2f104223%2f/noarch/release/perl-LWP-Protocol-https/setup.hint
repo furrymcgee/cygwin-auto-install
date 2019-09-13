@@ -1,0 +1,7 @@
+category: Perl
+requires:  perl-IO-Socket-SSL perl-Mozilla-CA perl-Net-HTTP perl-libwww-perl
+sdesc: "Perl distribution LWP-Protocol-https"
+ldesc: "Perl distribution LWP-Protocol-https, providing Perl modules:
+LWP::Protocol::https LWP::Protocol::https::Socket.
+
+Provide https support for LWP::UserAgent."

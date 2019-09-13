@@ -1,0 +1,9 @@
+category: Libs
+requires: cygwin libiconv2 liblzma5 libreadline7 zlib0 
+sdesc: "GNOME XML library (runtime)"
+ldesc: "Libxml2 is the XML C parser and toolkit developed for the GNOME
+project. XML itself is a metalanguage to design markup languages, i.e. text
+language where semantic and structure are added to the content using extra
+'markup' information enclosed between angle brackets. HTML is the most well-
+known markup language. Though the library is written in C, a variety of
+language bindings make it available in other environments."

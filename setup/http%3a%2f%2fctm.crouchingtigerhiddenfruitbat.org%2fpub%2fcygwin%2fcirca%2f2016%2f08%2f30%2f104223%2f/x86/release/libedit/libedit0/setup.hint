@@ -1,0 +1,7 @@
+category: Libs
+requires: libncursesw10 cygwin
+sdesc: "The NetBSD Editline library (runtime)"
+ldesc: "Libedit is an autotool- and libtoolized port of the NetBSD Editline library.
+It provides generic line editing, history, and tokenization functions, similar
+to those found in GNU Readline."
+external-source: libedit

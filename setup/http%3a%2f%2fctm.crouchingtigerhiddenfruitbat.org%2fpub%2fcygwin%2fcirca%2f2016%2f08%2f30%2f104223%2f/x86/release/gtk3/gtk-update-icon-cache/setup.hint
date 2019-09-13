@@ -1,0 +1,7 @@
+category: X11
+requires: cygwin libgdk_pixbuf2.0_0 libglib2.0_0 libintl8 
+sdesc: "GTK+ icon theme cache utility"
+ldesc: "GTK+ is a multi-platform toolkit for creating graphical user
+interfaces. Offering a complete set of widgets, GTK+ is suitable for projects
+ranging from small one-off tools to complete application suites."
+external-source: gtk3

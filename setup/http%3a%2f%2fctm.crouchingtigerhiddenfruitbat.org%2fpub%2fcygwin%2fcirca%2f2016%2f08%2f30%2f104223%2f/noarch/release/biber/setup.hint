@@ -1,0 +1,7 @@
+category: Text
+requires: perl-Business-ISBN perl-Business-ISMN perl-Business-ISSN perl-Class-Accessor perl-Data-Compare perl-Data-Dump perl-Data-Uniqid perl-Date-Simple perl-File-Slurp perl-IO-String perl-IPC-Cmd perl-IPC-Run3 perl-libwww-perl perl-Lingua-Translit perl-List-AllUtils perl-Log-Log4perl perl-LWP-Protocol-https perl-Regexp-Common perl-Scalar-List-Utils perl-Text-BibTeX perl-Text-Roman perl-Unicode-Collate perl-Unicode-LineBreak perl-Unicode-Normalize perl-URI perl-XML-LibXML perl-XML-LibXML-Simple perl-XML-LibXSLT perl-XML-Writer perl_base texlive-collection-bibtexextra perl-autovivification
+sdesc: "BibTeX replacement for users of BibLaTeX"
+ldesc: "Biber is a BibTeX replacement for users of BibLaTeX.  Biber supports
+full UTF-8, can (re-)encode input and output, supports highly
+configurable sorting, dynamic bibliography sets, and many other
+features."

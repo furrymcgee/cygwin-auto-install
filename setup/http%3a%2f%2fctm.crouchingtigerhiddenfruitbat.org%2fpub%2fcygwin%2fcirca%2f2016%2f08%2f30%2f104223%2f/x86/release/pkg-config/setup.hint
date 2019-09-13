@@ -1,0 +1,5 @@
+category: Devel
+requires: cygwin libglib2.0_0 
+sdesc: "Package compiling configuration utility"
+ldesc: "pkg-config is a script to make putting together all the build
+flags when compiling/linking a lot easier."

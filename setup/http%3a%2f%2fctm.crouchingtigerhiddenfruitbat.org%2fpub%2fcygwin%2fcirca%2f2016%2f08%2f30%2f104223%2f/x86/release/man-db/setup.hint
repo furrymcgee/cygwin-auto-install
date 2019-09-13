@@ -1,0 +1,6 @@
+category: Base
+requires: cygwin libgcc1 libgdbm4 libiconv2 libintl8 libpipeline1 zlib0 groff gzip less libiconv util-linux
+sdesc: "Man page viewer"
+ldesc: "man-db is an implementation of the standard Unix documentation
+system accessed using the man command. It uses a Berkeley DB database in place
+of the traditional flat-text whatis databases."

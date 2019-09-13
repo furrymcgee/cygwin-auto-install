@@ -1,0 +1,4 @@
+sdesc: "XSI IPC maintenance utilities"
+ldesc: "XSI IPC maintenance utilities"
+category: Base
+requires: cygwin

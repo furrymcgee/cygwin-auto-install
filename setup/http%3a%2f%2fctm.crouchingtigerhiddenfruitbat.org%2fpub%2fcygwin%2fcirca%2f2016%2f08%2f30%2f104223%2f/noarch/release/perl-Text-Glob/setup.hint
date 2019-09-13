@@ -1,0 +1,7 @@
+category: Perl
+requires: perl_base 
+sdesc: "Perl distribution Text-Glob"
+ldesc: "Perl distribution Text-Glob, providing Perl modules:
+Text::Glob.
+
+Match globbing patterns against text."

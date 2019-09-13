@@ -1,0 +1,7 @@
+category: Perl
+requires: perl_base 
+sdesc: "Perl distribution Number-Compare"
+ldesc: "Perl distribution Number-Compare, providing Perl modules:
+Number::Compare.
+
+Numeric comparisons."

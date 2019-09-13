@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin
+sdesc: "X.Org Xauthority library"
+ldesc: "X.Org Xauthority library"
+external-source: libXau

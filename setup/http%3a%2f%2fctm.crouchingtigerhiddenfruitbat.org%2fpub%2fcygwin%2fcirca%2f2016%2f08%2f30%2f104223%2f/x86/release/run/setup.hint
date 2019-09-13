@@ -1,0 +1,4 @@
+category: Base
+requires: cygwin
+sdesc: "Launch cmdline programs with hidden console"
+ldesc: "Launch cmdline programs with hidden console"

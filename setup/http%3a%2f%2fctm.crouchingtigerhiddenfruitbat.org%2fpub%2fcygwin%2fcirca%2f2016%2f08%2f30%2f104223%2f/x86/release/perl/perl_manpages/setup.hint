@@ -1,0 +1,7 @@
+category: Interpreters Perl
+requires:  
+sdesc: "Perl programming language interpreter"
+ldesc: "Perl programming language interpreter
+
+Documentation formatted as manpages."
+external-source: perl

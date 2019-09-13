@@ -1,0 +1,6 @@
+category: Web
+requires: bash cygwin libapr1 libaprutil1 libgcc1 libpcre1 zlib0 
+sdesc: "Apache HTTP Server"
+ldesc: "The Apache HTTP Server Project is a collaborative software
+development effort aimed at creating a robust, commercial-grade, featureful,
+and freely-available source code implementation of an HTTP (Web) server."

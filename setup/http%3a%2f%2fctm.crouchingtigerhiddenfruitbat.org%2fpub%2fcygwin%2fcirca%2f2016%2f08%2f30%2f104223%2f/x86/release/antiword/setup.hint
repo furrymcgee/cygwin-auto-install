@@ -1,0 +1,9 @@
+# antiword
+sdesc: "A free MS Word reader"
+ldesc: "A free MS Word reader for Linux and RISC OS. 
+There are ports to BeOS, OS/2, Mac OS X, Amiga, VMS, 
+NetWare, EPOC, Zaurus PDA and DOS. Antiword converts the 
+binary files from Word 2, 6, 7, 97, 2000 and 2002 to 
+plain text, XML and to PostScript."
+requires: cygwin
+category: Text

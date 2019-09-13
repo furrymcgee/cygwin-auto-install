@@ -1,0 +1,6 @@
+category: Base Utils
+requires: cygwin
+sdesc: "Prints out full path of executables"
+ldesc: "GNU Which prints out the full path of the executables that
+bash(1) would execute when the passed program names would have been
+entered on the shell prompt. It uses the exact same algorithm as bash."

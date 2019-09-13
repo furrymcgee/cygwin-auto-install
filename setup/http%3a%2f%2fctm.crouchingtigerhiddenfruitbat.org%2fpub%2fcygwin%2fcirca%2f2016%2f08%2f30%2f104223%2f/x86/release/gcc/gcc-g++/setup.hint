@@ -1,0 +1,7 @@
+category: Devel
+requires: cygwin libgmp10 libiconv2 libintl8 libisl13 libmpc3 libmpfr4 libstdc++6 zlib0 gcc-core
+sdesc: "GNU Compiler Collection (C++)"
+ldesc: "The GNU Compiler Collection includes front ends for C, C++,
+Objective-C, Fortran, Java, Ada, and Go, as well as libraries for these
+languages (libstdc++, libgcj,...)."
+external-source: gcc

@@ -1,0 +1,7 @@
+category: Perl
+requires: perl_base 
+sdesc: "Perl distribution File-Which"
+ldesc: "Perl distribution File-Which, providing Perl modules:
+File::Which.
+
+Perl implementation of the which utility as an API."

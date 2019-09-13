@@ -1,0 +1,7 @@
+sdesc: "Utilities for managing filesystem extended attributes"
+ldesc: "A set of tools for manipulating extended attributes on filesystem
+objects, in particular getfattr(1) and setfattr(1).
+An attr(1) command is also provided which is largely compatible
+with the SGI IRIX tool of the same name."
+category: System Admin
+requires: libintl8 libattr1

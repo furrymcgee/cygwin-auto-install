@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin 
+sdesc: "S2TC texture compression library (runtime)"
+ldesc: "S2TC (Super Simple Texture Compression) is a patent-free texture
+compression algorithm designed to be compatible with existing S3TC decompressors.
+Also included is a libtxc_dxtn replacement that uses S2TC to compress and
+decompress textures, which can be directly used by Mesa/DRI."
+external-source: s2tc

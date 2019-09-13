@@ -1,0 +1,7 @@
+category: Publishing
+requires: bash coreutils perl-Digest-SHA perl-HTTP-Message perl-IO-String perl-libwww-perl perl-Tk perl-XML-Parser perl_base cygutils dialog ed ghostscript gnupg grep sed texlive wget
+sdesc: "TeX Live basic package collection"
+ldesc: "TeX Live is an easy way to get up and running with the TeX
+document production system.  It includes all the major TeX-related
+programs, macro packages, and fonts that are free software, including
+support for many languages around the world."

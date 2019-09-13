@@ -1,0 +1,8 @@
+category: Perl
+requires: perl-Module-Runtime perl-Try-Tiny perl_base 
+sdesc: "Perl distribution Module-Implemenation"
+ldesc: "This module abstracts out the process of choosing one of several
+underlying implementations for a module. This can be used to provide XS and
+pure Perl implementations of a module, or it could be used to load an
+implementation for a given OS or any other case of needing to provide multiple
+implementations."

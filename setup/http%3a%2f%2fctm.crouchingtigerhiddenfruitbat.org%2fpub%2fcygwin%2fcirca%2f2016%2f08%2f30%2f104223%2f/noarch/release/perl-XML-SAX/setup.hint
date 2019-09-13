@@ -1,0 +1,11 @@
+category: Perl
+requires: perl perl_base perl-XML-NamespaceSupport perl-XML-SAX-Base
+sdesc: "Perl distribution XML-SAX"
+ldesc: "Perl distribution XML-SAX, providing Perl modules:
+XML::SAX XML::SAX::DocumentLocator XML::SAX::ParserFactory
+XML::SAX::PurePerl XML::SAX::PurePerl::DebugHandler
+XML::SAX::PurePerl::Exception XML::SAX::PurePerl::Productions
+XML::SAX::PurePerl::Reader XML::SAX::PurePerl::Reader::Stream
+XML::SAX::PurePerl::Reader::String XML::SAX::PurePerl::Reader::URI.
+
+Simple API for XML."

@@ -1,0 +1,12 @@
+category: Devel Interpreters Math Shells
+requires: bash cygwin libcrypt0 libdb4.8 libfcgi0 libgcc1 libgdbm4 libintl8 libncursesw10 libpcre1 libpq5 libreadline7 libsigsegv2 libsvm2 zlib0 
+sdesc: "An ANSI Common Lisp implementation"
+ldesc: "ANSI Common Lisp is a high-level, general-purpose programming
+language.  GNU CLISP is a Common Lisp implementation by Bruno Haible
+of Karlsruhe University and Michael Stoll of Munich University, both
+in Germany.  It mostly supports the Lisp described in the ANSI Common
+Lisp standard.  GNU CLISP includes an interpreter, a compiler, a
+debugger, CLOS, MOP, a foreign language interface, sockets, i18n, fast
+bignums, and more.  An X11 interface is available through CLX, Garnet,
+CLUE/CLIO.  GNU CLISP runs Maxima, ACL2, and many other Common Lisp
+packages."

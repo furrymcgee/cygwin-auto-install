@@ -1,0 +1,7 @@
+category: Perl
+requires: perl_base 
+sdesc: "Perl distribution Module-Load-Conditional"
+ldesc: "Perl distribution Module-Load-Conditional, providing Perl modules:
+Module::Load::Conditional.
+
+Looking up module information / loading at runtime."

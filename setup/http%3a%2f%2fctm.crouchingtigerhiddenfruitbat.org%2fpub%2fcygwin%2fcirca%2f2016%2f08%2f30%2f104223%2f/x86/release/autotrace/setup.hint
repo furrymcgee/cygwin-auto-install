@@ -1,0 +1,6 @@
+category: Graphics Libs
+requires: cygwin libautotrace3 
+sdesc: "A program for converting bitmap to vector graphics (utilities)"
+ldesc: "AutoTrace is a program for converting bitmap to vector graphics.
+The aim of the AutoTrace project is the development of a freely available application
+with a functionality similar to CorelTrace or Adobe Streamline."

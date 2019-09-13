@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libatk1.0_0 libcairo2 libgcc1 libgdk_pixbuf2.0_0 libglib2.0_0 libgsf1_114 libgtk3_0 libintl8 liblasem0.4_4 libpango1.0_0 librsvg2_2 libspectre1 libxml2 libxslt 
+sdesc: "GNOME office application library"
+ldesc: "A set of document-centric objects and utilities for GNOME"
+external-source: goffice0.10

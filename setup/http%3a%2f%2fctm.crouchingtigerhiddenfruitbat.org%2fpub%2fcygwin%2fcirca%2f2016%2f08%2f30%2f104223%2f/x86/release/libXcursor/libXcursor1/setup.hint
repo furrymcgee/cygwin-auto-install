@@ -1,0 +1,5 @@
+category: Libs
+requires: libX11_6 libXfixes3 libXrender1 cygwin
+sdesc: "X.Org Xcursor library"
+ldesc: "X.Org Xcursor library"
+external-source: libXcursor

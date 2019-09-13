@@ -1,0 +1,8 @@
+category: Net
+requires: bash libcrypt0 libgcc1 libwrap0 csih terminfo cygwin
+sdesc: "Common networking clients and servers (servers)"
+ldesc: "inetutils provides common networking clients and
+servers, including the inetd super-server, telnetd and
+telnet, ftpd and ftp, talkd and talk, uucpd (but no uucp
+client), and syslogd."
+external-source: inetutils

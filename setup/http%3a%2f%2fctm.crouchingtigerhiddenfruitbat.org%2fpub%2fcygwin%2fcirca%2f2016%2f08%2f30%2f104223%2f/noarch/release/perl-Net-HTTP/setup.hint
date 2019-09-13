@@ -1,0 +1,7 @@
+category: Perl
+requires: perl perl_base perl-URI
+sdesc: "Perl distribution Net-HTTP"
+ldesc: "Perl distribution Net-HTTP, providing Perl modules:
+Net::HTTP Net::HTTP::Methods Net::HTTP::NB Net::HTTPS.
+
+Low-level HTTP connection (client)."

@@ -1,0 +1,11 @@
+category: Text
+requires: bash libgcc1 libiconv2 libstdc++6 sed cygwin
+sdesc: "GNU roff formatter"
+ldesc: "GNU roff formatter
+
+Groff is a document formatting system. Groff takes standard text and
+formatting commands as input and produces formatted output. The
+created documents can be shown on a display or printed on a printer.
+Groff's formatting commands allow you to specify font type and size,
+bold type, italic type, the number and size of columns on a page, and
+more."

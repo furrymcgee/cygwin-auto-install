@@ -1,0 +1,7 @@
+category: Perl
+requires: perl perl_base 
+sdesc: "Perl distribution Data-Uniqid"
+ldesc: "Perl distribution Data-Uniqid, providing Perl modules:
+Data::Uniqid.
+
+Perl extension for simple genrating of unique id's."

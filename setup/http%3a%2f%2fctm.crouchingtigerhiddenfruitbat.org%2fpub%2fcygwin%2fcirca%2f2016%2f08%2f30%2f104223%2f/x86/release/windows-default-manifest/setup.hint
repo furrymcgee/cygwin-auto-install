@@ -1,0 +1,7 @@
+category: Devel
+requires:  
+sdesc: "Default Windows application manifest"
+ldesc: "The Default Windows application manifest is linked to
+applications by default to claim compatibility with the latest Windows
+versions.  The package version number reflects the latest Windows kernel
+version supported by this manifest."

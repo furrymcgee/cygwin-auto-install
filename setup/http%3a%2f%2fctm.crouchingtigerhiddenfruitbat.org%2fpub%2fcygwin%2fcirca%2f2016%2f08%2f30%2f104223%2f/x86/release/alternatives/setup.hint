@@ -1,0 +1,6 @@
+category: Base
+sdesc: "A tool for managing package conflicts"
+ldesc: "The alternatives provides mechanisms for maintaining a database of, and
+managing, other packages which might be in conflict with each other.
+The end user can easily switch between the desired versions."
+requires: libintl8 libiconv2 cygwin

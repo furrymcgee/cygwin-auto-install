@@ -1,0 +1,9 @@
+category: Libs
+requires: cygwin 
+sdesc: "Library for handling page faults in user mode (runtime)"
+ldesc: "Library for handling page faults in user mode. A page fault
+occurs when a program tries to access a region of memory that is not
+currently available. This can be used to implement stack overflow
+detection, memory-mapped access to persistent databases, generational
+garbage collectors, and other tools."
+external-source: libsigsegv

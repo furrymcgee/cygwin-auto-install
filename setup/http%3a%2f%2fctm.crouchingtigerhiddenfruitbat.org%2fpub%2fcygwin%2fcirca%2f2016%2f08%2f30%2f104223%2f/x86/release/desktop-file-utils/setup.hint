@@ -1,0 +1,4 @@
+category: X11
+requires: cygwin libglib2.0_0 libintl8 
+sdesc: "Utilities for manipulating desktop files"
+ldesc: "Utilities for manipulating desktop files"

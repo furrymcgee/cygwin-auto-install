@@ -1,0 +1,8 @@
+category: Perl
+requires: perl_base perl-List-SomeUtils perl-List-UtilsBy perl-Scalar-List-Utils
+sdesc: "Perl distribution List-AllUtils"
+ldesc: "Perl distribution List-AllUtils, providing Perl modules:
+List::AllUtils.
+
+Combines List::Util, List::SomeUtils and List::UtilsBy in one bite-sized
+package."

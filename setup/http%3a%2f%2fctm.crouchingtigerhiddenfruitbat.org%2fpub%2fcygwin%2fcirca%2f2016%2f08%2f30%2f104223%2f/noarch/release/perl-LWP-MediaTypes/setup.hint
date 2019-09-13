@@ -1,0 +1,7 @@
+category: Perl
+requires: perl_base 
+sdesc: "Perl distribution LWP-MediaTypes"
+ldesc: "Perl distribution LWP-MediaTypes, providing Perl modules:
+LWP::MediaTypes.
+
+Guess media type for a file or a URL."

@@ -1,0 +1,9 @@
+category: Perl
+requires: libexpat1 libssp0 perl_base perl-libwww-perl cygwin
+sdesc: "Perl distribution XML-Parser"
+ldesc: "Perl distribution XML-Parser, providing Perl modules:
+XML::Parser XML::Parser::Expat XML::Parser::Style::Debug
+XML::Parser::Style::Objects XML::Parser::Style::Stream
+XML::Parser::Style::Subs XML::Parser::Style::Tree.
+
+A perl module for parsing XML documents."

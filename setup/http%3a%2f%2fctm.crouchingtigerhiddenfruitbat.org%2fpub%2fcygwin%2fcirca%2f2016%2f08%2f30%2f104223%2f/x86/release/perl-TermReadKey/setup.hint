@@ -1,0 +1,7 @@
+category: Perl
+requires: libssp0 perl_base cygwin
+sdesc: "Perl distribution TermReadKey"
+ldesc: "Perl distribution TermReadKey, providing Perl modules:
+Term::ReadKey.
+
+A perl module for simple terminal control."

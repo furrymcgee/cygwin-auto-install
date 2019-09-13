@@ -1,0 +1,4 @@
+category: Interpreters Tcl X11
+requires: bash cygwin libfontconfig1 libX11_6 libXft2 libXss1 tcl 
+sdesc: "Tcl X11 toolkit"
+ldesc: "An X11 toolkit implemented with the Tcl scripting language."

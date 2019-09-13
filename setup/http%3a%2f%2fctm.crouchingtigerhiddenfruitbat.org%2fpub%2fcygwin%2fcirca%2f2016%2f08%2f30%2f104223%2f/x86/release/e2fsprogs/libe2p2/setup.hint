@@ -1,0 +1,6 @@
+category: System
+requires: cygwin
+sdesc: "Ext2fs programs utility library (runtime)"
+ldesc: "This package contains all of the standard utilities for creating,
+fixing, configuring, and debugging ext2/3/4 filesystems."
+external-source: e2fsprogs

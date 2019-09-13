@@ -1,0 +1,7 @@
+category: Perl
+requires: perl perl_base perl-URI
+sdesc: "Perl distribution WWW-RobotRules"
+ldesc: "Perl distribution WWW-RobotRules, providing Perl modules:
+WWW::RobotRules WWW::RobotRules::AnyDBM_File WWW::RobotRules::InCore.
+
+Database of robots.txt-derived permissions."

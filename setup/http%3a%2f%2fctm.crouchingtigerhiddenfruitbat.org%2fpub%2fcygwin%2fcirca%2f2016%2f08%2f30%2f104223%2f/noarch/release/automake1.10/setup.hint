@@ -1,0 +1,10 @@
+category: Devel
+requires: bash perl autoconf autoconf2.5 coreutils xz m4 texinfo alternatives
+sdesc: "(1.10) a tool for generating GNU-compliant Makefiles"
+ldesc: "This is Automake, a Makefile generator.  It was inspired
+by the 4.4BSD make and include files, but aims to be portable and
+to conform to the GNU standards for Makefile variables and targets.
+
+Automake1.10 contains automake-1.10.x, and may be installed alongside
+other versions such as automake1.6, automake1.8, etc."
+

@@ -1,0 +1,5 @@
+category: Archive
+requires: cygwin 
+sdesc: "LZ4 de/compressor"
+ldesc: "LZ4 is an LZ77-type compressor with a fixed, byte-oriented
+encoding. The most important design principle behind LZ4 is simplicity."

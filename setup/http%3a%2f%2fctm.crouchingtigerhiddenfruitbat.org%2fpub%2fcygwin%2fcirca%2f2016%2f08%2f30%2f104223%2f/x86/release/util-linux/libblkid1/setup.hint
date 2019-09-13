@@ -1,0 +1,5 @@
+category: Libs
+requires: libgcc1 libintl8 libuuid1 cygwin
+sdesc: "Block device ID library (runtime)"
+ldesc: "Block device ID library (runtime)"
+external-source: util-linux

@@ -1,0 +1,7 @@
+category: Perl
+requires: perl perl_base perl-HTTP-Date perl-HTTP-Message perl-LWP-MediaTypes
+sdesc: "Perl distribution HTTP-Daemon"
+ldesc: "Perl distribution HTTP-Daemon, providing Perl modules:
+HTTP::Daemon HTTP::Daemon::ClientConn.
+
+A simple http server class."

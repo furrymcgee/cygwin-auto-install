@@ -1,0 +1,7 @@
+category: Perl
+requires: perl_base 
+sdesc: "Perl distribution Business-ISBN-Data"
+ldesc: "Perl distribution Business-ISBN-Data, providing Perl modules:
+Business::ISBN::Data.
+
+Data pack for Business::ISBN."

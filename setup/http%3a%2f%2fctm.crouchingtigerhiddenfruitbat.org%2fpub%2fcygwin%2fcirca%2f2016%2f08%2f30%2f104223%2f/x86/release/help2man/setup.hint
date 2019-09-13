@@ -1,0 +1,5 @@
+category: Devel
+requires: cygwin perl-gettext perl_base libintl8
+sdesc: "Creates man pages from program output"
+ldesc: "Perl script that automatically creates man pages from the output
+from a program's --help and --version options."

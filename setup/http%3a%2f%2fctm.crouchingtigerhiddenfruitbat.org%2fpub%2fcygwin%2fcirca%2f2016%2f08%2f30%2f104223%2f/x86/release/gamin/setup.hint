@@ -1,0 +1,5 @@
+category: Libs
+requires: libglib2.0_0 cygwin
+sdesc: "File Alteration Monitor system (daemon)"
+ldesc: "Gamin is a file and directory monitoring system defined to be
+a subset of the FAM (File Alteration Monitor) system."

@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libX11_6 libXext6 libXmu6 libXpm4 libXt6 
+sdesc: "X.Org Athena Widgets library"
+ldesc: "Xaw is a widget set based on the X Toolkit Intrinsics (Xt) library."
+external-source: libXaw

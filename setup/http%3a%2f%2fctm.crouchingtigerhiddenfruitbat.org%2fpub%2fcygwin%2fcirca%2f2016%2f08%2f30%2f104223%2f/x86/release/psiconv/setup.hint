@@ -1,0 +1,6 @@
+category: Text
+requires: libMagickCore6_2 libpsiconv6 cygwin
+sdesc: "Psion Series 5 document conversion utility"
+ldesc: "This package is meant to make the Psion 5 series of PDAs, as
+well as other small computers running EPOC 32, more usable to non-Windows
+users."

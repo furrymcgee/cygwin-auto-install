@@ -1,0 +1,6 @@
+category: Perl
+requires: cygwin libsasl2_3 libssp0 perl_base 
+sdesc: "Perl distribution Authen-SASL-XS"
+ldesc: "SASL is a generic mechanism for authentication used by several
+network protocols. Authen::SASL provides an implementation framework that all
+protocols should be able to share."

@@ -1,0 +1,7 @@
+category: Perl
+requires: cygwin libgcc1 libssp0 perl perl_base 
+sdesc: "Perl distribution Scalar-List-Utils"
+ldesc: "Perl distribution Scalar-List-Utils, providing Perl modules:
+List::Util List::Util::XS Scalar::Util Sub::Util.
+
+Common Scalar and List utility subroutines."

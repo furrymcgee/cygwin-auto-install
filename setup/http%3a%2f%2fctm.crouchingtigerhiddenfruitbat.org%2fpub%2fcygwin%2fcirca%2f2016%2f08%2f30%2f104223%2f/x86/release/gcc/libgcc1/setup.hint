@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin 
+sdesc: "GCC C runtime library"
+ldesc: "The GNU Compiler Collection includes front ends for C, C++,
+Objective-C, Fortran, Java, Ada, and Go, as well as libraries for these
+languages (libstdc++, libgcj,...)."
+external-source: gcc

@@ -1,0 +1,7 @@
+category: Libs
+requires: libX11_6 libXext6 libXt6 cygwin
+sdesc: "X.Org miscellaneous utility libraries"
+ldesc: "This library contains miscellaneous utilities and is not part
+of the Xlib standard.  It contains routines which only use public interfaces
+so that it may be layered on top of any implementation of Xlib or Xt."
+external-source: libXmu

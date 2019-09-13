@@ -1,0 +1,6 @@
+category: Devel
+requires: cygwin 
+sdesc: "Libtool dynamic library loader library (runtime)"
+ldesc: "GNU libtool is a generic library support script. Libtool hides the
+complexity of using shared libraries behind a consistent, portable interface."
+external-source: libtool

@@ -1,0 +1,7 @@
+category: Perl
+requires: perl_base perl-Number-Compare perl-Text-Glob
+sdesc: "Perl distribution File-Find-Rule"
+ldesc: "Perl distribution File-Find-Rule, providing Perl modules:
+File::Find::Rule File::Find::Rule::Test::ATeam.
+
+Alternative interface to File::Find."

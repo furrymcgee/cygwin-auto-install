@@ -1,0 +1,11 @@
+category: Libs
+requires: cygwin libexpat1 libgcc1 libX11-xcb1 libxcb1 dri-drivers libglapi0
+sdesc: "Embedded GL native platform interface library (runtime)"
+ldesc: "Mesa is an open-source implementation of the OpenGL, OpenGL ES,
+and EGL specifications for rendering interactive 3D graphics.
+
+Complete documentation on OpenGL usage and configuration can be found here:
+
+http://x.cygwin.com/docs/ug/using-glx.html
+"
+external-source: mesa

@@ -1,0 +1,10 @@
+category: Devel Text
+requires: cygwin libssp0 perl-Pod-Simple perl-Unicode-Normalize perl_base info
+sdesc: "GNU documentation formatter"
+ldesc: "Texinfo is the official documentation format of the GNU project.  It
+uses a single source file to produce output in a number of formats,
+both online and printed (dvi, html, info, pdf, xml, etc.).  This means
+that instead of writing different documents for online information and
+another for a printed manual, you need write only one document.  The
+Texinfo system is well-integrated with GNU Emacs.  This package
+supplies everything needed for all but the printable formats."

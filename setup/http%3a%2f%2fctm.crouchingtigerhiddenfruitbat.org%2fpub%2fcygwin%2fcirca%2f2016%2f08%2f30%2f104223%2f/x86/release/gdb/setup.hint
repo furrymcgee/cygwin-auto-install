@@ -1,0 +1,6 @@
+category: Devel
+requires: cygwin libexpat1 libiconv2 libintl8 liblzma5 libncursesw10 libreadline7 python 
+sdesc: "The GNU Debugger"
+ldesc: "The GNU debugger, allows you to debug programs written in C, C++,
+and other languages, by executing them in a controlled fashion
+and printing their data."

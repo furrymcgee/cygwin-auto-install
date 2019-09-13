@@ -1,0 +1,10 @@
+category: Libs
+requires:  
+sdesc: "Command-line option parser library"
+ldesc: "The popt library exists essentially for parsing command line options.
+Some specific advantages of popt are no global variables (allowing multiple
+passes in parsing argv), parsing an arbitrary array of argv-style elements
+(allowing parsing of command-line-strings from any source), a standard method
+of option aliasing, ability to exec external option filters, and automatic
+generation of help and usage messages."
+external-source: popt

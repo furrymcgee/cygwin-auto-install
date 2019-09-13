@@ -1,0 +1,11 @@
+category: Perl
+requires: cygwin libssp0 perl perl_base perl-Scalar-List-Utils
+sdesc: "Perl distribution Text-BibTeX"
+ldesc: "Perl distribution Text-BibTeX, providing Perl modules:
+Text::BibTeX Text::BibTeX::BibEntry Text::BibTeX::BibFormat
+Text::BibTeX::BibSort Text::BibTeX::BibStructure Text::BibTeX::Entry
+Text::BibTeX::File Text::BibTeX::Name Text::BibTeX::NameFormat
+Text::BibTeX::SimpleValue Text::BibTeX::Structure
+Text::BibTeX::StructuredEntry Text::BibTeX::Value.
+
+Interface to read and parse BibTeX files."

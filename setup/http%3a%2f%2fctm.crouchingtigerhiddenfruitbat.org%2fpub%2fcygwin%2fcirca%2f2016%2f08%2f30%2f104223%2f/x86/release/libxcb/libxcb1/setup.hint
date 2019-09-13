@@ -1,0 +1,9 @@
+category: Libs
+requires: cygwin libXau6 libXdmcp6 
+sdesc: "X Protocol C-Language Bindings (core runtime)"
+ldesc: "libxcb provides an interface to the X Window System protocol,
+which replaces the current Xlib interface. Xlib can also use XCB as a transport
+layer, allowing software to make requests and receive responses with both,
+which eases porting to XCB. However, client programs, libraries, and toolkits
+will gain the most benefit from a native XCB port."
+external-source: libxcb

@@ -1,0 +1,4 @@
+sdesc: "Miscellaneous fonts derived from the free Hershey fonts, with improvements for ghostscript"
+ldesc: "Miscellaneous fonts derived from the free Hershey fonts, with improvements for ghostscript"
+category: Graphics
+requires: cygwin

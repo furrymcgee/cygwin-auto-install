@@ -1,0 +1,8 @@
+category: Editors
+requires: cygwin 
+sdesc: "Hexdump utility"
+ldesc: "Vim (Vi IMproved) is an almost compatible version of the UNIX
+editor vi. Almost every possible command can be performed using only ASCII
+characters. Many new features have been added: multilevel undo, command line
+history, file name completion, block operations, and editing of binary data."
+external-source: vim

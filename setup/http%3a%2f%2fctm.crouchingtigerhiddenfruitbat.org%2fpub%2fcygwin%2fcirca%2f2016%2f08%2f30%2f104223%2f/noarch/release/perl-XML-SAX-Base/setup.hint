@@ -1,0 +1,7 @@
+category: Perl
+requires: perl_base 
+sdesc: "Perl distribution XML-SAX-Base"
+ldesc: "Perl distribution XML-SAX-Base, providing Perl modules:
+XML::SAX::Base XML::SAX::Base::NoHandler XML::SAX::Exception.
+
+Base class for SAX Drivers and Filters."

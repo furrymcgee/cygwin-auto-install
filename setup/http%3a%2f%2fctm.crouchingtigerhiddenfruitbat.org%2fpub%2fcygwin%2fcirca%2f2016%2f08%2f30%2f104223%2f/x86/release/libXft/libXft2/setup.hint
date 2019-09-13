@@ -1,0 +1,5 @@
+category: Libs
+requires: libfontconfig1 libfreetype6 libX11_6 libXrender1 cygwin
+sdesc: "X.Org X Freetype library"
+ldesc: "X.Org X Freetype library"
+external-source: libXft

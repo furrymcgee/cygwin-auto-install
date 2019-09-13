@@ -1,0 +1,7 @@
+category: Perl
+requires: libintl8 perl perl_base cygwin
+sdesc: "Perl distribution gettext"
+ldesc: "Perl distribution gettext, providing Perl modules:
+Locale::gettext.
+
+Perl bindings for POSIX i18n gettext functions."

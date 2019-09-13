@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libfreetype6 libgif4 libpng16 zlib0 
+sdesc: "A library for generating Macromedia Flash files (runtime)"
+ldesc: "Ming is a library for generating Macromedia Flash files (.swf), written in C, and includes useful 
+utilities for working with .swf files.
+It has wrappers that allow it to be used in C++, PHP, Python, Ruby, and Perl."
+external-source: ming

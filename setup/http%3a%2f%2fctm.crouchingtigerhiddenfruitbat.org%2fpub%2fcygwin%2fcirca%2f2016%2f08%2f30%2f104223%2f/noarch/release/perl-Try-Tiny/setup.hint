@@ -1,0 +1,7 @@
+category: Perl
+requires: perl perl_base 
+sdesc: "Perl distribution Try-Tiny"
+ldesc: "Perl distribution Try-Tiny, providing Perl modules:
+Try::Tiny.
+
+Minimal try/catch with proper preservation of perl-Try-Tiny finish download prep compile inst depend package test."

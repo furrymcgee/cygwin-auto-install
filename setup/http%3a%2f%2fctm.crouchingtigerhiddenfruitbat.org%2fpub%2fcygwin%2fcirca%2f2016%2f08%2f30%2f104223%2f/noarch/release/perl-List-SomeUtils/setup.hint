@@ -1,0 +1,7 @@
+category: Perl
+requires: perl_base perl-Module-Implementation
+sdesc: "Perl distribution List-SomeUtils"
+ldesc: "Perl distribution List-SomeUtils, providing Perl modules:
+List::SomeUtils List::SomeUtils::PP.
+
+Provide the stuff missing in List::Util."

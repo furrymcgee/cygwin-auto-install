@@ -1,0 +1,7 @@
+category: Perl
+requires: perl perl_base ca-certificates
+sdesc: "Perl distribution Mozilla-CA"
+ldesc: "Perl distribution Mozilla-CA, providing Perl modules:
+Mozilla::CA.
+
+Mozilla's CA cert bundle in PEM format."

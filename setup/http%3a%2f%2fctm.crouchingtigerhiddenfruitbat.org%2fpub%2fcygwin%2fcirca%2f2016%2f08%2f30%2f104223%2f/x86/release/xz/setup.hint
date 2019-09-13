@@ -1,0 +1,5 @@
+category: Archive
+requires: bash cygwin libgcc1 libintl8 liblzma5 
+sdesc: "LZMA de/compressor"
+ldesc: "XZ Utils is free general-purpose data compression software with
+high compression ratio. XZ Utils are the successor to LZMA Utils."

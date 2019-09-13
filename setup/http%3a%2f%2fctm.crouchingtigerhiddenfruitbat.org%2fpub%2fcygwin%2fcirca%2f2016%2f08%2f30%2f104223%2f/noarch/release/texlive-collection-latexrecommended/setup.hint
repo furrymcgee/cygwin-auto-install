@@ -1,0 +1,7 @@
+category: Publishing
+requires: coreutils perl_base texlive-collection-basic texlive-collection-latex
+sdesc: "TeX Live latexrecommended package collection"
+ldesc: "TeX Live is an easy way to get up and running with the TeX
+document production system.  It includes all the major TeX-related
+programs, macro packages, and fonts that are free software, including
+support for many languages around the world."

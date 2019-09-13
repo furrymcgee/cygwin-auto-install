@@ -1,0 +1,8 @@
+category: Python
+requires: cygwin libgcc1 liblapack0 python python-setuptools 
+sdesc: "Python scientific computing module"
+ldesc: "The fundamental package needed for scientific computing with
+Python is called NumPy.  This package contains a powerful N-dimensional
+array object, sophisticated (broadcasting) functions, tools for
+integrating C/C++ and Fortran code, and useful linear algebra, Fourier
+transform, and random number capabilities."

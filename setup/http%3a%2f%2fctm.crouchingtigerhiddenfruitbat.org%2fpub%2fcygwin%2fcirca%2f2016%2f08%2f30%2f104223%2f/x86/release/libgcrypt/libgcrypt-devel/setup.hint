@@ -1,0 +1,6 @@
+category: Libs
+requires: bash cygwin libgcrypt20 libgpg-error-devel libgpg-error0 libgpg-error-devel
+sdesc: "GnuPG cryptography library"
+ldesc: "Libgcrypt is a general purpose crypto library based on the code
+used in GnuPG."
+external-source: libgcrypt

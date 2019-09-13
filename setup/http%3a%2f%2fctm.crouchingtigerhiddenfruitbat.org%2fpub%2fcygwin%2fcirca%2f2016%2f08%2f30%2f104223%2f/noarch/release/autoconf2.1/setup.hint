@@ -1,0 +1,17 @@
+category: Devel
+requires: bash perl m4 coreutils info
+sdesc: "Stable version of the automatic configure script builder"
+ldesc: "Autoconf is an extensible package of m4 macros that produce shell
+scripts to automatically configure software source code packages.
+These scripts can adapt the packages to many kinds of UNIX-like
+systems without manual user intervention.  Autoconf creates a
+configuration script for a package from a template file that lists the
+operating system features that the package can use, in the form of m4
+macro calls.
+
+Autoconf2.1 contains autoconf-2.13, and is meant to be installed
+alongside autoconf2.5 (which contains autoconf-2.5x) and alongside
+the 'autoconf' package, which contains wrapper scripts which call the
+appropriate 'real' autoconf, stable or devel, based on target package
+heuristics."
+

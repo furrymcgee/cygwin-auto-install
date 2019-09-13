@@ -1,0 +1,6 @@
+category: Devel Text
+requires: bash perl-Carp perl-gettext perl-TermReadKey perl-Text-WrapI18N perl-Unicode-LineBreak perl_base gettext OpenSP
+sdesc: "Tools for translating various file formats with gettext"
+ldesc: "The po4a (PO for anything) project goal is to ease translations
+(and more interestingly, the maintenance of translations) using gettext tools
+on areas where they were not expected like documentation."

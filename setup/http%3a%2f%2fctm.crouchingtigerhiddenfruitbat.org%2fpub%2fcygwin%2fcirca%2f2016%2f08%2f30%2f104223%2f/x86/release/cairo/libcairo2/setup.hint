@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libEGL1 libfontconfig1 libfreetype6 libgcc1 libGL1 libglib2.0_0 liblzo2_2 libpixman1_0 libpng16 libX11_6 libxcb-render0 libxcb-shm0 libxcb1 libXext6 libXrender1 zlib0 
+sdesc: "Cross-device vector graphics library"
+ldesc: "Cairo is a 2D graphics library with support for multiple output
+devices. Currently supported output targets include the X Window System
+(via both Xlib and XCB), quartz, win32, and image buffers, as well as PDF,
+PostScript, and SVG file output."
+external-source: cairo

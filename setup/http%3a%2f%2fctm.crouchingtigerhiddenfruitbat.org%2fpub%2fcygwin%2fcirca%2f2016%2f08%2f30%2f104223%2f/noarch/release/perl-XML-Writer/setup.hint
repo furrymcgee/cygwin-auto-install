@@ -1,0 +1,7 @@
+category: Perl
+requires: perl_base 
+sdesc: "Perl distribution XML-Writer"
+ldesc: "Perl distribution XML-Writer, providing Perl modules:
+XML::Writer XML::Writer::_PrintChecker XML::Writer::_String.
+
+Easily generate well-formed, namespace-aware XML."

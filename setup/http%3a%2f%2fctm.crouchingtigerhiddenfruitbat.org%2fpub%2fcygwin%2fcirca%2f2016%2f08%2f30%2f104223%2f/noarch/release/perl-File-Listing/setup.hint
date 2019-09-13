@@ -1,0 +1,8 @@
+category: Perl
+requires: perl perl_base perl-HTTP-Date
+sdesc: "Perl distribution File-Listing"
+ldesc: "Perl distribution File-Listing, providing Perl modules:
+File::Listing File::Listing::apache File::Listing::dosftp
+File::Listing::netware File::Listing::unix File::Listing::vms.
+
+Parse directory listing."

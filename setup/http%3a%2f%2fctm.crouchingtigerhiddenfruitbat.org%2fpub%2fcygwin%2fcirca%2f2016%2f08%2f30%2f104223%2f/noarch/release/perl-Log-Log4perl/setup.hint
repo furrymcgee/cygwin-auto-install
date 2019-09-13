@@ -1,0 +1,35 @@
+category: Perl
+requires: perl perl_base 
+sdesc: "Perl distribution Log-Log4perl"
+ldesc: "Perl distribution Log-Log4perl, providing Perl modules:
+L4pResurrectable Log::Log4perl Log::Log4perl::Appender
+Log::Log4perl::Appender::Buffer Log::Log4perl::Appender::DBI
+Log::Log4perl::Appender::File Log::Log4perl::Appender::Limit
+Log::Log4perl::Appender::RRDs Log::Log4perl::Appender::Screen
+Log::Log4perl::Appender::ScreenColoredLevels
+Log::Log4perl::Appender::Socket Log::Log4perl::Appender::String
+Log::Log4perl::Appender::Synchronized
+Log::Log4perl::Appender::TestArrayBuffer
+Log::Log4perl::Appender::TestBuffer
+Log::Log4perl::Appender::TestFileCreeper Log::Log4perl::Catalyst
+Log::Log4perl::Config Log::Log4perl::Config::BaseConfigurator
+Log::Log4perl::Config::DOMConfigurator
+Log::Log4perl::Config::PropertyConfigurator Log::Log4perl::Config::Watch
+Log::Log4perl::DateFormat Log::Log4perl::Filter
+Log::Log4perl::Filter::Boolean Log::Log4perl::Filter::LevelMatch
+Log::Log4perl::Filter::LevelRange Log::Log4perl::Filter::MDC
+Log::Log4perl::Filter::StringMatch Log::Log4perl::InternalDebug
+Log::Log4perl::JavaMap Log::Log4perl::JavaMap::ConsoleAppender
+Log::Log4perl::JavaMap::FileAppender Log::Log4perl::JavaMap::JDBCAppender
+Log::Log4perl::JavaMap::NTEventLogAppender
+Log::Log4perl::JavaMap::RollingFileAppender
+Log::Log4perl::JavaMap::SyslogAppender Log::Log4perl::JavaMap::TestBuffer
+Log::Log4perl::Layout Log::Log4perl::Layout::NoopLayout
+Log::Log4perl::Layout::PatternLayout
+Log::Log4perl::Layout::PatternLayout::Multiline
+Log::Log4perl::Layout::SimpleLayout Log::Log4perl::Level
+Log::Log4perl::Logger Log::Log4perl::MDC Log::Log4perl::NDC
+Log::Log4perl::Resurrector Log::Log4perl::Util
+Log::Log4perl::Util::Semaphore Log::Log4perl::Util::TimeTracker.
+
+Log4j implementation for Perl."

@@ -1,0 +1,7 @@
+category: Perl
+requires: cygwin libopenssl100 libssp0 perl_base 
+sdesc: "Perl distribution Net-SSLeay"
+ldesc: "Perl distribution Net-SSLeay, providing Perl modules:
+Net::SSLeay Net::SSLeay::Handle.
+
+Perl extension for using OpenSSL."

@@ -1,0 +1,4 @@
+category: X11
+requires: cygwin libcairo2 libfreetype6 libglib2.0_0 libharfbuzz0 
+sdesc: "OpenType text shaping engine"
+ldesc: "HarfBuzz is an OpenType text shaping engine."

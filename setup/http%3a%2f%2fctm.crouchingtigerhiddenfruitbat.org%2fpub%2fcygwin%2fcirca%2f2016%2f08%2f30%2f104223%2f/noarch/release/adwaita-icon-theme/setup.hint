@@ -1,0 +1,4 @@
+category: GNOME
+requires:  hicolor-icon-theme
+sdesc: "GNOME desktop icon theme"
+ldesc: "GNOME desktop icon theme"

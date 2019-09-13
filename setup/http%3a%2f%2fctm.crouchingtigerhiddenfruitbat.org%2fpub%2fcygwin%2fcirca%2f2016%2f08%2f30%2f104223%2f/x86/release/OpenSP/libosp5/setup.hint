@@ -1,0 +1,8 @@
+category: Text
+requires: libgcc1 libintl8 libstdc++6 cygwin
+external-source: OpenSP
+sdesc: "SGML parser library (runtime)"
+ldesc: "OpenJade is a project undertaken by the DSSSL community to
+maintain and extend Jade, as well as the related SP suite of SGML/XML
+processing tools. OpenJade and OpenSP are distributed under the same
+license as Jade."

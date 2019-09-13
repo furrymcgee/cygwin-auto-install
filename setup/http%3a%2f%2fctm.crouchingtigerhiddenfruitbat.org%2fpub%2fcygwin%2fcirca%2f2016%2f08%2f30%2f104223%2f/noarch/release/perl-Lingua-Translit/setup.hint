@@ -1,0 +1,7 @@
+category: Perl
+requires: perl_base 
+sdesc: "Perl distribution Lingua-Translit"
+ldesc: "Perl distribution Lingua-Translit, providing Perl modules:
+Lingua::Translit Lingua::Translit::Tables.
+
+Transliterates text between writing systems."

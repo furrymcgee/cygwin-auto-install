@@ -1,0 +1,7 @@
+category: Perl
+requires: perl_base 
+sdesc: "Perl distribution List-UtilsBy"
+ldesc: "Perl distribution List-UtilsBy, providing Perl modules:
+List::UtilsBy.
+
+Higher-order list utility functions."

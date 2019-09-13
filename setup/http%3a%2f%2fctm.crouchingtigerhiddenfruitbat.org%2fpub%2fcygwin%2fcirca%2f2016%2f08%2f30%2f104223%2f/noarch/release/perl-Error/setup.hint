@@ -1,0 +1,7 @@
+category: Perl
+requires: perl_base 
+sdesc: "Perl distribution Error"
+ldesc: "Perl distribution Error, providing Perl modules:
+Error Error::Simple Error::WarnDie Error::subs.
+
+Error/exception handling in an OO-ish way."

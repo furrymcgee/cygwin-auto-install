@@ -1,0 +1,4 @@
+category: Devel
+requires:  w32api-headers
+sdesc: "MinGW-w64 Windows API import libraries for Cygwin"
+ldesc: "MinGW-w64 Windows API import libraries for Cygwin"

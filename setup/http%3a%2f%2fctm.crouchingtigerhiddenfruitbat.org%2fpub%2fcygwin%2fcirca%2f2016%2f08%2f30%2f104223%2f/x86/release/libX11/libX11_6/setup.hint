@@ -1,0 +1,5 @@
+category: Libs
+requires: libxcb1 cygwin
+sdesc: "X.Org X11 core library (runtime)"
+ldesc: "X.Org X11 core library"
+external-source: libX11

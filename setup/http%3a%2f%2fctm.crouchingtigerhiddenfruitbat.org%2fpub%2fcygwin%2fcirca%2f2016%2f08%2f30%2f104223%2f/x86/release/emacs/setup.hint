@@ -1,0 +1,8 @@
+category: Editors Interpreters
+requires: alternatives bash cygwin desktop-file-utils libdbus1_3 libgcc1 libglib2.0_0 libgnutls28 libncursesw10 libxml2 perl_base shared-mime-info zlib0 terminfo-extra xemacs-emacs-common
+sdesc: "The extensible, customizable, self-documenting real-time display editor."
+ldesc: "Emacs is a powerful, customizable, self-documenting, modeless text
+editor.  Emacs contains special code editing features, a scripting
+language (elisp), and the capability to read mail, news and more without
+leaving the editor.  This package supplies everything needed for a non-X11
+emacs."

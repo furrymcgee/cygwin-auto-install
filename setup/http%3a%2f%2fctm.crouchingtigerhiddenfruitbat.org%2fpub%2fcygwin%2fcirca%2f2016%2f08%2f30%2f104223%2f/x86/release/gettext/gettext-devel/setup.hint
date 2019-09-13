@@ -1,0 +1,13 @@
+category: Devel
+requires: bash cygwin libcroco0.6_3 libgcc1 libgomp1 libiconv2 libintl8 libncursesw10 libunistring2 libxml2 python3 gettext git libintl-devel
+sdesc: "GNU Internationalization development utilities"
+ldesc: "The GNU gettext package provides a set of tools and documentation
+for producing multi-lingual messages in programs. Tools include a set of
+conventions about how programs should be written to support message catalogs,
+a directory and file naming organization for the message catalogs, a runtime
+library which supports the retrieval of translated messages, and stand-alone
+programs for handling the translatable and the already translated strings.
+Gettext provides an easy to use library and tools for creating, using, and
+modifying natural language catalogs and is a powerful and simple method for
+internationalizing programs."
+external-source: gettext

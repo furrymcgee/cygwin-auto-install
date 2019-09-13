@@ -1,0 +1,7 @@
+category: Perl
+requires: cygwin libssp0 libthai0 perl perl_base perl-MIME-Charset
+sdesc: "Perl distribution Unicode-LineBreak"
+ldesc: "Perl distribution Unicode-LineBreak, providing Perl modules:
+Text::LineFold Unicode::GCString Unicode::LineBreak.
+
+UAX #14 Unicode Line Breaking Algorithm."

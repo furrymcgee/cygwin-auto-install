@@ -1,0 +1,7 @@
+category: Net
+requires: cygwin libev4 libgcc1 libnghttp2_14 libopenssl100 libstdc++6 libxml2 python zlib0 
+sdesc: "HTTP/2 utilities"
+ldesc: "nghttp2 is an implementation of HTTP/2 and its header compression
+algorithm HPACK in C.  The framing layer of HTTP/2 is implemented as a form of
+reusable C library.  Also included are an HTTP/2 client, server, proxy, and a
+load test and benchmarking tool for HTTP/2."

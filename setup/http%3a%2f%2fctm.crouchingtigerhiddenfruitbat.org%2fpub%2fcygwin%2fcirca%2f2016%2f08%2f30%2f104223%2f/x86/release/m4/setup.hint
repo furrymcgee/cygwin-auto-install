@@ -1,0 +1,8 @@
+category: Interpreters
+requires: cygwin libgcc1 libsigsegv2 
+sdesc: "GNU implementation of the traditional Unix macro processor"
+ldesc: "An implementation of the traditional Unix macro processor. It is
+mostly SVR4 compatible although it has some extensions (for example,
+handling more than 9 positional parameters to macros). GNU m4 also has
+built-in functions for including files, running shell commands, doing
+arithmetic, etc."

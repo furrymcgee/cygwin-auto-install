@@ -1,0 +1,7 @@
+category: Devel
+requires: bash cygwin libatomic1 libgcc1 libgmp10 libgomp1 libiconv2 libintl8 libisl13 libmpc3 libmpfr4 libquadmath0 libssp0 libvtv0 zlib0 binutils cygwin-devel w32api-headers w32api-runtime windows-default-manifest
+sdesc: "GNU Compiler Collection (C, OpenMP)"
+ldesc: "The GNU Compiler Collection includes front ends for C, C++,
+Objective-C, Fortran, Java, Ada, and Go, as well as libraries for these
+languages (libstdc++, libgcj,...)."
+external-source: gcc

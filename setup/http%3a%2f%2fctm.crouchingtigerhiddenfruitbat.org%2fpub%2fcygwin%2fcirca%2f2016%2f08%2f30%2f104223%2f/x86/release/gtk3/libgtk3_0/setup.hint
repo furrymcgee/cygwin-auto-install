@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libatk-bridge2.0_0 libatk1.0_0 libcairo2 libepoxy0 libfontconfig1 libgcc1 libgdk_pixbuf2.0_0 libglib2.0_0 libintl8 libjson-glib1.0_0 libpango1.0_0 librest0.7_0 libX11_6 libXcomposite1 libXcursor1 libXdamage1 libXext6 libXfixes3 libXi6 libXinerama1 libXrandr2 dconf-service adwaita-icon-theme gdk-pixbuf2.0-svg gtk-update-icon-cache
+sdesc: "GTK+ X11 GUI toolkit (runtime)"
+ldesc: "GTK+ is a multi-platform toolkit for creating graphical user
+interfaces. Offering a complete set of widgets, GTK+ is suitable for projects
+ranging from small one-off tools to complete application suites."
+external-source: gtk3

@@ -1,0 +1,4 @@
+category: Ruby
+requires: cygwin ruby 
+sdesc: "Ruby JSON module"
+ldesc: "This is a JSON implementation as a Ruby extension in C."

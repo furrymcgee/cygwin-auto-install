@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libbz2_1 libpng16 zlib0 
+sdesc: "FreeType font engine"
+ldesc: "FreeType 2 is a software font engine that is designed to be
+small, efficient, highly customizable and portable while capable of producing
+high-quality output (glyph images)."
+external-source: freetype2

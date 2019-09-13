@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libatk1.0_0 libcairo2 libgdk_pixbuf2.0_0 libglib2.0_0 libgtk3_0 libintl8 libpango1.0_0 libxml2 libgtksourceview3.0-common
+sdesc: "GTK+ 3.0 syntax highlighting widget"
+ldesc: "GtkSourceView is a text widget that extends the standard GTK+
+3.x text widget GtkTextView. It improves GtkTextView by implementing syntax
+highlighting and other features typical of a source code editor."
+external-source: gtksourceview3.0

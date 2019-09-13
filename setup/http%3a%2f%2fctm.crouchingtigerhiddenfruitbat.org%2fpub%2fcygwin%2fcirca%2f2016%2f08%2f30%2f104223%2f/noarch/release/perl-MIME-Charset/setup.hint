@@ -1,0 +1,7 @@
+category: Perl
+requires: perl perl_base 
+sdesc: "Perl distribution MIME-Charset"
+ldesc: "Perl distribution MIME-Charset, providing Perl modules:
+MIME::Charset.
+
+Charset Information for MIME."

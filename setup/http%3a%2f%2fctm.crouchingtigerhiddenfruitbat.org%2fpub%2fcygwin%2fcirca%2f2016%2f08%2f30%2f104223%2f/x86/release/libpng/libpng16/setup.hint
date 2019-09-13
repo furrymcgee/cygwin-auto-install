@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin zlib0 
+sdesc: "PNG library"
+ldesc: "libpng is the official reference library for the Portable Network
+Graphics (PNG) image format."
+external-source: libpng

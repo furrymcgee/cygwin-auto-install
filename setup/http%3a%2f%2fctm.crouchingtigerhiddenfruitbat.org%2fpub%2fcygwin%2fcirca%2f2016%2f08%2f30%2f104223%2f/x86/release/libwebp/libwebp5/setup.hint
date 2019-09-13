@@ -1,0 +1,10 @@
+category: Libs
+requires: cygwin libgcc1 
+sdesc: "WebP graphics format reference implementation (runtime)"
+ldesc: "WebP is a new image format that provides lossy compression for
+photographic images. A WebP file consists of VP8 image data, and a container
+based on RIFF. The standalone libwebp library serves as a reference
+implementation for the WebP specification. Webmasters and web developers can
+use the WebP image format to create smaller and better looking images that can
+help make the web faster."
+external-source: libwebp

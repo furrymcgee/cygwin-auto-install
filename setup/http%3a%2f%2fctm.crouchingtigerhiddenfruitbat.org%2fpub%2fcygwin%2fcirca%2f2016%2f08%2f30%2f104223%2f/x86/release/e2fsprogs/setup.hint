@@ -1,0 +1,5 @@
+category: System
+requires: libblkid1 libcom_err2 libe2p2 libext2fs2 libgcc1 libintl8 libss2 libuuid1 cygwin
+sdesc: "Ext2/3/4 filesystem utilities"
+ldesc: "This package contains all of the standard utilities for creating,
+fixing, configuring, and debugging ext2/3/4 filesystems."

@@ -1,0 +1,4 @@
+sdesc: "My custom package"
+ldesc: "My custom package"
+category: Base
+requires: bzip2 cygwin-doc file less openssh pinfo rxvt wget

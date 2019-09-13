@@ -1,0 +1,5 @@
+category: Net
+requires: bash p11-kit p11-kit-trust
+sdesc: "CA root certificates"
+ldesc: "Mozilla's CA root certificates for use with OpenSSL, NSS, GnuTLS,
+and other software that handles certificate verification."

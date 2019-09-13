@@ -1,0 +1,6 @@
+category: Interpreters
+requires: bash libcrypt0 libgcc1 libgmp10 libintl8 libltdl7 libreadline7 cygwin
+sdesc: "GNU Scheme interpreter library"
+ldesc: "Guile is an interpreter for Scheme, packaged as a library that
+you can link into your applications to give them their own scripting language."
+external-source: guile

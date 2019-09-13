@@ -1,0 +1,4 @@
+category: Libs Math
+requires: bash cygwin libfftw3_3 
+sdesc: "Fast Fourier transforms C library - utility"
+ldesc: "Fast Fourier transforms C library"

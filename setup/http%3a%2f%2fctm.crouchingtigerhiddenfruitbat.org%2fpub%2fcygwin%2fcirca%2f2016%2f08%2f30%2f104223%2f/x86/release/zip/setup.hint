@@ -1,0 +1,6 @@
+category: Archive
+requires: libbz2_1 libgcc1 cygwin
+sdesc: "Info-ZIP compression utility"
+ldesc: "Zip is a compression and file packaging utility.  It is compatible
+with PKZIP 2.04g for MSDOS systems.  There is a companion to zip called unzip
+which handles decompression."

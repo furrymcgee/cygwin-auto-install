@@ -1,0 +1,7 @@
+category: Text
+requires: libgcc1 libosp5 libstdc++6 sgml-common cygwin
+sdesc: "SGML parser utilities"
+ldesc: "OpenJade is a project undertaken by the DSSSL community to
+maintain and extend Jade, as well as the related SP suite of SGML/XML
+processing tools. OpenJade and OpenSP are distributed under the same
+license as Jade."

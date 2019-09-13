@@ -1,0 +1,6 @@
+category: Graphics
+requires: libgcc1 libX11_6 cygwin
+external-source: giflib
+sdesc: "GIF file manipulation library (runtime)"
+ldesc: "Library and utilities for manipulating GIF graphics,
+with LZW compression support."

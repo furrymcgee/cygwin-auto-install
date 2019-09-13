@@ -1,0 +1,4 @@
+category: Ruby
+requires: ruby ruby-minitest4 ruby-rake ruby-rdoc ca-certificates
+sdesc: "Ruby module management system"
+ldesc: "A centralized Ruby extension management system, similar to Perl's CPAN"

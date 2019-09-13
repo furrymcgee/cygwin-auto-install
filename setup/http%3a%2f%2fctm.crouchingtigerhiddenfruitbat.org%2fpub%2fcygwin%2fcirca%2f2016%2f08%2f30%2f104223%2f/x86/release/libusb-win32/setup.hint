@@ -1,0 +1,7 @@
+category: _obsolete
+requires:  libusb0
+sdesc: "USB library (deprecated 0.1 API)"
+ldesc: "libusb-win32 is a port of the USB library libusb 0.1 to the
+Microsoft Windows operating systems. The library allows user space applications
+to access many USB device on Windows in a generic way without writing a line
+of kernel driver code."

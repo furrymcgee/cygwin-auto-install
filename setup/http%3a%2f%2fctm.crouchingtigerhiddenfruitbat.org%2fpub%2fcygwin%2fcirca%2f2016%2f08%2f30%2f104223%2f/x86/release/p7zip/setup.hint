@@ -1,0 +1,9 @@
+category: Archive
+requires: bash cygwin libgcc1 libstdc++6 
+sdesc: "A file archiver with very high compression ratios"
+ldesc: "p7zip is the Unix port of 7-Zip, a file archiver that
+archives with very high compression ratios.  It supports
+packing/unpacking 7z, zip, gzip bzip2, xz, tar, and wim archives.  It
+supports unpacking of arj, cab, chm, cpio, dmg, hfs, lzh, lzma, wim,
+xar, z, nsis, deb, rpm, msi, udf, iso, ntfs, fat, vhd, and mbr
+archives.  This version does NOT support rar archives."

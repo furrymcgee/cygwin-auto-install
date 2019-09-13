@@ -1,0 +1,5 @@
+category: Devel
+requires: bash autoconf automake binutils bzip2 coreutils diffstat diffutils dos2unix findutils file gawk gcc-core gcc-g++ grep gzip lftp libtool lndir make openssh patch perl-Authen-SASL perl-MIME-tools perl-Net-SMTP-SSL rsync sed tar texinfo unzip util-linux wget which xz
+sdesc: "Cygwin source packaging tool"
+ldesc: "cygport is the standard method for building and maintaining
+packages for the Cygwin distribution."

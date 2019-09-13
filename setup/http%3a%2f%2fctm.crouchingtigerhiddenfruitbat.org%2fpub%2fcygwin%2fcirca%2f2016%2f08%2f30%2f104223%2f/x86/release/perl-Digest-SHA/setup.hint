@@ -1,0 +1,7 @@
+category: Perl
+requires: cygwin libssp0 perl_base 
+sdesc: "Perl distribution Digest-SHA"
+ldesc: "Perl distribution Digest-SHA, providing Perl modules:
+Digest::SHA.
+
+Perl extension for SHA-1/224/256/384/512."

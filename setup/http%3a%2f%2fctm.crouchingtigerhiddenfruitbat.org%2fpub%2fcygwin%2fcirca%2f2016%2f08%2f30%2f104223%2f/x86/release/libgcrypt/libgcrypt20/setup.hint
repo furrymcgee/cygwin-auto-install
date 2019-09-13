@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libgpg-error0 
+sdesc: "GnuPG cryptography library"
+ldesc: "Libgcrypt is a general purpose crypto library based on the code
+used in GnuPG."
+external-source: libgcrypt

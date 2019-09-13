@@ -1,0 +1,4 @@
+category: Shells Utils Editors
+requires: bash cygwin libext2fs2 libgcc1 libglib2.0_0 libintl8 libncursesw10 libssh2_1 perl-TimeDate perl_base python 
+sdesc: "Midnight Commander"
+ldesc: "Midnight Commander Midnight Commander visual shell"

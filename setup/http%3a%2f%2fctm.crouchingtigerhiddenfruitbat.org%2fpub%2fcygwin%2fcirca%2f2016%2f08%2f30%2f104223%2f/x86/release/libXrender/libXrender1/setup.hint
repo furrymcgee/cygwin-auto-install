@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libX11_6 
+sdesc: "X.Org Xrender library"
+ldesc: "X.Org Xrender library"
+external-source: libXrender

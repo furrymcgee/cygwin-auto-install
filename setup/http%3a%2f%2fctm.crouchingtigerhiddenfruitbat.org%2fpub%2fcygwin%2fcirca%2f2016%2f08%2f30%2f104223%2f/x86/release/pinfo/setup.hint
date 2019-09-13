@@ -1,0 +1,4 @@
+category: Doc
+requires: libintl8 libncursesw10 libreadline7 cygwin
+sdesc: "Viewer for info documents"
+ldesc: "pinfo is a lynx-like, console-based info and man page viewer."

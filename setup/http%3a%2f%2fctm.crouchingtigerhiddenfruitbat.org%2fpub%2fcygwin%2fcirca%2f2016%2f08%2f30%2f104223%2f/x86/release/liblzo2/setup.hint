@@ -1,0 +1,5 @@
+category: _obsolete
+requires:  liblzo2-doc
+sdesc: "Removed package"
+ldesc: "LZO is a portable lossless data compression library written in
+ANSI C. It offers pretty fast compression and very fast decompression."

@@ -1,0 +1,9 @@
+category: Graphics
+requires: cygwin libautotrace3 libbz2_1 libcairo2 libfftw3_3 libfontconfig1 libfpx1 libfreetype6 libgcc1 libglib2.0_0 libgomp1 libgs9 libjbig2 libjpeg8 liblzma5 libpango1.0_0 libpng16 librsvg2_2 libtiff6 libwebp5 libX11_6 libXext6 libxml2 zlib0 
+sdesc: "Image processing suite (runtime)"
+ldesc: "ImageMagick is a software suite to create, edit, and compose bitmap
+images. It can read, convert and write images in a large variety of
+formats. Use ImageMagick to translate, flip, mirror, rotate, scale,
+shear and transform images, adjust image colors, apply various special
+effects, or draw text, lines, polygons, ellipses and Bezier curves"
+external-source: ImageMagick

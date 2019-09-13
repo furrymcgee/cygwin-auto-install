@@ -1,0 +1,4 @@
+category: Libs Math
+requires:  
+sdesc: "LAPACK library for linear algebra operations"
+ldesc: "Comprehensive FORTRAN library for linear algebra operations."

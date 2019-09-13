@@ -1,0 +1,7 @@
+category: Perl
+requires:  
+sdesc: "Perl distribution XML-NamespaceSupport"
+ldesc: "Perl distribution XML-NamespaceSupport, providing Perl modules:
+XML::NamespaceSupport.
+
+A simple generic namespace support class."

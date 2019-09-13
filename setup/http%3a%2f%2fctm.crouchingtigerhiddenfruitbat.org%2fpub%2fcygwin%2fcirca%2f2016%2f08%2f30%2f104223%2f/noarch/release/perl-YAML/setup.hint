@@ -1,0 +1,11 @@
+category: Perl
+requires: perl_base 
+sdesc: "Perl distribution YAML"
+ldesc: "Perl distribution YAML, providing Perl modules:
+YAML YAML::Any YAML::Dumper YAML::Dumper::Base YAML::Error YAML::Loader
+YAML::Loader::Base YAML::Marshall YAML::Mo YAML::Node YAML::Tag
+YAML::Type::blessed YAML::Type::code YAML::Type::glob YAML::Type::ref
+YAML::Type::regexp YAML::Type::undef YAML::Types YAML::Warning yaml_mapping
+yaml_scalar yaml_sequence.
+
+YAML Ain't Markup Language™."

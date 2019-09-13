@@ -1,0 +1,7 @@
+category: Net
+requires: cygwin libproxy1 
+sdesc: "Proxy configuration management utilities"
+ldesc: "libproxy exists to answer the question: Given a network resource,
+how do I reach it? It handles all the details, enabling you to get back to
+programming. Just ask libproxy what proxy to use: you get simple code and your
+users get correct, consistent behavior and broad infrastructure compatibility."

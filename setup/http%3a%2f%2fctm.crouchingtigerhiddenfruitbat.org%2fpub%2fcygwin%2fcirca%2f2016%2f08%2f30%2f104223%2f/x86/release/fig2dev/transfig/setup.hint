@@ -1,0 +1,6 @@
+category: Graphics
+requires: bash libpng16 libXpm4 gawk bc ghostscript grep netpbm sed cygwin
+sdesc: "Tools for creating TeX documents with graphics"
+ldesc: "TransFig is a set of tools for creating TeX documents with
+graphics which are portable, in the sense that they can be printed in
+a wide variety of environments."

@@ -1,0 +1,7 @@
+category: Perl
+requires: perl_base perl-Business-ISBN-Data perl-Mojolicious
+sdesc: "Perl distribution Business-ISBN"
+ldesc: "Perl distribution Business-ISBN, providing Perl modules:
+Business::ISBN Business::ISBN10 Business::ISBN13.
+
+Work with International Standard Book Numbers."

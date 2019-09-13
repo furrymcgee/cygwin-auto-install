@@ -1,0 +1,6 @@
+category: Text
+requires: cygwin libbz2_1 libpcre2-posix1 libpcre2_16_0 libpcre2_32_0 libpcre2_8_0 libreadline7 zlib0 
+sdesc: "Perl Compatible Regular Expressions v2 utilities"
+ldesc: "The PCRE library is a set of functions that implement regular
+expression pattern matching using the same syntax and semantics as Perl,
+with just a few differences."

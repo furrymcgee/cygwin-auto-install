@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libICE6 libSM6 libX11_6 
+sdesc: "X.Org X Toolkit library"
+ldesc: "X.Org X Toolkit library"
+external-source: libXt

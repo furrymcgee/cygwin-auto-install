@@ -1,0 +1,8 @@
+category: Admin Utils
+requires: perl-Stow perl_base 
+sdesc: "Manage local software installations"
+ldesc: "Stow manages the installation of local software packages by 
+creating sets of symlinks from the installed location (e.g. /usr/local) to 
+a stow directory (e.g. /usr/local/stow/emacs) where the real files live. 
+This allows you to keep packages separate, while making them appear to be 
+installed in the same place."

@@ -1,0 +1,5 @@
+category: Libs
+requires: libiconv2 libintl8 cygwin
+sdesc: "Unicode iconv() implementation"
+ldesc: "This library provides an iconv() implementation, for use on systems
+which don't have one, or whose implementation cannot convert from/to Unicode."

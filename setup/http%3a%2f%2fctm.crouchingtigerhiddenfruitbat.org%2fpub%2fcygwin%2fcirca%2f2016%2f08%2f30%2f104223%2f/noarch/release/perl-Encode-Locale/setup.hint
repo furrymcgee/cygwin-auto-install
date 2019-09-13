@@ -1,0 +1,7 @@
+category: Perl
+requires: perl perl_base 
+sdesc: "Perl distribution Encode-Locale"
+ldesc: "Perl distribution Encode-Locale, providing Perl modules:
+Encode::Locale.
+
+Determine the locale encoding."

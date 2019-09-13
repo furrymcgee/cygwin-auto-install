@@ -1,0 +1,4 @@
+category: Base
+requires: bash coreutils findutils sed
+sdesc: "A set of important system configuration and setup files"
+ldesc: "A set of important system configuration and setup files"

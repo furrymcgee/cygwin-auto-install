@@ -1,0 +1,12 @@
+category: Libs
+requires: cygwin libglib2.0_0 libsoup2.4_1 
+sdesc: "GNOME HTTP library"
+ldesc: "Soup is an HTTP library implementation in C. It was originally
+part of a SOAP (Simple Object Access Protocol) implementation, but the SOAP
+code was later removed (and then later partially reimplemented...) Soup uses
+GObjects and the glib main loop, and is designed to work well with Gtk/GNOME
+applications. This enables GNOME applications to access HTTP servers on the
+network in a completely asynchronous fashion, very similar to the Gtk+
+programming model (a synchronous operation mode is also supported for those
+who want it)."
+external-source: libsoup2.4

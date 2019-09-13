@@ -1,0 +1,6 @@
+category: Web
+requires: libfcgi0 libgcc1 libstdc++6 cygwin
+sdesc: "FastCGI: A high-performance web-server interface"
+ldesc: "FastCGI is a fast, open, and secure Web server interface that solves
+the performance problems inherent in CGI, without introducing the
+overhead and complexity of proprietary APIs."

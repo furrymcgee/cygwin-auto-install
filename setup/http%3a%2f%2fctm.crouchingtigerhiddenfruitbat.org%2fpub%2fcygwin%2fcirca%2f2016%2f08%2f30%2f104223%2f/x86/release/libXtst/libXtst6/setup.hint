@@ -1,0 +1,5 @@
+category: Libs
+requires: libX11_6 libXext6 cygwin
+sdesc: "X.Org XTest library"
+ldesc: "X.Org XTest library"
+external-source: libXtst

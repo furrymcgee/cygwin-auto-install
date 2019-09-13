@@ -1,0 +1,5 @@
+category: Graphics
+requires: cygwin libpng16 libX11_6 libXaw7 libXext6 libXt6 
+sdesc: "2-D vector graphics export library (C runtime)"
+ldesc: "2-D vector graphics library and scientific data plotting programs"
+external-source: plotutils

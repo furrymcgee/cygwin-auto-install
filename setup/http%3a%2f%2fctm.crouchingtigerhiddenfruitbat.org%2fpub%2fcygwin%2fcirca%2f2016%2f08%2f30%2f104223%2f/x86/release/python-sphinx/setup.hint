@@ -1,0 +1,7 @@
+category: Python
+requires: python python-docutils python-imaging python-jinja2 python-lxml python-pygments python-setuptools python-simplejson 
+sdesc: "Python documentation generator"
+ldesc: "Sphinx is a tool that makes it easy to create intelligent and
+beautiful documentation. It was originally created to translate the new Python
+documentation, and it has excellent support for the documentation of Python
+projects, but other documents can be written with it too."

@@ -1,0 +1,8 @@
+category: Libs
+requires: cygwin libgcc1 libopenssl100 libssp0 zlib0 mysql-common
+sdesc: "MySQL database client library (runtime)"
+ldesc: "MySQL delivers a very fast, multi-threaded, multi-user, and robust
+SQL (Structured Query Language) database server.  The client components are
+stable, but the daemon should be considered experimental and not ready for
+mission-critical deployment."
+external-source: mysql

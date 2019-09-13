@@ -1,0 +1,6 @@
+category: Net
+requires: cygwin libgcc1 libglib2.0_0 libncursesw10 libopenssl100 libssp0 perl-Carp perl-libwww-perl perl-Socket perl_base 
+sdesc: "Modular text mode IRC client with Perl scripting"
+ldesc: "Irssi is a modular IRC client with Perl scripting. Only text-mode
+frontend is currently supported. The GTK/GNOME frontend is no
+longer being maintained."

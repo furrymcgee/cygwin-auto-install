@@ -1,0 +1,4 @@
+category: _obsolete
+requires:  
+sdesc: "AT-SPI/D-Bus GTK+ bridge"
+ldesc: "Next generation GNOME accessibility framework, based on D-Bus"

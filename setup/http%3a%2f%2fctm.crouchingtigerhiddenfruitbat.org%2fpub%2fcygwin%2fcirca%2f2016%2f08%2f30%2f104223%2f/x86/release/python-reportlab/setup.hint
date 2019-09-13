@@ -1,0 +1,6 @@
+category: Python
+requires: libfreetype6 python python-imaging python-pygments cygwin
+sdesc: "Python ReportLab PDF library"
+ldesc: "The ReportLab Open Source PDF library is suitable for web
+publishers, developers or creative design professionals who need to quickly
+and easily create or automate complex (even data-driven) documents."

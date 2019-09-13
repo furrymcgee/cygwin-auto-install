@@ -1,0 +1,7 @@
+category: Perl
+requires: perl_base 
+sdesc: "Perl distribution IO-String"
+ldesc: "Perl distribution IO-String, providing Perl modules:
+IO::String.
+
+Emulate file interface for in-core strings."

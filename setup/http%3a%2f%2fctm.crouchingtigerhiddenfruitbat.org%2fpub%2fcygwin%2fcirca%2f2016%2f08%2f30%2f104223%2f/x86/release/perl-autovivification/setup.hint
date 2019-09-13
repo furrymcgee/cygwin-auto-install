@@ -1,0 +1,7 @@
+category: Perl
+requires: libssp0 perl_base cygwin
+sdesc: "Perl distribution autovivification"
+ldesc: "Perl distribution autovivification, providing Perl modules:
+autovivification.
+
+Lexically disable autovivification."

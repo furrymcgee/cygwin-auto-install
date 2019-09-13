@@ -1,0 +1,9 @@
+category: Interpreters Perl
+requires: cygwin libcrypt0 libdb4.8 libgcc1 libgdbm4 libssp0 perl_base perl_autorebase
+sdesc: "Perl programming language interpreter"
+ldesc: "Perl programming language interpreter
+
+Perl is a general-purpose programming language originally developed
+for text manipulation and now used for a wide range of tasks including
+system administration, web development, network programming, GUI
+development, and more."

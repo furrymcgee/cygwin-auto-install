@@ -1,0 +1,4 @@
+sdesc: "35 commercial-quality Type 1 basic PostScript fonts for ghostscript"
+ldesc: "35 commercial-quality Type 1 basic PostScript fonts for ghostscript"
+category: Graphics
+requires: cygwin

@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libp11-kit0 libtasn1_6 
+sdesc: "PKCS#11 module tool"
+ldesc: "Provides a way to load and enumerate PKCS#11 modules. Provides a
+standard configuration setup for installing PKCS#11 modules in such a way that
+they are discoverable."

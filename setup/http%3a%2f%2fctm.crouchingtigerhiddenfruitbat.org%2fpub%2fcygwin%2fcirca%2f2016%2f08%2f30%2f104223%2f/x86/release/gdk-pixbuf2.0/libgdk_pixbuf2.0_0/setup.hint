@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgcc1 libglib2.0_0 libintl8 libjasper1 libjpeg8 libpng16 libtiff6 
+sdesc: "GNOME image loading library (runtime)"
+ldesc: "Offering a complete set of widgets, GTK+ is suitable for projects
+ranging from small one-off projects to complete application suites."
+external-source: gdk-pixbuf2.0

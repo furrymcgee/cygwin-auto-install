@@ -1,0 +1,5 @@
+category: Shells Utils
+requires: alternatives cygwin 
+sdesc: "Tiny utilities in a single executable"
+ldesc: "Busybox combines tiny versions of many common utilities
+into a single executable."

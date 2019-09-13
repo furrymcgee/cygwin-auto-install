@@ -1,0 +1,6 @@
+category: Graphics
+requires: libGL1 libGLU1 libglut3 libjasper1 cygwin
+sdesc: "JPEG-2000 codec library (utilities)"
+ldesc: "The JasPer Project is an open-source initiative to provide a free
+software-based reference implementation of the codec specified in the JPEG-2000
+Part-1 standard (i.e., ISO/IEC 15444-1)."

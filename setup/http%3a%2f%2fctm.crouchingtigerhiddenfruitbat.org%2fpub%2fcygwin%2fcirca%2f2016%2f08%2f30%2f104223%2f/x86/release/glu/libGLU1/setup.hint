@@ -1,0 +1,7 @@
+category: X11
+requires: libgcc1 libGL1 libstdc++6 cygwin
+sdesc: "OpenGL utility library (runtime)"
+ldesc: "The OpenGL Utility Library (GLU) provides a number of functions
+that use the base OpenGL library to provide higher-level drawing routines from
+the more primitive routines that OpenGL provides."
+external-source: glu

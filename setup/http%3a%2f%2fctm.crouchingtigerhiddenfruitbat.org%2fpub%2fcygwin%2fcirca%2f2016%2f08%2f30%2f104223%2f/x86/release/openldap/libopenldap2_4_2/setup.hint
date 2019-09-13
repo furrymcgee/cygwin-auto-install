@@ -1,0 +1,6 @@
+category: Net Libs
+requires: cygwin libopenssl100 libsasl2_3 
+sdesc: "Lightweight Directory Access Protocol suite (runtime)"
+ldesc: "A suite of the Lightweight Directory Access Protocol (v3) servers, clients,
+utilities, and development tools."
+external-source: openldap

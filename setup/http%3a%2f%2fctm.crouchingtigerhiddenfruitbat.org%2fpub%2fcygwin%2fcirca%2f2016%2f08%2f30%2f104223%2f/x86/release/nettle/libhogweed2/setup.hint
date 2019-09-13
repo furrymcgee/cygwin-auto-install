@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgmp10 libnettle4 
+sdesc: "A cryptographic library that is designed to fit easily in more or less any context (hogweed runtime)"
+ldesc: "Nettle is a cryptographic library that is designed to fit easily in more or less any context:
+In crypto toolkits for object-oriented languages (C++, Python, Pike, ...), in applications
+like LSH or GNUPG, or even in kernel space."
+external-source: nettle

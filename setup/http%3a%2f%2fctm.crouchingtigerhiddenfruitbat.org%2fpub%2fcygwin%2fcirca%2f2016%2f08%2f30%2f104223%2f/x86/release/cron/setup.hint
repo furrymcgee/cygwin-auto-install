@@ -1,0 +1,6 @@
+# Cron-4.1-65 setup.hint
+sdesc: "Vixie's cron"
+ldesc: "Paul Vixie's cron for the management of regular background processing. 
+See ftp://ftp.isc.org/isc/cron/"
+category: Admin
+requires: bash coreutils cygwin editrights gawk grep sed libgcc1

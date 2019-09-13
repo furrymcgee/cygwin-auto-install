@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libcom_err2 libintl8 libk5crypto3 libkrb5support0 libkrb5_3 
+sdesc: "Kerberos reference implementation GSS-API library"
+ldesc: "This is the reference implementation of the Kerberos network
+authentication protocol from MIT. It is designed to provide strong
+authentication for client/server applications by using secret-key cryptography."
+external-source: krb5

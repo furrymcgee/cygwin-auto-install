@@ -1,0 +1,8 @@
+category: Libs Base
+requires: libncursesw10 cygwin
+sdesc: "GNU readline and history libraries (runtime)"
+ldesc: "The readline library will read a line from the terminal
+and return it, allowing the user to edit the line with the standard
+emacs editing keys. It allows the programmer to give the user an
+easier-to-use and more intuitive interface."
+external-source: readline

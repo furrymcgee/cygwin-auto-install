@@ -1,0 +1,6 @@
+category: Libs
+requires: libcharset1 libiconv2 
+sdesc: "Unicode iconv() implementation"
+ldesc: "This library provides an iconv() implementation, for use on systems
+which don't have one, or whose implementation cannot convert from/to Unicode."
+external-source: libiconv

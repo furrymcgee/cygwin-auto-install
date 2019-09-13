@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin findutils libexpat1 libfreetype6 libgcc1 dejavu-fonts libfontconfig-common
+sdesc: "Font configuration library"
+ldesc: "Fontconfig is a library designed to provide system-wide font
+configuration, customization and application access."
+external-source: fontconfig

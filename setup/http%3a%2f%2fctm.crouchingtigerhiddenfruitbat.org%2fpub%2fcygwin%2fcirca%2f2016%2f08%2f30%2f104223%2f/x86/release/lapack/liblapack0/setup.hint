@@ -1,0 +1,5 @@
+category: Libs Math
+requires: cygwin libgcc1 libgfortran3 
+sdesc: "LAPACK library for linear algebra operations"
+ldesc: "Comprehensive FORTRAN library for linear algebra operations."
+external-source: lapack

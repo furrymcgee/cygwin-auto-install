@@ -1,0 +1,4 @@
+category: Perl
+requires: perl perl-MailTools perl_base 
+sdesc: "Perl MIME modules"
+ldesc: "Perl modules for parsing (and creating) MIME entities."

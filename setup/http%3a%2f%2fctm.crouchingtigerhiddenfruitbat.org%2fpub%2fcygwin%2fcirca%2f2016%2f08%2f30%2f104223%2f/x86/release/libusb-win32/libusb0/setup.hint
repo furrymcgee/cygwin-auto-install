@@ -1,0 +1,11 @@
+category: Libs
+requires: libncursesw10 cygwin
+sdesc: "USB library (deprecated 0.1 API)"
+ldesc: "libusb-win32 is a port of the USB library libusb 0.1 to the
+Microsoft Windows operating systems. The library allows user space applications
+to access many USB device on Windows in a generic way without writing a line
+of kernel driver code."
+external-source: libusb-win32
+message: libusb0 "In order to use libusb0, you must download and run the
+LibUSB-Win32 driver installer from:
+https://sourceforge.net/projects/libusb-win32/files/libusb-win32-releases/1.2.6.0/libusb-win32-devel-filter-1.2.6.0.exe"

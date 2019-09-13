@@ -1,0 +1,7 @@
+category: Graphics
+requires: cygwin libgcc1 libtiff6 
+sdesc: "TIFF image utilities"
+ldesc: "Included in this software distribution is a library, libtiff, for
+reading and writing TIFF images, a small collection of tools for doing
+simple manipulations of TIFF images on UNIX systems, and documentation
+on the library and tools."

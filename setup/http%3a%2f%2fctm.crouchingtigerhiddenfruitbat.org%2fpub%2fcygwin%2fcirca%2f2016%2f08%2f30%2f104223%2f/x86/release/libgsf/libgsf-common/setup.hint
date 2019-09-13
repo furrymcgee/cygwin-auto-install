@@ -1,0 +1,6 @@
+category: Libs
+requires:  
+sdesc: "GNOME Structured File library"
+ldesc: "The project aims to provide an efficient extensible I/O
+abstraction for dealing with different structured file formats."
+external-source: libgsf

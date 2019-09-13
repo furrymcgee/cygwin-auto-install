@@ -1,0 +1,7 @@
+category: Perl
+requires: perl_base 
+sdesc: "Perl distribution Business-ISMN"
+ldesc: "Perl distribution Business-ISMN, providing Perl modules:
+Business::ISMN Business::ISMN::Data.
+
+Work with International Standard Music Numbers."

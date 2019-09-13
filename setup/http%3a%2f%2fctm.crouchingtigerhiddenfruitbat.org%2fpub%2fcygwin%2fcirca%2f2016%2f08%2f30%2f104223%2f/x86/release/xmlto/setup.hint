@@ -1,0 +1,7 @@
+category: Text
+requires: bash dblatex docbook-xsl libxml2 libxslt util-linux w3m cygwin
+sdesc: "Converts XML to various formats"
+ldesc: "xmlto is a shell-script tool for converting XML files to various
+formats. At the moment it supports conversion from docbook, xhtml1 and fo
+format to various output formats (awt, fo, htmlhelp, javahelp, mif, pdf, svg,
+xhtml, dvi, html, html-nochunks, man , pcl, ps, txt, xhtml-nochunks)."

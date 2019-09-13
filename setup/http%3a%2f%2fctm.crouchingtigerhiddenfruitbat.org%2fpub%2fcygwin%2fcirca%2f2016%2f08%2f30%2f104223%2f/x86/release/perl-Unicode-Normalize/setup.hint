@@ -1,0 +1,7 @@
+category: Perl
+requires: libgcc1 libssp0 perl perl_base cygwin
+sdesc: "Perl distribution Unicode-Normalize"
+ldesc: "Perl distribution Unicode-Normalize, providing Perl modules:
+Unicode::Normalize.
+
+Unicode Normalization Forms."

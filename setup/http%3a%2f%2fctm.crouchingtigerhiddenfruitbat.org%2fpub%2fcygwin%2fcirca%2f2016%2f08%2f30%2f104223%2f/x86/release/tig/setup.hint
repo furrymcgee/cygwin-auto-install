@@ -1,0 +1,6 @@
+sdesc: "Curses based git repository browser"
+ldesc: "A command line repository browser capable of displaying a summarized
+revision log and showing commit log messages, diffstats and diffs. Program
+may also be used as a pager. It reads input from stdin and colorizes it."
+category: Utils
+requires: git libiconv2 libncursesw10 libreadline7

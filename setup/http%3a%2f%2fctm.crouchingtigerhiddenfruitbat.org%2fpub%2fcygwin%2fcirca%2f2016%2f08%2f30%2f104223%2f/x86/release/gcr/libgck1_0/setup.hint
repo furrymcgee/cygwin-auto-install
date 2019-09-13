@@ -1,0 +1,10 @@
+category: Libs
+requires: cygwin libglib2.0_0 libp11-kit0 
+sdesc: "GNOME PKCS11 library (runtime)"
+ldesc: "GNOME Keyring is a system to store passwords and other sensitive
+data in a standardized way across all GNOME applications. A keyring stores a
+collection of encrypted passwords and encrypted information about those
+passwords. A user can have multiple keyrings, each for a different use, but
+there is a 'default' one. There is also a special 'session' keyring which is
+not stored on disk and goes away when you log out."
+external-source: gcr

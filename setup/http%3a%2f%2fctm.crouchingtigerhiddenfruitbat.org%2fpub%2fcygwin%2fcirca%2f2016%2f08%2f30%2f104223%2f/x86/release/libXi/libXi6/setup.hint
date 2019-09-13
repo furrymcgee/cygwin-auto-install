@@ -1,0 +1,5 @@
+category: Libs
+requires: cygwin libX11_6 libXext6 
+sdesc: "X Input library"
+ldesc: "X.Org X Input library"
+external-source: libXi
