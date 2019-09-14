@@ -16,7 +16,7 @@ LANG=C.UTF-8 bash
 	
 	##### DOWNLOAD SETUP.INI #####
 	# get source packages of downloaded binaries
-	: find x86/setup.ini -quit -maxdepth 0 ||
+	find x86/setup.ini -quit -maxdepth 0 ||
 	wget --continue --directory-prefix=x86 ${SITE}/x86/setup.ini
 	
 	##### DOWNLOAD PACKAGES #####
@@ -78,7 +78,7 @@ BASH
 			--directory-prefix=\$\(dirname\ %q\)\ \
 			${SITE}/%q\\\n \
 			@ @ |
-	sh &
+	bash -x
 	exec 6<&-
 	wait
 REQUIRED
@@ -145,7 +145,10 @@ EXTERNAL
 		tar -Jcf $(dir $@)/$(PACKAGE)/$(PACKAGE)-$(VERSION)-$(RELEASE).tar.xz  --files-from /dev/null
 		tar -Jcf $(dir $@)/$(PACKAGE)/$(PACKAGE)-$(VERSION)-$(RELEASE)-src.tar.xz --files-from /dev/null
 
-	$(addsuffix /setup.ini,x86 x86_64):
+	.DEFAULT_GOAL=$(addsuffix /setup.ini,x86 x86_64)
+	.PHONY: ${.DEFAULT_GOAL}
+
+	${.DEFAULT_GOAL}:
 		mksetupini \
 			--verbose \
 			--arch $(firstword $(subst /, ,$@)) \
@@ -157,7 +160,7 @@ EXTERNAL
 			# --disable-check=missing-depended-package \
 			# --disable-check=missing-curr \
 
-		stat $@
+		file -E $@ || exit 2
 		bzip2 < $@ > $(dir $@)/setup.bz2
 		xz -6e < $@ > $(dir $@)/setup.xz
 MAKE
@@ -166,30 +169,27 @@ MAKE
 	category: Base
 	requires: bzip2 cygwin-doc file less openssh pinfo rxvt wget
 HINT
-	db	./x86/release
-	emacs	./x86/release
-	error/libgpg-error-devel	./x86/release/libgpg
-	ibwebpdecoder1	./x86/release/libwebp
-	libGLU1	./x86/release/glu
 	libdconf1	./x86/release/dconf
 	libe2p2	./x86/release/e2fsprogs
 	libev4	./x86/release/libev
 	libgcrypt-devel	./x86/release/libgcrypt
 	libglut3	./x86/release/freeglut
 	libgmpxx4	./x86/release/gmp
+	libgpg-error-devel	./x86/release/libgpg-error
 	liblz4_1	./x86/release/lz4
 	liblzo2-doc	./x86/release/liblzo2
 	libpcre16_0	./x86/release/pcre
+	libpcre32_0	./x86/release/pcre
+	libpcre2-posix1	./x86/release/pcre2
+	libpcre2_16_0	./x86/release/pcre2
 	libpcre2_32_0	./x86/release/pcre2
+	libpcre2_8_0	./x86/release/pcre2
 	libpcreposix0	./x86/release/pcre
 	libplot2	./x86/release/plotutils
 	libprocps-ng4	./x86/release/procps-ng
 	libreadline-devel	./x86/release/readline
 	libsigsegv-devel	./x86/release/libsigsegv
 	libss2	./x86/release/e2fsprogs
-	libwebpdemux1	./x86/release/libwebp
-	perl-CGI	./noarch/release
-	postgresql-client	./x86/release/postgresql
 SOURCE
 	sed -i /etc/xinetd.d/ftpd \
 		-e /disable/s/yes/no/ \
