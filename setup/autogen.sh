@@ -22,6 +22,7 @@ LANG=C.UTF-8 bash
 	##### DOWNLOAD PACKAGES #####
 	# downloaded setup.hint of installed packages
 	bash <&17
+	exit
 	# second process required because of external dependencies
 	bash <&18
 
@@ -33,17 +34,21 @@ BASH
 	# join with downloaded packages
 	# download setup.ini
 	find -mindepth 2 -maxdepth 2 -name setup.ini |
-	xargs -r grep ^@\\\|^install:\\\|^source: |
+	xargs -r grep ^@\\\|^install:\\\|^source:\\\|^category: |
 	sed s/^@/:@/ |
 	cut -d: -f2 | 
 	sed -z \
 		-e s/@\ /\\\x0/g \
-		-e s/\\\n/\ /g |
-	tr \ \\\000 \\\t\\\n |
-	cut -f1,3,5,7,9 | 
+		-e s/\\\n/\\\t/g \
+		-e s/\\\t\ /\\\t/g |
+	tr \\\000 \\\n |
+	sort -k2 |
+	join -o1.1,1.3,1.4 -t$'\t' -v1 -12 - <(echo _obsolete) |
+	tr \  \\\t |
+	cut -f1,2,5 | 
 	grep ^. |
 	sort |
-	join -t$'\t' -o1.1,1.2,2.2,2.4 <(
+	join -t$'\t' -o1.1,1.2,2.2,2.3 <(
 		cat <&21 - <(
 			find * \
 				-maxdepth 0 \
@@ -150,11 +155,11 @@ EXTERNAL
 
 	${.DEFAULT_GOAL}:
 		mksetupini \
+			--verbose \
 			--arch $(firstword $(subst /, ,$@)) \
 			--inifile=$@ \
 			--releasearea=. \
 			--setup-version=2.874 \
-			# --verbose \
 			# --okmissing curr \
 			# --okmissing required-package \
 			# --disable-check=missing-required-package \
