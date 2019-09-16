@@ -150,15 +150,15 @@ EXTERNAL
 
 	${.DEFAULT_GOAL}:
 		mksetupini \
-			--verbose \
 			--arch $(firstword $(subst /, ,$@)) \
 			--inifile=$@ \
 			--releasearea=. \
 			--setup-version=2.874 \
+			# --verbose \
+			# --okmissing curr \
 			# --okmissing required-package \
 			# --disable-check=missing-required-package \
 			# --disable-check=missing-depended-package \
-			# --disable-check=missing-curr \
 
 		file -E $@ || exit 2
 		bzip2 < $@ > $(dir $@)/setup.bz2
@@ -171,7 +171,9 @@ MAKE
 HINT
 	libdconf1	./x86/release/dconf
 	libe2p2	./x86/release/e2fsprogs
+	libedit0	./x86/release/libedit
 	libev4	./x86/release/libev
+	libevtlog0	./x86/release/eventlog
 	libgcrypt-devel	./x86/release/libgcrypt
 	libglut3	./x86/release/freeglut
 	libgmpxx4	./x86/release/gmp
@@ -179,17 +181,23 @@ HINT
 	liblz4_1	./x86/release/lz4
 	liblzo2-doc	./x86/release/liblzo2
 	libpcre16_0	./x86/release/pcre
-	libpcre32_0	./x86/release/pcre
 	libpcre2-posix1	./x86/release/pcre2
 	libpcre2_16_0	./x86/release/pcre2
 	libpcre2_32_0	./x86/release/pcre2
 	libpcre2_8_0	./x86/release/pcre2
+	libpcre32_0	./x86/release/pcre
 	libpcreposix0	./x86/release/pcre
+	libpipeline1	./x86/release/libpipeline
 	libplot2	./x86/release/plotutils
 	libprocps-ng4	./x86/release/procps-ng
 	libreadline-devel	./x86/release/readline
 	libsigsegv-devel	./x86/release/libsigsegv
 	libss2	./x86/release/e2fsprogs
+	libwebp5	./x86/release/libwebp
+	libwebpdecoder1	./x86/release/libwebp
+	libwebpdemux1	./x86/release/libwebp
+	libwebpmux1	./x86/release/libwebp
+	libjasper1	./x86/release/jasper
 SOURCE
 	sed -i /etc/xinetd.d/ftpd \
 		-e /disable/s/yes/no/ \

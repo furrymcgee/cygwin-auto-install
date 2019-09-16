@@ -1,5 +1,6 @@
 @ECHO OFF
 REM -- Automates cygwin installation
+REM -- See /etc/setup/installed.db
  
 SETLOCAL
 REM -- Configure our paths
@@ -35,10 +36,10 @@ SET PACKAGES=%PACKAGES%,bzip2,openssl,p7zip,unzip,xz-utils,zip
 SET PACKAGES=%PACKAGES%,clear,file,less,openssh,pinfo,rxvt,wget
 SET PACKAGES=%PACKAGES%,inetutils,socat,curl,xinetd,tcp_wrappers
 SET PACKAGES=%PACKAGES%,busybox,pandoc,recutils,expat,moreutils
-SET PACKAGES=%PACKAGES%,cygport,cygwin-devel,calm,cygwin-doc
+SET PACKAGES=%PACKAGES%,cygport,cygwin-devel,calm,cygwin-doc,meson
 SET PACKAGES=%PACKAGES%,ncurses,libncurses-devel,terminfo-extra
-SET PACKAGES=%PACKAGES%,meson,robodoc,help2man,asciidoc
-SET PACKAGES=%PACKAGES%,db,dblatex,perl-CGI,postgresql
+SET PACKAGES=%PACKAGES%,robodoc,help2man,asciidoc,dblatex,transfig,netpbm
+SET PACKAGES=%PACKAGES%,db,perl-CGI,postgresql,ImageMagick,freeglut
 ::SET PACKAGES=%PACKAGES%,python,ruby,scons
 ::SET PACKAGES=%PACKAGES%,ucl,libgdk_pixbuf2.0-devel
 ::SET PACKAGES=%PACKAGES%,octave,octave-doc,gnuplot,gnuplot-doc,sox
@@ -50,12 +51,12 @@ SET PACKAGES=%PACKAGES%,db,dblatex,perl-CGI,postgresql
  
 REM -- Do it!
 ECHO *** DOWNLOADING CUSTOM PACKAGES
-"%SETUP%" --verbose --include-source --quiet-mode --no-desktop --download --no-verify --only-site --site %SITE% --local-package-dir "%LOCALDIR%\setup" --root "%ROOT%" --packages %PACKAGES% 
+"%SETUP%" --verbose --include-source --quiet-mode --no-desktop --no-verify --download --only-site --site %SITE% --local-package-dir "%LOCALDIR%\setup" --root "%ROOT%" --packages %PACKAGES% 
 ECHO.
 ECHO.
 ECHO *** INSTALLING CUSTOM PACKAGES
 
-"%SETUP%" --verbose --quiet-mode --no-verify --disable-buggy-antivirus --local-install --local-package-dir "%LOCALDIR%\setup" --root "%ROOT%" --packages %PACKAGES%
+"%SETUP%" --quiet-mode --no-desktop --disable-buggy-antivirus --local-install --local-package-dir "%LOCALDIR%\setup" --root "%ROOT%" --packages %PACKAGES%
  
 REM -- Show what we did
 ECHO.
