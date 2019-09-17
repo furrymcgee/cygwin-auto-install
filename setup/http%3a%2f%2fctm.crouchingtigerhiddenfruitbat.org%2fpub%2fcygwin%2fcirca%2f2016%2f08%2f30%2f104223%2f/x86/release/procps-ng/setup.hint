@@ -1,5 +1,5 @@
 category: System
-requires: cygwin libgcc1 libintl8 libncursesw10 libprocps-ng5 
+requires: cygwin libgcc1 libintl8 libncursesw10 libprocps-ng4
 sdesc: "System and process monitoring utilities"
 ldesc: "This package provides command line and full screen
 utilities for browsing procfs, a pseudo file system dynamically

@@ -3,4 +3,4 @@ requires:
 sdesc: "C library for manipulating pipelines of subprocesses - development"
 ldesc: "A C library for manipulating pipelines of subprocesses in a flexible
 and convenient way."
-
+skip:

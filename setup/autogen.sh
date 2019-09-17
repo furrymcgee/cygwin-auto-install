@@ -22,7 +22,6 @@ LANG=C.UTF-8 bash
 	##### DOWNLOAD PACKAGES #####
 	# downloaded setup.hint of installed packages
 	bash <&17
-	exit
 	# second process required because of external dependencies
 	bash <&18
 
@@ -195,7 +194,7 @@ HINT
 	libpipeline1	./x86/release/libpipeline
 	libplot2	./x86/release/plotutils
 	libprocps-ng4	./x86/release/procps-ng
-	libreadline-devel	./x86/release/readline
+	libreadline7	./x86/release/readline
 	libsigsegv-devel	./x86/release/libsigsegv
 	libss2	./x86/release/e2fsprogs
 	libwebp5	./x86/release/libwebp

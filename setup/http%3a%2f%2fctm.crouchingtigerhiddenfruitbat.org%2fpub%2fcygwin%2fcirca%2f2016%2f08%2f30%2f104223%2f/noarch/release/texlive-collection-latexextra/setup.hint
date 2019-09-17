@@ -1,5 +1,5 @@
 category: Publishing
-requires: bash coreutils perl-File-Which perl-TimeDate perl_base texlive-collection-basic texlive-collection-latexrecommended texlive-collection-pictures preview-latex
+requires: bash coreutils perl-File-Which perl-TimeDate perl_base texlive-collection-basic texlive-collection-latexrecommended texlive-collection-pictures
 sdesc: "TeX Live latexextra package collection"
 ldesc: "TeX Live is an easy way to get up and running with the TeX
 document production system.  It includes all the major TeX-related
