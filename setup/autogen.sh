@@ -22,9 +22,13 @@ LANG=C.UTF-8 bash
 	##### DOWNLOAD PACKAGES #####
 	# downloaded setup.hint of installed packages
 	bash <&17
+	
 	# second process required because of external dependencies
 	bash <&18
 
+	# Remove emacs-auctex
+	rm -rf ./noarch/release/emacs-auctex
+	
 	##### MAKE SETUP.INI #####
 	sed s/^.// <&19 |
 	make -f - x86/release/custompackage-0.0.1-1 x86/setup.ini
