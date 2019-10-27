@@ -12,7 +12,7 @@ LANG=C.UTF-8 bash
 	: bash <&22
 
 	export SITE=http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/2016/08/30/104223 
-	cd *cygwin* || exit 1
+	test -d x86 || exit 1
 	
 	##### DOWNLOAD SETUP.INI #####
 	# get source packages of downloaded binaries

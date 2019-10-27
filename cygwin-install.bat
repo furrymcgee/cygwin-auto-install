@@ -6,6 +6,7 @@ SETLOCAL
 REM -- Configure our paths
 REM SET SITE=http://cygwin.mirrors.pair.com/
 SET SITE=http://ftp.jaist.ac.jp/pub/cygwin/
+REM SET SITE=ftp://192.168.33.158/
 SET LOCALDIR=%~dp0
 
 REM -- Download setup-x86-2.874.exe from web archive
@@ -15,7 +16,7 @@ REM -- This site is for Microsoft Windows XP
 REM https://web.archive.org/web/20160820100148/http://cygwin.com/setup-x86.exe
 REM http://www.crouchingtigerhiddenfruitbat.org/cygwin/timemachine.html
 REM http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/2016/08/30/104223/setup.ini
-SET SITE=http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/2016/08/30/104223
+REM SITE=http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/2016/08/30/104223
 SET SETUP=%CD%\setup-x86.exe
 SET ROOT=c:\cygwin
 
