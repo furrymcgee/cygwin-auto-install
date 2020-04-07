@@ -17,6 +17,7 @@ REM http://www.crouchingtigerhiddenfruitbat.org/cygwin/timemachine.html
 REM http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/2016/08/30/104223/setup.ini
 SET SITE=http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/2016/08/30/104223
 REM SET SITE=ftp://192.168.33.158/pub/cygwin
+SET SITE=http://cygwinxp.cathedral-networks.org
 SET SETUP=%CD%\setup-x86.exe
 SET ROOT=c:\cygwin
 
@@ -29,7 +30,7 @@ SET PACKAGES=%PACKAGES%,sqlite3,tcl-sqlite3,git,wget,openssh,patch,sed
 SET PACKAGES=%PACKAGES%,gcc-g++,gcc-fortran,gdb,gperf,flex,bison,ctags
 SET PACKAGES=%PACKAGES%,cmake,dejagnu,make,pkg-config,gettext,check
 SET PACKAGES=%PACKAGES%,git-svn,subversion,mercurial,quilt,stgit
-SET PACKAGES=%PACKAGES%,mutt,irssi,dialog,procps,stow,ccache
+SET PACKAGES=%PACKAGES%,mutt,irssi,dialog,procps,stow,ccache,suck,tin
 SET PACKAGES=%PACKAGES%,autoconf,automake,autogen,autopoint
 SET PACKAGES=%PACKAGES%,intltool,libtool,libtool-bin,libtoolize
 SET PACKAGES=%PACKAGES%,lua,perl,perl_manpages,perl-Archive-Zip
