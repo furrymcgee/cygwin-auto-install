@@ -42,6 +42,7 @@ SET PACKAGES=%PACKAGES%,cygport,cygwin-devel,calm,cygwin-doc,meson
 SET PACKAGES=%PACKAGES%,ncurses,libncurses-devel,terminfo-extra
 SET PACKAGES=%PACKAGES%,robodoc,help2man,asciidoc,dblatex,transfig,netpbm
 SET PACKAGES=%PACKAGES%,db,perl-CGI,postgresql,ImageMagick,freeglut
+SET PACKAGES=%PACKAGES%,libbz2-devel,liblzma-devel
 ::SET PACKAGES=%PACKAGES%,python,ruby,scons
 ::SET PACKAGES=%PACKAGES%,ucl,libgdk_pixbuf2.0-devel
 ::SET PACKAGES=%PACKAGES%,octave,octave-doc,gnuplot,gnuplot-doc,sox
