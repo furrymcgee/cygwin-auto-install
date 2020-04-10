@@ -41,6 +41,7 @@ SET PACKAGES=%PACKAGES%,busybox,pandoc,recutils,expat,moreutils
 SET PACKAGES=%PACKAGES%,cygport,cygwin-devel,calm,cygwin-doc,meson
 SET PACKAGES=%PACKAGES%,ncurses,libncurses-devel,terminfo-extra
 SET PACKAGES=%PACKAGES%,robodoc,help2man,asciidoc,dblatex,transfig,netpbm
+SET PACKAGES=%PACKAGES%,python-docutils
 SET PACKAGES=%PACKAGES%,db,perl-CGI,postgresql,ImageMagick,freeglut
 SET PACKAGES=%PACKAGES%,libbz2-devel,liblzma-devel
 ::SET PACKAGES=%PACKAGES%,python,ruby,scons
