@@ -18,8 +18,9 @@ REM http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/2016/08/30/1042
 SET SITE=http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/2016/08/30/104223
 REM SET SITE=ftp://192.168.33.158/pub/cygwin
 SET SITE=http://cygwinxp.cathedral-networks.org
+SET SITE=https://github.com/furrymcgee/release/raw/master/
 SET SETUP=%CD%\setup-x86.exe
-SET ROOT=c:\cygwin
+:: SET ROOT=c:\tmp
 
 REM -- These are the packages we will install (in addition to the default packages)
 SET PACKAGES=%PACKAGES%,httpd,cron,po4a,docbook-xml45,libcrypt-devel,lynx
@@ -41,7 +42,7 @@ SET PACKAGES=%PACKAGES%,busybox,pandoc,recutils,expat,moreutils
 SET PACKAGES=%PACKAGES%,cygport,cygwin-devel,calm,cygwin-doc,meson
 SET PACKAGES=%PACKAGES%,ncurses,libncurses-devel,terminfo-extra
 SET PACKAGES=%PACKAGES%,robodoc,help2man,asciidoc,dblatex,transfig,netpbm
-SET PACKAGES=%PACKAGES%,python-docutils
+SET PACKAGES=%PACKAGES%,python-docutils,bash-completion
 SET PACKAGES=%PACKAGES%,db,perl-CGI,postgresql,ImageMagick,freeglut
 SET PACKAGES=%PACKAGES%,libbz2-devel,liblzma-devel,libpipeline-devel
 ::SET PACKAGES=%PACKAGES%,python,ruby,scons
@@ -52,6 +53,7 @@ SET PACKAGES=%PACKAGES%,libbz2-devel,liblzma-devel,libpipeline-devel
 ::SET PACKAGES=%PACKAGES%,xf86-video-dummy,yasm-devel
 ::SET PACKAGES=%PACKAGES%,libxml-parser-perl,libffi-dev,libltdl-dev,libssl-dev
 ::SET PACKAGES=%PACKAGES%,libSDL2-devel,libopenal-devel,libmpg123-devel
+:: PACKAGES=dpkg
  
 REM -- Do it!
 ECHO *** DOWNLOADING CUSTOM PACKAGES

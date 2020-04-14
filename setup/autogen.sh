@@ -1,6 +1,5 @@
 #!/bin/bash
 # git clone git://git.sv.gnu.org/config.git cygport-0.22.0-1.noarch/build/data/gnuconfig
-# script -c cygport\ --32\ cygport-0.22.0-1\ all
 0<<-'BASH' \
 17<<-'REQUIRED' \
 18<<-'EXTERNAL' \
@@ -13,29 +12,28 @@ LANG=C.UTF-8 bash -x
 	##### START SERVICES #####
 	# cygrunsrv -L | grep xinetd || bash <&22
 
-	export SITE=http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/2016/08/30/104223 
+	export SITE=https%3A%2F%2Fgithub.com%2Ffurrymcgee%2Frelease%2Fraw%2Fmaster%2F
 	test -d x86/release &&
 	test -d noarch/release ||
 	exit 1
 	
 	##### DOWNLOAD SETUP.INI #####
 	# get source packages of downloaded binaries
-	find x86/setup.ini -quit -maxdepth 0 ||
-	wget --continue --directory-prefix=x86 ${SITE}/x86/setup.ini
+	: find x86/setup.ini -quit -maxdepth 0 ||
+	: wget --continue --directory-prefix=x86 ${SITE}/x86/setup.ini
 	
 	##### DOWNLOAD PACKAGES #####
 	# downloaded setup.hint of installed packages
-	bash <&17
+	: bash <&17
 	
 	# second process required because of external dependencies
-	bash <&18
+	: bash <&18
 
 	# Remove emacs-auctex
-	rm -rf ./noarch/release/emacs-auctex
+	: rm -rf ./noarch/release/emacs-auctex
 	
 	##### MAKE SETUP.INI #####
-	sed s/^.// <&19 |
-	make -f - x86/release/custompackage-0.0.1-1 x86/setup.ini
+	sed s/^.// <&19 | make -f - x86/setup.ini
 BASH
 	# grep available packages from setup.ini
 	# join with downloaded packages
@@ -147,6 +145,7 @@ REQUIRED
 			@ @ |
 	sh
 EXTERNAL
+       	# x86/release/custompackage-0.0.1-1
 	PACKAGE=$(lastword $(subst /, ,$(firstword $(subst -, ,$@))))
 	VERSION=$(word 2,$(subst -, ,$@))
 	RELEASE=$(lastword $(subst -, ,$@))
@@ -157,7 +156,7 @@ EXTERNAL
 		tar -Jcf $(dir $@)/$(PACKAGE)/$(PACKAGE)-$(VERSION)-$(RELEASE).tar.xz  --files-from /dev/null
 		tar -Jcf $(dir $@)/$(PACKAGE)/$(PACKAGE)-$(VERSION)-$(RELEASE)-src.tar.xz --files-from /dev/null
 
-	.DEFAULT_GOAL=$(addsuffix /setup.ini,x86 x86_64)
+	.DEFAULT_GOAL=$(addsuffix /setup.ini,x86 noarch)
 	.PHONY: ${.DEFAULT_GOAL}
 
 	${.DEFAULT_GOAL}:
