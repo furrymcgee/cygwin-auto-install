@@ -1,5 +1,0 @@
-category: _obsolete
-requires:  libgcrypt-devel
-sdesc: "GnuPG cryptography library"
-ldesc: "Libgcrypt is a general purpose crypto library based on the code
-used in GnuPG."

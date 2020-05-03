@@ -1,7 +1,0 @@
-category: Perl
-requires: perl perl_base 
-sdesc: "Perl distribution HTTP-Date"
-ldesc: "Perl distribution HTTP-Date, providing Perl modules:
-HTTP::Date.
-
-Date conversion routines."

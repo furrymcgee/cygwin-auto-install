@@ -1,5 +1,0 @@
-category: Libs
-requires: libX11_6 cygwin
-sdesc: "X.Org Xdamage library"
-ldesc: "X.Org Xdamage library"
-external-source: libXdamage

@@ -1,4 +1,0 @@
-category: Python
-requires: cygwin python 
-sdesc: "Python XML/HTML safe string module"
-ldesc: "Implements a XML/HTML/XHTML Markup safe string for Python"

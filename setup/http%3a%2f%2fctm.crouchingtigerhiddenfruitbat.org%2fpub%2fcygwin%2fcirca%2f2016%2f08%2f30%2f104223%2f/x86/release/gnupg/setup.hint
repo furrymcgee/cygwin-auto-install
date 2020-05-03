@@ -1,4 +1,0 @@
-category: Utils
-requires: bash cygwin libbz2_1 libcurl4 libgcc1 libiconv2 libintl8 libopenldap2_4_2 libreadline7 libusb0 zlib0 bash tar
-ldesc: "GNU\'s tool for secure communication and data storage."
-sdesc: "The GNU Privacy Guard"

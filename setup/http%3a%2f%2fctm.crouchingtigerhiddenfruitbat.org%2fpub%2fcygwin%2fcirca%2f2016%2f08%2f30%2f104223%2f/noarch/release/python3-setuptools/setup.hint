@@ -1,4 +1,0 @@
-category: Python
-requires: python3 cygwin
-sdesc: "Py3K package management tool"
-ldesc: "PyPI Python eggs package management tool"

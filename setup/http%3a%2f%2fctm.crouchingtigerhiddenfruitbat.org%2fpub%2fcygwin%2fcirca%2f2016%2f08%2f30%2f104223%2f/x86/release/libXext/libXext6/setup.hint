@@ -1,5 +1,0 @@
-category: Libs
-requires: libX11_6 cygwin
-sdesc: "X.Org X11 extension library"
-ldesc: "X.Org X11 extension library"
-external-source: libXext

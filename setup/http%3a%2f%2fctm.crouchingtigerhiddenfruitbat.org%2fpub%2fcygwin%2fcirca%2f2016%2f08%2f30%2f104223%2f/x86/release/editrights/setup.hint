@@ -1,4 +1,0 @@
-category: Base
-requires: cygwin
-sdesc: "Alter Windows user rights and privileges from command line"
-ldesc: "Alter Windows user rights and privileges from command line"

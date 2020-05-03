@@ -1,5 +1,0 @@
-category: Libs
-requires: cygwin
-sdesc: "X.Org Inter Client Exchange Library"
-ldesc: "X.Org Inter Client Exchange Library"
-external-source: libICE

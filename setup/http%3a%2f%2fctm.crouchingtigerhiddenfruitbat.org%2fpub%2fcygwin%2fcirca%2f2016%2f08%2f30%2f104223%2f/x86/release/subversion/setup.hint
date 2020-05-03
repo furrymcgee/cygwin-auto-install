@@ -1,5 +1,0 @@
-category: Devel
-requires: cygwin libapr1 libaprutil1 libdb4.8 libexpat1 libgcc1 libintl8 libsasl2_3 libserf1_0 libsqlite3_0 zlib0 libneon27
-sdesc: "A version control system"
-ldesc: "Subversion is a version control system that aims to be a compelling replacement for CVS in the open source community"
-curr: 1.9.4-1

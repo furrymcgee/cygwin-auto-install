@@ -1,5 +1,0 @@
-category: Doc
-requires:  
-sdesc: "Cygwin-specific documentation, including man pages"
-ldesc: "Documentation for Cygwin and newlib, including man
-pages and texinfo files."

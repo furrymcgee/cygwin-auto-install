@@ -1,6 +1,0 @@
-category: Devel Libs
-requires: cygwin libapr1 libssp0 perl-Scalar-List-Utils perl_base subversion 
-sdesc: "A version control system (perl bindings)"
-ldesc: "Subversion is a version control system that aims to be a compelling replacement for CVS in the open source community"
-external-source: subversion
-curr: 1.9.4-1
