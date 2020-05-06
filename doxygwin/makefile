@@ -56,14 +56,15 @@ Sources:
 	sed -e s/noarch/\&\\\t\&/ -e s/i686/\&\\\tx86/ | \
 	while read A B C D E ; \
 	do \
-		$(MAKE) "cygport/$${E}/release/$${A}/$${A}_$${B}_$${C}.$${D}" ; \
-	done \
-	; } \
+		test -n "$${A}" && test -n "$${B}" && \
+		test -n "$${C}" && test -n "$${D}" && test -n "$${E}" && \
+		$(MAKE) "Y%3a%2f/$${E}/release/$${A}/$${A}_$${B}_$${C}.$${D}" ; \
+	done ; \
 
 # Find predefined %.cygport files to build a package
 CYGPORT = $(shell \
-	find cygport/*/release/* \
-		-maxdepth 1 \
+	find Y%3a%2f/ \
+		-maxdepth 4 \
 		-name \*.cygport \
 		-printf %h/%f\\\n | \
 	xargs -I@ grep -H ^NAME\\\|^VERSION\\\|RELEASE\\\|^ARCH @ | \
@@ -74,7 +75,7 @@ CYGPORT = $(shell \
 	while read A B C D E ; \
 	do \
 		echo "$$(dirname $${A})/$${B}_$${C}_$${D}.$${E}" ; \
-	done \
+	done ; \
 )
 
 # Download %.dsc and build %.noarch and %.i686 package with cygport
@@ -90,9 +91,9 @@ define TEMPLATE =
 $(word 1, $(subst _, , $(notdir $1))): %: $(dir $1)%.cygport $1
 	cat $$< | grep ^NAME\\\|^VERSION\\\|RELEASE\\\|^ARCH | \
 	cut -d= -f2 | paste - - - - | xargs -L4 printf \
-	$$(dir $1)%s_%s_%s.%s\\\n | xargs $$(MAKE)
+	$$(dir $(subst \,\\\,$1))%s_%s_%s.%s\\\n | xargs $$(MAKE)
 	mv $1/dist/$$(basename $$(<F))/* $(dir $1) || true
 	rm -rf $1
 endef
-$(foreach x,$(CYGPORT),$(eval $(call TEMPLATE,$(x))))
+$(foreach x,$(CYGPORT),$(eval $(call TEMPLATE,$(subst %,\%,$(x)))))
 
