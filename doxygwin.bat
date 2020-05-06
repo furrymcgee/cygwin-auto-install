@@ -26,7 +26,6 @@ SET SETUP=%CD%\setup-x86.exe
 SET ROOT=C:/doxygwin
 SUBST Z: /D
 SUBST Z: \\samba\share\cygwin-auto-install\doxygwin
-SET PKGDIR=Z:/
 SET SITE=Z:\Y%%3a%%2f
 SUBST Y: /D
 SUBST Y: %SITE%
@@ -65,28 +64,38 @@ SET PACKAGES=%PACKAGES%,libbz2-devel,liblzma-devel,libpipeline-devel
 :: SET PACKAGES=%PACKAGES%,dpkg
 
 IF NOT EXIST "%SETUP%" (
-	ECHO *** DOWNLOADING SETUP EXE
-	echo cscript %LOCALDIR%/download.vbs %HTTP% || exit /B
-	ECHO.
-	ECHO.
+	ECHO *** DOWNLOAD SETUP EXE
+	cscript %LOCALDIR%/download.vbs %HTTP% || exit /B
+) ELSE (
+	ECHO *** SETUP EXE EXISTS
 )
-
-IF NOT EXIST "%SITE%" (
-	ECHO *** DOWNLOADING PACKAGES
-	SET REPOSITORY=%MIRROR%
-	"%SETUP%" --quiet-mode --verbose --include-source --no-desktop --download --local-package-dir "%PKGDIR%" --root "%ROOT%" --packages %PACKAGES% --only-site --no-verify --site "%REPOSITORY%"
-
-	SET REPOSITORY=Y:/
-	"%SETUP%" --quiet-mode --verbose --include-source --no-desktop --download --local-package-dir "%PKGDIR%" --root "%ROOT%" --packages %PACKAGES% --only-site --no-verify --site "%REPOSITORY%"
-	ECHO.
-	ECHO.
+ECHO.
+SET PKGDIR=Z:/
+SET REPOSITORY=%MIRROR%
+SET TMPDIR="Z:/http%%3a%%2f%%2fcygwinxp.cathedral-networks.org%%2f"
+IF NOT EXIST %TMPDIR% (
+	ECHO *** DOWNLOAD PACKAGES
+	"%SETUP%" --verbose --quiet-mode --include-source --no-desktop --download --local-package-dir "%PKGDIR%" --root "%ROOT%" --packages %PACKAGES% --only-site --no-verify --site "%REPOSITORY%"
+) ELSE (
+	ECHO *** SKIP PACKAGE DOWNLOAD
 )
-
+ECHO.
+SUBST Y: /D
+SUBST Y: %TMPDIR%
+SET REPOSITORY=Y:/
+IF NOT EXIST "%SITE%/x86/setup.ini" (
+	ECHO *** CREATE LOCAL PACKAGE DIRECTORY
+	"%SETUP%" --verbose --quiet-mode --include-source --no-desktop --download --local-package-dir "%PKGDIR%" --root "%ROOT%" --packages %PACKAGES% --only-site --no-verify --site "%REPOSITORY%"
+) ELSE (
+	ECHO *** PACKAGE DIRECTORY EXISTS
+)
+ECHO.
+SET PKGDIR=%SITE%
 IF NOT EXIST "%ROOT%" (
-	ECHO *** INSTALLING PACKAGES
+	ECHO *** INSTALL PACKAGES
 	"%SETUP%" --quiet-mode --no-desktop --disable-buggy-antivirus --local-install --local-package-dir "%PKGDIR%" --root "%ROOT%" --packages %PACKAGES%
-	ECHO.
-	ECHO.
+) ELSE (
+	ECHO *** INSTALLATION EXISTS
 )
-
+ECHO.
 
