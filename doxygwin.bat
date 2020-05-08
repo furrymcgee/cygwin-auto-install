@@ -27,7 +27,7 @@ SET ROOT=C:/doxygwin
 SUBST Z: /D
 SUBST Z: \\samba\share\cygwin-auto-install\doxygwin
 SET PKGDIR=Z:/
-SET SITE=Z:\http%%3a%%2f%%2fcygwinxp.cathedral-networks.org%%2f
+SET SITE=Z:\Y%%3a%%2f
 SUBST Y: /D
 SUBST Y: %SITE%
 
