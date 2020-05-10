@@ -1,0 +1,62 @@
+Script started on Wed, Mar 04, 2020  2:38:36 PM
+source /mnt/cygwin-auto-install/setup/autogen.sh
++ [[ -z '' ]]
++ CYG_SYS_BASHRC=1
++ [[ ehimxBH != *i* ]]
++ export 'EXECIGNORE=*.dll'
++ EXECIGNORE='*.dll'
++ PS1='\[\e]0;\w\a\]\n\[\e[32m\]\u@\h \[\e[33m\]\w\[\e[0m\]\n\$ '
++ [[ ehimxBH != *i* ]]
+]0;/mnt/pub/cygwin
+[32mAdministrator@- [33m/mnt/pub/cygwin[0m
+$ source /mnt/cygwin-auto-install/setup/autogen.sh
++ source /mnt/cygwin-auto-install/setup/autogen.sh
+++ LANG=C.UTF-8
+++ bash -x
++ export SITE=http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/2016/08/30/104223
++ SITE=http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/2016/08/30/104223
++ test -d x86/release
++ test -d noarch/release
++ find x86/setup.ini -quit -maxdepth 0
++ bash
++ bash
++ rm -rf ./noarch/release/emacs-auctex
++ sed 's/^.//'
++ make -f - x86/release/custompackage-0.0.1-1 x86/setup.ini
+mkdir x86/release//custompackage || true
+mkdir: cannot create directory ‘x86/release//custompackage’: File exists
+cat > x86/release//custompackage/setup.hint <&20
+tar -Jcf x86/release//custompackage/custompackage-0.0.1-1.tar.xz  --files-from /dev/null
+tar -Jcf x86/release//custompackage/custompackage-0.0.1-1-src.tar.xz --files-from /dev/null
+mksetupini \
+	--verbose \
+	--arch x86 \
+	--inifile=x86/setup.ini \
+	--releasearea=. \
+	--setup-version=2.874 \
+	--okmissing curr \
+	--okmissing required-package \
+	# --disable-check=missing-required-package \
+	# --disable-check=missing-depended-package \
+
+mksetupini: unexpected files in cygport: setup.hint~
+mksetupini: package 'libpipeline': sdesc ends with '.'
+mksetupini: package 'libpipeline1': sdesc ends with '.'
+mksetupini: package 'eventlog' appears to be source-only as it has no install tarfiles, adding 'skip:' hint
+mksetupini: package 'freeglut' appears to be source-only as it has no install tarfiles, adding 'skip:' hint
+mksetupini: package 'libedit' appears to be source-only as it has no install tarfiles, adding 'skip:' hint
+mksetupini: package 'libgcrypt' appears to be source-only as it has no install tarfiles, adding 'skip:' hint
+mksetupini: package 'libgpg-error' appears to be source-only as it has no install tarfiles, adding 'skip:' hint
+mksetupini: package 'liblzo2' appears to be source-only as it has no install tarfiles, adding 'skip:' hint
+mksetupini: package 'libpipeline' appears to be source-only as it has no install tarfiles, adding 'skip:' hint
+mksetupini: package 'libsigsegv' appears to be source-only as it has no install tarfiles, adding 'skip:' hint
+mksetupini: package 'readline' appears to be source-only as it has no install tarfiles, adding 'skip:' hint
+file -E x86/setup.ini || exit 2
+x86/setup.ini: ASCII text
+bzip2 < x86/setup.ini > x86//setup.bz2
+xz -6e < x86/setup.ini > x86//setup.xz
+]0;/mnt/pub/cygwin
+[32mAdministrator@- [33m/mnt/pub/cygwin[0m
+$ exit
+
+Script done on Wed, Mar 04, 2020  2:38:59 PM
