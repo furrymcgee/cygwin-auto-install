@@ -1,6 +1,9 @@
 #!/bin/sh
 # bootstrap cygwin/dpkg toolchain
 
+test -d x86 || exit 1
+test -d noarch || exit 1
+
 # tar
 cygport --32 x86/release/tar/tar.cygport download
 cygport --32 x86/release/tar/tar.cygport all
@@ -36,3 +39,12 @@ cygport --32 noarch/release/strip-nondeterminism/strip-nondeterminism.cygport do
 cygport --32 noarch/release/strip-nondeterminism/strip-nondeterminism.cygport all
 tar xvJf - < noarch/release/strip-nondeterminism/strip-nondeterminism-1.1.2-1-1.noarch/dist/strip-nondeterminism/strip-nondeterminism-1.1.2-1-1.tar.xz -C /
 
+# dctrl-tools
+cygport --32 x86/release/dctrl-tools/dctrl-tools.cygport download
+cygport --32 x86/release/dctrl-tools/dctrl-tools.cygport all
+tar xvJf - < x86/release/dctrl-tools/dctrl-tools-2.24-3-1.i686/dist/dctrl-tools/dctrl-tools-2.24-3-1.tar.xz -C /
+
+# recutils
+cygport --32 x86/release/recutils/recutils.cygport download
+cygport --32 x86/release/recutils/recutils.cygport all
+tar xvJf - < x86/release/recutils/recutils-1.7-3-1.i686/dist/recutils/recutils-1.7-3-1.tar.xz -C /

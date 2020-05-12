@@ -44,7 +44,9 @@ bash
 	)
 
 REC
-	enable -f /usr/lib/recutils/bash-builtins/readrec.so readrec || exit 1
+	enable -f /usr/lib/recutils/bash-builtins/readrec.so readrec ||
+	enable -f readrec-0.dll readrec ||
+	exit 1
 	{
 		coproc { cat; }
 		exec 3<&${COPROC[0]}- 4<&${COPROC[1]}-
@@ -118,12 +120,13 @@ REC
 					${Source_Build_Depends_Indep}
 					${Binary_Depends}
 				DEPS
+				PERL5LIB=/usr/share/perl5 \
 				perl 9<&0 0<<-'PERL'
 					use Dpkg::Deps;
 					open(STDIN, '<&=', 9);
 					local @_=<>;
 					chomp @_;
-					print <<~DEPS
+					print <<DEPS
 						# Build dependencies only
 						DEPEND="@{[join ' ', map { $_->{package} } @{deps_parse($_[0])->{list}}]}"
 
