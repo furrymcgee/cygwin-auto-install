@@ -90,8 +90,8 @@ REC
 			DESCRIPTION="$(tail -n+2 <<<${Binary_Description})"
 			HOMEPAGE="http://sourceware.org/cygwinports/"
 			SRC^URI="$(
-				cut -d\  -f3 <<<${Source_Files} |
-				grep . |
+				tr \  \\\n <<<${Source_Files} |
+				sed 0~3\!d |
 				sed "s%^%http://ftp.debian.org/debian/${Source_Directory}/%" |
 				paste -s -d' '
 			)"

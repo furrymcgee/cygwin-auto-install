@@ -6,20 +6,14 @@
 .DEFAULT_GOAL = .
 
 ${.DEFAULT_GOAL}: \
-	strip-nondeterminism \
-	cygport \
-	calm \
-	dh-autoreconf \
 	sensible-utils \
 	autotools-dev \
 	debconf \
 	docx2txt \
-	debhelper \
 	doc-base \
 	automake \
 	po-debconf \
 	intltool-debian \
-	dpkg \
 
 # Get a list of debian binary packages
 Packages:
@@ -47,7 +41,7 @@ Sources:
 # Download %.dsc files
 %.dsc:
 	$(MAKE) $(word 1, $(subst _, ,$@)).cygport
-	cygport --32 $(word 1, $(subst _, , $@)).cygport download
+	cygport --32 $(word 1, $(subst _, , $(subst \,, $@))).cygport download
 
 # Grep debian data and make template
 .DEFAULT: Packages Sources
@@ -65,8 +59,8 @@ Sources:
 # Download %.dsc and build %.noarch and %.i686 package with cygport
 %.i686 %.noarch:
 	$(MAKE) $(@D)/$(word 1, $(subst _, , $(@F)))_$(word 2, $(subst _, , $(@F))).dsc
-	cygport --32 $(word 1, $(subst _, , $@)).cygport all
-	rename --verbose $(subst _,-,$@) $@ $(subst _,-,$@)
+	cygport --32 $(word 1, $(subst _, , $(subst \,, $@))).cygport all
+	rename --verbose $(subst _,-,$(subst \,, $@)) $(subst \,, $@) $(subst _,-,$(subst \,, $@))
 
 # Template rule with prerequisites
 define TEMPLATE =

@@ -37,7 +37,7 @@ tar xJf - -C / < noarch/release/cygport/cygport-0.22.0-1.noarch/dist/cygport/cyg
 mv noarch/release/cygport/cygport-0.22.0-1.noarch/dist/cygport/* noarch/release/cygport
 rm -rf noarch/release/cygport/cygport-0.22.0-1.noarch
 
-# calm/mksetupini
+# calm
 cygport --32 noarch/release/calm/calm.cygport download
 cygport --32 noarch/release/calm/calm.cygport all
 tar xvJf - < noarch/release/calm/calm-20160730-1.noarch/dist/calm/calm-20160730-1.tar.xz -C /
