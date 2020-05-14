@@ -19,6 +19,7 @@ ${.DEFAULT_GOAL}: \
 	automake \
 	po-debconf \
 	intltool-debian \
+	dpkg \
 
 # Get a list of debian binary packages
 Packages:
@@ -61,23 +62,6 @@ Sources:
 		$(MAKE) "Y%3a%2f/$${E}/release/$${A}/$${A}_$${B}_$${C}.$${D}" ; \
 	done ; \
 
-# Find predefined %.cygport files to build a package
-CYGPORT = $(shell \
-	find Y%3a%2f/ \
-		-maxdepth 4 \
-		-name \*.cygport \
-		-printf %h/%f\\\n | \
-	xargs -I@ grep -H ^NAME\\\|^VERSION\\\|RELEASE\\\|^ARCH @ | \
-	tr =: \\\t\\\t | \
-	paste - - - - | \
-	cut -f1,3,6,9,12 | \
-	xargs -r -L1 | \
-	while read A B C D E ; \
-	do \
-		echo "$$(dirname $${A})/$${B}_$${C}_$${D}.$${E}" ; \
-	done ; \
-)
-
 # Download %.dsc and build %.noarch and %.i686 package with cygport
 %.i686 %.noarch:
 	$(MAKE) $(@D)/$(word 1, $(subst _, , $(@F)))_$(word 2, $(subst _, , $(@F))).dsc
@@ -95,5 +79,22 @@ $(word 1, $(subst _, , $(notdir $1))): %: $(dir $1)%.cygport $1
 	mv $1/dist/$$(basename $$(<F))/* $(dir $1) || true
 	rm -rf $1
 endef
-$(foreach x,$(CYGPORT),$(eval $(call TEMPLATE,$(subst %,\%,$(x)))))
+#
+# Find predefined %.cygport files to build a package
+$(foreach x,$(shell \
+	find Y%3a%2f/ \
+		-maxdepth 4 \
+		-name \*.cygport \
+		-printf %h/%f\\\n | \
+	xargs -I@ grep -H ^NAME\\\|^VERSION\\\|RELEASE\\\|^ARCH @ | \
+	tr =: \\\t\\\t | \
+	paste - - - - | \
+	cut -f1,3,6,9,12 | \
+	xargs -r -L1 | \
+	while read A B C D E ; \
+	do \
+		echo "$$(dirname $${A})/$${B}_$${C}_$${D}.$${E}" ; \
+	done ; \), \
+	$(eval $(call TEMPLATE,$(subst %,\%,$(x)))) \
+)
 
