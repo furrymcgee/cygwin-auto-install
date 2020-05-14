@@ -85,7 +85,7 @@ REC
 			VERSION="$( sed <<<${Binary_Version} \
 				s/[^:]*:\\s*\\\([^:_]*\\\)_\\?[^_]*/\\\1/)"
 			RELEASE=1
-			CATEGORY="$Binary_Section"
+			CATEGORY="$(<<<${Binary_Section} sed /devel/s/.*/devel/)"
 			SUMMARY="$(head -n1 <<<${Binary_Description})"
 			DESCRIPTION="$(tail -n+2 <<<${Binary_Description})"
 			HOMEPAGE="http://sourceware.org/cygwinports/"

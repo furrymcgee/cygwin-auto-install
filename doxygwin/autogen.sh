@@ -25,7 +25,7 @@ LANG=C.UTF-8 bash -x
 	
 	##### DOWNLOAD PACKAGES #####
 	# downloaded setup.hint of installed packages
-	: bash <&17
+	bash <&17
 	
 	# second process required because of external dependencies
 	: bash <&18
@@ -163,13 +163,13 @@ EXTERNAL
 
 	${.DEFAULT_GOAL}:
 		mksetupini \
-			--verbose \
 			--arch $(firstword $(subst /, ,$@)) \
 			--inifile=$@ \
 			--releasearea=. \
 			--setup-version=2.874 \
 			--okmissing curr \
 			--okmissing required-package \
+			# --verbose \
 			# --disable-check=missing-required-package \
 			# --disable-check=missing-depended-package \
 

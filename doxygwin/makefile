@@ -6,14 +6,16 @@
 .DEFAULT_GOAL = .
 
 ${.DEFAULT_GOAL}: \
+	publib-dev \
 	sensible-utils \
 	autotools-dev \
-	debconf \
 	docx2txt \
 	doc-base \
 	automake \
+	dh-exec \
 	po-debconf \
 	intltool-debian \
+	debconf \
 
 # Get a list of debian binary packages
 Packages:
@@ -35,12 +37,12 @@ Sources:
 
 # Create %.cygport files from debian data
 %.cygport: Packages
-	grep-dctrl -n -s Package -F Package $(notdir $(basename $@)) Packages | \
+	grep-dctrl -r -n -s Package -F Package ^$(notdir $(basename $@)) Packages | \
 	xargs sh cygport.sh > $@ || { rm $@ && exit 1 ; }
 
 # Download %.dsc files
 %.dsc:
-	$(MAKE) $(word 1, $(subst _, ,$@)).cygport
+	$(MAKE) $(word 1, $(subst _, ,$(subst \,, $@))).cygport
 	cygport --32 $(word 1, $(subst _, , $(subst \,, $@))).cygport download
 
 # Grep debian data and make template
@@ -70,7 +72,7 @@ $(word 1, $(subst _, , $(notdir $1))): %: $(dir $1)%.cygport $1
 	cat $$< | grep ^NAME\\\|^VERSION\\\|RELEASE\\\|^ARCH | \
 	cut -d= -f2 | paste - - - - | xargs -L4 printf \
 	$$(dir $(subst \,\\\,$1))%s_%s_%s.%s\\\n | xargs $$(MAKE)
-	mv $1/dist/$$(basename $$(<F))/* $(dir $1) || true
+	mv $1/dist/$$(basename $$(<F))/*.* $(dir $1) && \
 	rm -rf $1
 endef
 #
