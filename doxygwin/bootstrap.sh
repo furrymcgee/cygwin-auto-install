@@ -48,3 +48,9 @@ tar xvJf - < x86/release/dctrl-tools/dctrl-tools-2.24-3-1.i686/dist/dctrl-tools/
 cygport --32 x86/release/recutils/recutils.cygport download
 cygport --32 x86/release/recutils/recutils.cygport all
 tar xvJf - < x86/release/recutils/recutils-1.7-3-1.i686/dist/recutils/recutils-1.7-3-1.tar.xz -C /
+
+
+# calm/mksetupini
+cygport --32 noarch/release/calm/calm.cygport download
+cygport --32 noarch/release/calm/calm.cygport all
+tar xvJf - < noarch/release/calm/calm-20160730-1.noarch/dist/calm/calm-20160730-1.tar.xz -C /
