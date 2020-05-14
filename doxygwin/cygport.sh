@@ -44,7 +44,7 @@ bash
 	)
 
 REC
-	enable -f /usr/lib/recutils/bash-builtins/readrec.so readrec ||
+	enable -f /usr/lib/recutils/bash-builtins/readrec.so readrec 2> /dev/null ||
 	enable -f readrec-0.dll readrec ||
 	exit 1
 	{
@@ -83,7 +83,7 @@ REC
 			# THIS IS A GENERATED CYGPORT FILE 
 			NAME="$Binary_Package"
 			VERSION="$( sed <<<${Binary_Version} \
-				s/[^:]*:\\?\\\([^:_]*\\\)_\\?[^_]*/\\\1/)"
+				s/[^:]*:\\s*\\\([^:_]*\\\)_\\?[^_]*/\\\1/)"
 			RELEASE=1
 			CATEGORY="$Binary_Section"
 			SUMMARY="$(head -n1 <<<${Binary_Description})"
@@ -126,7 +126,7 @@ REC
 					open(STDIN, '<&=', 9);
 					local @_=<>;
 					chomp @_;
-					print <<DEPS
+					print <<DEPS;
 						# Build dependencies only
 						DEPEND="@{[join ' ', map { $_->{package} } @{deps_parse($_[0])->{list}}]}"
 
