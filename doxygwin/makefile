@@ -16,6 +16,7 @@ ${.DEFAULT_GOAL}: \
 	po-debconf \
 	intltool-debian \
 	debconf \
+	dpkg \
 
 # Get a list of debian binary packages
 Packages:
