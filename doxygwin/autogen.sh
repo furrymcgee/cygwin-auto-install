@@ -33,6 +33,8 @@ LANG=C.UTF-8 bash -x
 	# Remove emacs-auctex
 	: rm -rf ./noarch/release/emacs-auctex
 	
+	find noarch x86 ! -name *-*-*.tar.* -a -name *.tar.* -delete
+
 	##### MAKE SETUP.INI #####
 	sed s/^.// <&19 |
 	make -f - x86/release/custompackage-0.0.1-1 x86/setup.ini
