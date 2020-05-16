@@ -91,7 +91,7 @@ REC
 			HOMEPAGE="http://sourceware.org/cygwinports/"
 			SRC^URI="$(
 				tr \  \\\n <<<${Source_Files} |
-				sed 1~3\!d |
+				sed 3~3\!d |
 				sed "s%^%http://ftp.debian.org/debian/${Source_Directory}/%" |
 				paste -s -d' '
 			)"
