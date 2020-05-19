@@ -1,15 +1,16 @@
 @ECHO OFF
 REM -- Automates cygwin installation
 REM -- See /etc/setup/installed.db
+REM -- https://github.com/furrymcgee/doxygwin
  
 SETLOCAL
 REM -- Configure our paths
 REM SET SITE=http://cygwin.mirrors.pair.com/
 REM SET SITE=http://ftp.jaist.ac.jp/pub/cygwin/
-SET LOCALDIR=%~dp0
+SET DOXYGWIN=%~dp0
 
 REM -- This site is for Microsoft Windows XP
-REM -- Download setup-x86-2.874.exe from web archive
+REM -- Download setup-x86.exe 2.874from web archive
 REM -- HTTPS is not supported
 REM -- gh-pages requires a CNAME to enable HTTP
 REM -- net drive for local repository
@@ -22,10 +23,10 @@ SET MIRROR=http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/2016/08/
 SET MIRROR=http://cygwin.mirrors.pair.com/
 SET MIRROR=http://ftp.jaist.ac.jp/pub/cygwin/
 SET MIRROR=http://cygwinxp.cathedral-networks.org
-SET SETUP=%CD%\setup-x86.exe
+SET SETUP=setup-x86.exe
 SET ROOT=C:/doxygwin
 SUBST Z: /D
-SUBST Z: \\samba\share\cygwin-auto-install\doxygwin
+SUBST Z: %DOXYGWIN%/doxygwin
 SET SITE=Z:\Y%%3a%%2f
 SUBST Y: /D
 SUBST Y: %SITE%
@@ -61,11 +62,12 @@ SET PACKAGES=%PACKAGES%,libbz2-devel,liblzma-devel,libpipeline-devel
 ::SET PACKAGES=%PACKAGES%,xf86-video-dummy,yasm-devel
 ::SET PACKAGES=%PACKAGES%,libxml-parser-perl,libffi-dev,libltdl-dev,libssl-dev
 ::SET PACKAGES=%PACKAGES%,libSDL2-devel,libopenal-devel,libmpg123-devel
-:: SET PACKAGES=%PACKAGES%,dpkg
+SET PACKAGES=%PACKAGES%,dpkg,debconf
 
-IF NOT EXIST "%SETUP%" (
+IF NOT EXIST %SETUP% (
 	ECHO *** DOWNLOAD SETUP EXE
-	cscript %LOCALDIR%/download.vbs %HTTP% || exit /B
+	REM cscript %DOXYGWIN%/download.vbs %HTTP% || exit /B
+	COPY Y:\x86\setup-x86.exe .
 ) ELSE (
 	ECHO *** SETUP EXE EXISTS
 )
@@ -74,8 +76,8 @@ SET PKGDIR=Z:/
 SET REPOSITORY=%MIRROR%
 SET TMPDIR="Z:/http%%3a%%2f%%2fcygwinxp.cathedral-networks.org%%2f"
 IF NOT EXIST %TMPDIR% (
-	ECHO *** DOWNLOAD PACKAGES
-	"%SETUP%" --verbose --quiet-mode --include-source --no-desktop --download --local-package-dir "%PKGDIR%" --root "%ROOT%" --packages %PACKAGES% --only-site --no-verify --site "%REPOSITORY%"
+	REM ECHO *** DOWNLOAD PACKAGES
+	REM "%SETUP%" --verbose --quiet-mode --include-source --no-desktop --download --local-package-dir "%PKGDIR%" --root "%ROOT%" --packages %PACKAGES% --only-site --no-verify --site "%REPOSITORY%"
 ) ELSE (
 	ECHO *** SKIP PACKAGE DOWNLOAD
 )
@@ -83,11 +85,11 @@ ECHO.
 SUBST Y: /D
 SUBST Y: %TMPDIR%
 SET REPOSITORY=Y:/
-IF NOT EXIST "%SITE%/x86/setup.ini" (
+IF NOT EXIST "Y:/x86/setup.ini" (
 	ECHO *** CREATE LOCAL PACKAGE DIRECTORY
 	"%SETUP%" --verbose --quiet-mode --include-source --no-desktop --download --local-package-dir "%PKGDIR%" --root "%ROOT%" --packages %PACKAGES% --only-site --no-verify --site "%REPOSITORY%"
 ) ELSE (
-	ECHO *** PACKAGE DIRECTORY EXISTS
+	ECHO *** LOCAL PACKAGE DIRECTORY EXISTS
 )
 ECHO.
 SET PKGDIR=%SITE%
