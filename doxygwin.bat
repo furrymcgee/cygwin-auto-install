@@ -62,7 +62,7 @@ SET PACKAGES=%PACKAGES%,libbz2-devel,liblzma-devel,libpipeline-devel
 ::SET PACKAGES=%PACKAGES%,xf86-video-dummy,yasm-devel
 ::SET PACKAGES=%PACKAGES%,libxml-parser-perl,libffi-dev,libltdl-dev,libssl-dev
 ::SET PACKAGES=%PACKAGES%,libSDL2-devel,libopenal-devel,libmpg123-devel
-SET PACKAGES=%PACKAGES%,dpkg,debconf
+SET PACKAGES=%PACKAGES%,dpkg,debconf,dwww
 
 IF NOT EXIST %SETUP% (
 	ECHO *** DOWNLOAD SETUP EXE
@@ -92,6 +92,7 @@ IF NOT EXIST "Y:/x86/setup.ini" (
 	ECHO *** LOCAL PACKAGE DIRECTORY EXISTS
 )
 ECHO.
+REM SET PKGDIR=%TMPDIR%
 SET PKGDIR=%SITE%
 IF NOT EXIST "%ROOT%" (
 	ECHO *** INSTALL PACKAGES

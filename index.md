@@ -18,27 +18,41 @@ A Cygwin installation is required for building and installation. Please see
 link below how to install required Cygwin packages with cygwin-auto-install.
 CPAN access is also required to build and install Doxie Search.
 
+INSTALL
+-------
+
+Download scripts and packages from repository.
+
 - https://github.com/furrymcgee/cygwin-auto-install
 
-BUILD
+BOOTSTRAP
+---------
+
+Install dpkg and cygport to build packages from debian sources.
+
+.Bootstrap
+[source,sh]
+-----
+source bootstrap.sh
 -----
 
-Execute following commands to build the project. The typescript file contains
-a log of autogen.sh build script.
 
-.Building
+SETUP
+-----
+
+Execute following commands to create a setup.ini file.
+The typescript file contains a log of the autogen.sh build script.
+
+.Setup
 [source,sh]
 -----
 # Checkout source code
 git clone --recursive https://github.com/furrymcgee/doxygwin
-cd doxygwin
+# Change to submodule
+cd doxygwin/cygwin-auto-install/doxygwin/Y%3a%2f
 # Execute autogen.sh and write typescript
-script -c bash\ -ex < autogen.sh
+printf %q\\\n source\ ../autogen.sh |
+script -c bash\ -ex
 -----
-
-TODO
-----
-
-Create Cygport packages for binary distribution.
 
 
