@@ -105,8 +105,6 @@ REC
 			# DEBUILD_DPKG_BUILDPACKAGE_OPTS="--force-sign --sign-key=0000000000000000"
 			# DH_VERBOSE=1
 
-			# this package contains no compiled Cygwin binaries
-			# REMOVE THE FOLLOWING LINE for packages which are to be compiled for each arch
 			ARCH="$(
 				<<<"${Source_Architecture}" \
 				sed \
