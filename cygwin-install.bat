@@ -18,19 +18,20 @@ REM -- net drive for local repository
 REM -- https://sourceware.org/legacy-ml/cygwin/2017-03/msg00385.html
 REM https://web.archive.org/web/20160820100148/http://cygwin.com/setup-x86.exe
 REM http://www.crouchingtigerhiddenfruitbat.org/cygwin/timemachine.html
-REM http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/2016/08/30/104223/setup.ini
 SET HTTP=https://web.archive.org/web/20160820100148/http://cygwin.com/setup-x86.exe
 SET MIRROR=http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/2016/08/30/104223
 SET MIRROR=http://cygwin.mirrors.pair.com/
 SET MIRROR=http://ftp.jaist.ac.jp/pub/cygwin/
 SET MIRROR=http://cygwinxp.cathedral-networks.org
 SET SETUP=setup-x86.exe
-SET ROOT=C:/doxygwin
-SUBST Z: /D
-SUBST Z: %DOXYGWIN%/doxygwin
-SET SITE=Z:\Y%%3a%%2f
-SUBST Y: /D
-SUBST Y: %SITE%
+
+IF NOT EXIST %SETUP% (
+	ECHO *** DOWNLOAD SETUP EXE
+	cscript %DOXYGWIN%/download.vbs %HTTP% || exit /B
+	REM COPY X:\x86\setup-x86.exe .
+) ELSE (
+	ECHO *** SETUP EXE EXISTS
+)
 
 REM -- These are the packages we will install (in addition to the default packages)
 SET PACKAGES=%PACKAGES%,httpd,cron,po4a,docbook-xml45,libcrypt-devel,lynx
@@ -51,8 +52,9 @@ SET PACKAGES=%PACKAGES%,inetutils,socat,curl,xinetd,tcp_wrappers
 SET PACKAGES=%PACKAGES%,busybox,pandoc,recutils,expat,moreutils
 SET PACKAGES=%PACKAGES%,cygport,cygwin-devel,calm,cygwin-doc,meson
 SET PACKAGES=%PACKAGES%,ncurses,libncurses-devel,terminfo-extra
-SET PACKAGES=%PACKAGES%,robodoc,help2man,asciidoc,dblatex,transfig,netpbm
+SET PACKAGES=%PACKAGES%,robodoc,help2man,asciidoc,transfig,netpbm
 SET PACKAGES=%PACKAGES%,python-docutils,bash-completion
+SET PACKAGES=%PACKAGES%,perl-Data-UUID,perl-YAML-Tiny,libfile-ncopy-perl
 SET PACKAGES=%PACKAGES%,db,perl-CGI,postgresql,ImageMagick,freeglut
 SET PACKAGES=%PACKAGES%,libbz2-devel,liblzma-devel,libpipeline-devel
 ::SET PACKAGES=%PACKAGES%,python,ruby,scons
@@ -63,45 +65,46 @@ SET PACKAGES=%PACKAGES%,libbz2-devel,liblzma-devel,libpipeline-devel
 ::SET PACKAGES=%PACKAGES%,xf86-video-dummy,yasm-devel
 ::SET PACKAGES=%PACKAGES%,libxml-parser-perl,libffi-dev,libltdl-dev,libssl-dev
 ::SET PACKAGES=%PACKAGES%,libSDL2-devel,libopenal-devel,libmpg123-devel
-SET PACKAGES=%PACKAGES%,debconf,dwww,swish++,po-debconf
-SET PACKAGES=%PACKAGES%,dpkg,debhelper,strip-nondeterminism
+SET PACKAGES=%PACKAGES%,dpkg,debhelper,strip-nondeterminism,debconf,dh-exec
 SET PACKAGES=%PACKAGES%,dctrl-tools,recutils,libmodule-build-perl
+SET PACKAGES=%PACKAGES%,dwww,swish++,po-debconf,doc-base
 
-IF NOT EXIST %SETUP% (
-	ECHO *** DOWNLOAD SETUP EXE
-	REM cscript %DOXYGWIN%/download.vbs %HTTP% || exit /B
-	COPY Y:\x86\setup-x86.exe .
-) ELSE (
-	ECHO *** SETUP EXE EXISTS
-)
-ECHO.
-SET PKGDIR=Z:/
+SET ROOT=C:/doxygwin
 SET REPOSITORY=%MIRROR%
-SET TMPDIR="Z:/http%%3a%%2f%%2fcygwinxp.cathedral-networks.org%%2f"
+SET TMPDIR=Z:/http%%3a%%2f%%2fcygwinxp.cathedral-networks.org%%2f
+SET PKGDIR=Z:/
+SUBST Z: %DOXYGWIN%/../repository
+
 IF NOT EXIST %TMPDIR% (
-	REM ECHO *** DOWNLOAD PACKAGES
-	REM "%SETUP%" --verbose --quiet-mode --include-source --no-desktop --download --local-package-dir "%PKGDIR%" --root "%ROOT%" --packages %PACKAGES% --only-site --no-verify --site "%REPOSITORY%"
+	ECHO *** DOWNLOAD PACKAGES
+	%SETUP% --verbose --quiet-mode --include-source --no-desktop --download --local-package-dir %PKGDIR% --root %ROOT% --packages %PACKAGES% --only-site --no-verify --site %REPOSITORY%
 ) ELSE (
 	ECHO *** SKIP PACKAGE DOWNLOAD
 )
-ECHO.
-SUBST Y: /D
-SUBST Y: %TMPDIR%
+
+SET SITE=Z:/Y%%3a%%2f
 SET REPOSITORY=Y:/
-IF NOT EXIST "Y:/x86/setup.ini" (
+IF NOT EXIST %SITE% (
 	ECHO *** CREATE LOCAL PACKAGE DIRECTORY
-	"%SETUP%" --verbose --quiet-mode --include-source --no-desktop --download --local-package-dir "%PKGDIR%" --root "%ROOT%" --packages %PACKAGES% --only-site --no-verify --site "%REPOSITORY%"
+	SUBST X: %SITE%
+	SUBST Y: %TMPDIR%
+	%SETUP% --verbose --quiet-mode --include-source --no-desktop --download --local-package-dir %PKGDIR% --root %ROOT% --packages %PACKAGES% --only-site --no-verify --site %REPOSITORY%
+	SUBST /D X:
+	SUBST /D Y:
 ) ELSE (
 	ECHO *** LOCAL PACKAGE DIRECTORY EXISTS
 )
-ECHO.
+
 REM SET PKGDIR=%TMPDIR%
 SET PKGDIR=%SITE%
-IF EXIST "%ROOT%" (
+IF EXIST %ROOT% (
 	ECHO *** INSTALL PACKAGES
-	"%SETUP%" --quiet-mode --no-desktop --disable-buggy-antivirus --local-install --local-package-dir "%PKGDIR%" --root "%ROOT%" --packages %PACKAGES%
+	%SETUP% --quiet-mode --no-desktop --disable-buggy-antivirus --local-install --local-package-dir %PKGDIR% --root %ROOT% --packages %PACKAGES%
 ) ELSE (
-	ECHO *** INSTALLATION EXISTS
+	ECHO *** ROOT DIRECTORY EXISTS
 )
 ECHO.
 
+SUBST /D Z:
+CALL %DOXYGWIN%/POSTINST %ROOT%
+EXIT /B
