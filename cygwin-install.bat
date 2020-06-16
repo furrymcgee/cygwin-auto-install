@@ -23,12 +23,14 @@ SET MIRROR=http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/2016/08/
 SET MIRROR=http://cygwin.mirrors.pair.com/
 SET MIRROR=http://ftp.jaist.ac.jp/pub/cygwin/
 SET MIRROR=http://cygwinxp.cathedral-networks.org
+
+%HOMEDRIVE% && CD %HOMEPATH%
 SET SETUP=setup-x86.exe
 
 IF NOT EXIST %SETUP% (
 	ECHO *** DOWNLOAD SETUP EXE
-	cscript %DOXYGWIN%/download.vbs %HTTP% || exit /B
-	REM COPY X:\x86\setup-x86.exe .
+	COPY %DOXYGWIN%..\repository\Y%%3a%%2f\x86\setup-x86.exe . || cscript ^
+	%DOXYGWIN%/download.vbs %HTTP% || exit /B
 ) ELSE (
 	ECHO *** SETUP EXE EXISTS
 )
@@ -72,8 +74,8 @@ SET PACKAGES=%PACKAGES%,dwww,swish++,po-debconf,doc-base
 SET ROOT=C:/doxygwin
 SET REPOSITORY=%MIRROR%
 SET TMPDIR=Z:/http%%3a%%2f%%2fcygwinxp.cathedral-networks.org%%2f
-SET PKGDIR=Z:/
 SUBST Z: %DOXYGWIN%/../repository
+SET PKGDIR=Z:/
 
 IF NOT EXIST %TMPDIR% (
 	ECHO *** DOWNLOAD PACKAGES
@@ -107,4 +109,3 @@ ECHO.
 
 SUBST /D Z:
 CALL %DOXYGWIN%/POSTINST %ROOT%
-EXIT /B
