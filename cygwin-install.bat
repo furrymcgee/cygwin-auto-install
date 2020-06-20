@@ -99,7 +99,7 @@ IF NOT EXIST %SITE% (
 
 REM SET PKGDIR=%TMPDIR%
 SET PKGDIR=%SITE%
-IF EXIST %ROOT% (
+IF NOT EXIST %ROOT% (
 	ECHO *** INSTALL PACKAGES
 	%SETUP% --quiet-mode --no-desktop --disable-buggy-antivirus --local-install --local-package-dir %PKGDIR% --root %ROOT% --packages %PACKAGES%
 ) ELSE (
@@ -108,4 +108,3 @@ IF EXIST %ROOT% (
 ECHO.
 
 SUBST /D Z:
-CALL %DOXYGWIN%/POSTINST %ROOT%
