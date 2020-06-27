@@ -68,8 +68,13 @@ SET PACKAGES=%PACKAGES%,libbz2-devel,liblzma-devel,libpipeline-devel
 ::SET PACKAGES=%PACKAGES%,libxml-parser-perl,libffi-dev,libltdl-dev,libssl-dev
 ::SET PACKAGES=%PACKAGES%,libSDL2-devel,libopenal-devel,libmpg123-devel
 SET PACKAGES=%PACKAGES%,dpkg,debhelper,strip-nondeterminism,debconf,dh-exec
-SET PACKAGES=%PACKAGES%,dctrl-tools,recutils,libmodule-build-perl
+SET PACKAGES=%PACKAGES%,dctrl-tools,recutils
 SET PACKAGES=%PACKAGES%,dwww,swish++,po-debconf,doc-base
+SET PACKAGES=%PACKAGES%,libmodule-build-perl,libemail-outlook-message-perl
+SET PACKAGES=%PACKAGES%,libemail-simple-perl,libemail-mime-perl,libmime-tools-perl
+SET PACKAGES=%PACKAGES%,libemail-messageid-perl,libemail-mime-contenttype-perl
+SET PACKAGES=%PACKAGES%,libmoo-perl,libemail-sender-perl,libemail-mime-encodings-perl,libole-storage-lite-perl,
+SET PACKAGES=%PACKAGES%,perl-Role-Tiny,perl-Sub-Exporter-Progressive,perl-Devel-GlobalDestruction
 
 SET ROOT=C:/doxygwin
 SET REPOSITORY=%MIRROR%
