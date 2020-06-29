@@ -83,7 +83,7 @@ SET PKGDIR=Z:/
 
 IF NOT EXIST %TMPDIR% (
 	ECHO *** DOWNLOAD PACKAGES
-	%SETUP% --verbose --quiet-mode --include-source --no-desktop --download --local-package-dir %PKGDIR% --root %ROOT% --packages %PACKAGES% --only-site --no-verify --site %REPOSITORY%
+	%SETUP% --verbose --quiet-mode --include-source --download --local-package-dir %PKGDIR% --root %ROOT% --packages %PACKAGES% --only-site --no-verify --site %REPOSITORY%
 ) ELSE (
 	ECHO *** SKIP PACKAGE DOWNLOAD
 )
@@ -94,7 +94,7 @@ IF NOT EXIST %SITE% (
 	ECHO *** CREATE LOCAL PACKAGE DIRECTORY
 	SUBST X: %SITE%
 	SUBST Y: %TMPDIR%
-	%SETUP% --verbose --quiet-mode --include-source --no-desktop --download --local-package-dir %PKGDIR% --root %ROOT% --packages %PACKAGES% --only-site --no-verify --site %REPOSITORY%
+	%SETUP% --verbose --quiet-mode --include-source --download --local-package-dir %PKGDIR% --root %ROOT% --packages %PACKAGES% --only-site --no-verify --site %REPOSITORY%
 	SUBST /D X:
 	SUBST /D Y:
 ) ELSE (
@@ -106,7 +106,7 @@ REM SET PKGDIR=%TMPDIR%
 SET PKGDIR=%SITE%
 IF NOT EXIST %ROOT% (
 	ECHO *** INSTALL PACKAGES
-	%SETUP% --quiet-mode --no-desktop --disable-buggy-antivirus --local-install --local-package-dir %PKGDIR% --root %ROOT% --packages %PACKAGES%
+	%SETUP% --quiet-mode --no-startmenu --no-desktop --disable-buggy-antivirus --local-install --local-package-dir %PKGDIR% --root %ROOT% --packages %PACKAGES%
 ) ELSE (
 	ECHO *** ROOT DIRECTORY EXISTS
 )
