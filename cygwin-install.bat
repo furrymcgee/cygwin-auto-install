@@ -70,11 +70,10 @@ SET PACKAGES=%PACKAGES%,libbz2-devel,liblzma-devel,libpipeline-devel
 SET PACKAGES=%PACKAGES%,dpkg,debhelper,strip-nondeterminism,debconf,dh-exec
 SET PACKAGES=%PACKAGES%,dctrl-tools,recutils
 SET PACKAGES=%PACKAGES%,dwww,swish++,po-debconf,doc-base
-SET PACKAGES=%PACKAGES%,libmodule-build-perl,libemail-outlook-message-perl
-SET PACKAGES=%PACKAGES%,libemail-simple-perl,libemail-mime-perl,libmime-tools-perl
-SET PACKAGES=%PACKAGES%,libemail-messageid-perl,libemail-mime-contenttype-perl
-SET PACKAGES=%PACKAGES%,libmoo-perl,libemail-sender-perl,libemail-mime-encodings-perl,libole-storage-lite-perl,
-SET PACKAGES=%PACKAGES%,perl-Role-Tiny,perl-Sub-Exporter-Progressive,perl-Devel-GlobalDestruction
+SET PACKAGES=%PACKAGES%,libmodule-build-perl,libmoo-perl,librole-tiny-perl,libole-storage-lite-perl,libmoox-types-mooselike-perl,libthrowable-perl,libsub-quote-perl,libclass-method-modifiers-perl
+SET PACKAGES=%PACKAGES%,libemail-simple-perl,libemail-outlook-message-perl,libemail-messageid-perl,libemail-sender-perl,libemail-abstract-perl,libemail-date-format-perl
+SET PACKAGES=%PACKAGES%,libemail-mime-perl,libmime-tools-perl,libemail-mime-contenttype-perl,libemail-mime-encodings-perl
+SET PACKAGES=%PACKAGES%,perl-Sub-Exporter-Progressive,perl-Devel-GlobalDestruction,perl-Encode,perl-Module-Pluggable
 
 SET ROOT=C:/doxygwin
 SET REPOSITORY=%MIRROR%
@@ -102,6 +101,7 @@ IF NOT EXIST %SITE% (
 	ECHO *** LOCAL PACKAGE DIRECTORY EXISTS
 )
 
+REM Set PKGDIR=%TMPDIR% only to bootstrap a new repository
 REM SET PKGDIR=%TMPDIR%
 SET PKGDIR=%SITE%
 IF NOT EXIST %ROOT% (
