@@ -48,7 +48,7 @@ SET PACKAGES=%PACKAGES%,mutt,irssi,dialog,procps,stow,ccache,suck,tin
 SET PACKAGES=%PACKAGES%,autoconf,automake,autogen,autopoint
 SET PACKAGES=%PACKAGES%,intltool,libtool,libtool-bin,libtoolize
 SET PACKAGES=%PACKAGES%,lua,perl,perl_manpages,perl-Archive-Zip
-SET PACKAGES=%PACKAGES%,bzip2,openssl,p7zip,unzip,xz-utils,zip
+SET PACKAGES=%PACKAGES%,bzip2,openssl,p7zip,unzip,xz-utils,zip,ffmpeg
 SET PACKAGES=%PACKAGES%,clear,file,less,openssh,pinfo,rxvt,wget
 SET PACKAGES=%PACKAGES%,inetutils,socat,curl,xinetd,tcp_wrappers
 SET PACKAGES=%PACKAGES%,busybox,pandoc,recutils,expat,moreutils
@@ -59,6 +59,7 @@ SET PACKAGES=%PACKAGES%,python-docutils,bash-completion,doxygen
 SET PACKAGES=%PACKAGES%,perl-Data-UUID,perl-YAML-Tiny,libfile-ncopy-perl
 SET PACKAGES=%PACKAGES%,db,perl-CGI,postgresql,ImageMagick,freeglut
 SET PACKAGES=%PACKAGES%,libbz2-devel,liblzma-devel,libpipeline-devel
+SET PACKAGES=%PACKAGES%,bcrypt,gnutls,libgnutls-devel
 ::SET PACKAGES=%PACKAGES%,python,ruby,scons
 ::SET PACKAGES=%PACKAGES%,ucl,libgdk_pixbuf2.0-devel
 ::SET PACKAGES=%PACKAGES%,octave,octave-doc,gnuplot,gnuplot-doc,sox
@@ -81,7 +82,7 @@ SET TMPDIR=Z:/http%%3a%%2f%%2fcygwinxp.cathedral-networks.org%%2f
 SUBST Z: %DOXYGWIN%/../repository
 SET PKGDIR=Z:/
 
-IF NOT EXIST %TMPDIR% (
+IF EXIST %TMPDIR% (
 	ECHO *** DOWNLOAD PACKAGES
 	%SETUP% --verbose --quiet-mode --include-source --download --local-package-dir %PKGDIR% --root %ROOT% --packages %PACKAGES% --only-site --no-verify --site %REPOSITORY%
 ) ELSE (
@@ -90,7 +91,7 @@ IF NOT EXIST %TMPDIR% (
 
 SET SITE=Z:/Y%%3a%%2f
 SET REPOSITORY=Y:/
-IF NOT EXIST %SITE% (
+IF EXIST %SITE% (
 	ECHO *** CREATE LOCAL PACKAGE DIRECTORY
 	SUBST X: %SITE%
 	SUBST Y: %TMPDIR%
@@ -104,7 +105,7 @@ IF NOT EXIST %SITE% (
 REM Set PKGDIR=%TMPDIR% only to bootstrap a new repository
 REM SET PKGDIR=%TMPDIR%
 SET PKGDIR=%SITE%
-IF NOT EXIST %ROOT% (
+IF EXIST %ROOT% (
 	ECHO *** INSTALL PACKAGES
 	%SETUP% --quiet-mode --no-startmenu --no-desktop --disable-buggy-antivirus --local-install --local-package-dir %PKGDIR% --root %ROOT% --packages %PACKAGES%
 ) ELSE (
