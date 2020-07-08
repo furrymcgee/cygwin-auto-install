@@ -38,7 +38,7 @@ IF NOT EXIST %SETUP% (
 REM -- These are the packages we will install (in addition to the default packages)
 SET PACKAGES=%PACKAGES%,httpd,cron,po4a,docbook-xml45,libcrypt-devel,lynx
 SET PACKAGES=%PACKAGES%,perl-MIME-Types,poppler,antiword,xlsx2csv,wv,links
-SET PACKAGES=%PACKAGES%,bash,tig,tmux,vim,w3m,mc,bc,gnumeric
+SET PACKAGES=%PACKAGES%,bash,tig,tmux,vim,w3m,mc,bc,gnumeric,ngircd
 SET PACKAGES=%PACKAGES%,procmail,mailutils,lftp,exim4,exim4-src
 SET PACKAGES=%PACKAGES%,sqlite3,tcl-sqlite3,git,wget,openssh,patch,sed
 SET PACKAGES=%PACKAGES%,gcc-g++,gcc-fortran,gdb,gperf,flex,bison,ctags
@@ -82,7 +82,7 @@ SET TMPDIR=Z:/http%%3a%%2f%%2fcygwinxp.cathedral-networks.org%%2f
 SUBST Z: %DOXYGWIN%/../repository
 SET PKGDIR=Z:/
 
-IF EXIST %TMPDIR% (
+IF NOT EXIST %TMPDIR% (
 	ECHO *** DOWNLOAD PACKAGES
 	%SETUP% --verbose --quiet-mode --include-source --download --local-package-dir %PKGDIR% --root %ROOT% --packages %PACKAGES% --only-site --no-verify --site %REPOSITORY%
 ) ELSE (
@@ -91,7 +91,7 @@ IF EXIST %TMPDIR% (
 
 SET SITE=Z:/Y%%3a%%2f
 SET REPOSITORY=Y:/
-IF EXIST %SITE% (
+IF NOT EXIST %SITE% (
 	ECHO *** CREATE LOCAL PACKAGE DIRECTORY
 	SUBST X: %SITE%
 	SUBST Y: %TMPDIR%
@@ -105,7 +105,7 @@ IF EXIST %SITE% (
 REM Set PKGDIR=%TMPDIR% only to bootstrap a new repository
 REM SET PKGDIR=%TMPDIR%
 SET PKGDIR=%SITE%
-IF EXIST %ROOT% (
+IF NOT EXIST %ROOT% (
 	ECHO *** INSTALL PACKAGES
 	%SETUP% --quiet-mode --no-startmenu --no-desktop --disable-buggy-antivirus --local-install --local-package-dir %PKGDIR% --root %ROOT% --packages %PACKAGES%
 ) ELSE (
