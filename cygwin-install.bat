@@ -38,7 +38,7 @@ IF NOT EXIST %SETUP% (
 REM -- These are the packages we will install (in addition to the default packages)
 SET PACKAGES=%PACKAGES%,httpd,cron,po4a,docbook-xml45,libcrypt-devel,lynx
 SET PACKAGES=%PACKAGES%,perl-MIME-Types,poppler,antiword,xlsx2csv,wv,links
-SET PACKAGES=%PACKAGES%,bash,tig,tmux,vim,w3m,mc,bc,gnumeric,ngircd
+SET PACKAGES=%PACKAGES%,bash,tig,tmux,vim,w3m,mc,bc
 SET PACKAGES=%PACKAGES%,procmail,mailutils,lftp,exim4,exim4-src,abook
 SET PACKAGES=%PACKAGES%,sqlite3,tcl-sqlite3,git,wget,openssh,patch,sed
 SET PACKAGES=%PACKAGES%,gcc-g++,gcc-fortran,gdb,gperf,flex,bison,ctags
@@ -55,14 +55,15 @@ SET PACKAGES=%PACKAGES%,busybox,pandoc,recutils,expat,moreutils,ncurses
 SET PACKAGES=%PACKAGES%,cygport,calm,cygwin-doc,meson,terminfo-extra
 SET PACKAGES=%PACKAGES%,cygwin-devel,libncurses-devel,libdb-devel,libxml2-devel
 SET PACKAGES=%PACKAGES%,db,perl-CGI,postgresql,mdbtools
-SET PACKAGES=%PACKAGES%,robodoc,help2man,netpbm,cgit,httpie
+SET PACKAGES=%PACKAGES%,robodoc,help2man,netpbm
+SET PACKAGES=%PACKAGES%,gnumeric,cgit,httpie,ngircd
 SET PACKAGES=%PACKAGES%,bash-completion,doxygen,ImageMagick
 SET PACKAGES=%PACKAGES%,perl-Data-UUID,perl-YAML-Tiny,libfile-ncopy-perl
 ::SET PACKAGES=%PACKAGES%,bcrypt,gnutls,ffmpeg,sox,praat,moc,gsl
 ::SET PACKAGES=%PACKAGES%,libbz2-devel,liblzma-devel,libpipeline-devel
 ::SET PACKAGES=%PACKAGES%,libgnutls-devel,libpopt-devel,libgsl-devel
 ::SET PACKAGES=%PACKAGES%,libsndfile-utils,libfluidsynth-devel,libespeak-devel
-::SET PACKAGES=%PACKAGES%,python-sphinx,docbook-utils,ruby,scons
+::SET PACKAGES=%PACKAGES%,docbook-utils,ruby,scons
 ::SET PACKAGES=%PACKAGES%,asciidoc,pstotext,autotrace,transfig
 ::SET PACKAGES=%PACKAGES%,ucl,libgdk_pixbuf2.0-devel,libgtk2.0-devel
 ::SET PACKAGES=%PACKAGES%,octave,octave-doc,gnuplot,gnuplot-doc,asymptote
