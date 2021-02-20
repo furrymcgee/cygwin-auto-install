@@ -90,7 +90,7 @@ IF NOT EXIST %TMPDIR% (
 	ECHO *** DOWNLOAD PACKAGES
 	%SETUP% --verbose --quiet-mode --include-source --download --local-package-dir %PKGDIR% --root %ROOT% --packages %PACKAGES% --only-site --no-verify --site %REPOSITORY%
 ) ELSE (
-	ECHO *** SKIP PACKAGE DOWNLOAD
+	ECHO *** SKIP PACKAGE DOWNLOAD %TMPDIR%
 )
 
 SET SITE=Z:/Y%%3a%%2f
