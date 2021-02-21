@@ -32,7 +32,7 @@ IF NOT EXIST %SETUP% (
 	COPY %DOXYGWIN%..\repository\Y%%3a%%2f\x86\setup-x86.exe . || cscript ^
 	%DOXYGWIN%/download.vbs %HTTP% || exit /B
 ) ELSE (
-	ECHO *** SETUP EXE EXISTS
+	ECHO *** SETUP EXE EXISTS %SETUP%
 )
 
 REM -- These are the packages we will install (in addition to the default packages)
@@ -86,34 +86,34 @@ SET TMPDIR=Z:/http%%3a%%2f%%2fcygwinxp.cathedral-networks.org%%2f
 SUBST Z: %DOXYGWIN%/../repository
 SET PKGDIR=Z:/
 
-IF NOT EXIST %TMPDIR% (
+IF EXIST %TMPDIR% (
+	ECHO *** SKIP PACKAGE DOWNLOAD %TMPDIR%
+) ELSE (
 	ECHO *** DOWNLOAD PACKAGES
 	%SETUP% --verbose --quiet-mode --include-source --download --local-package-dir %PKGDIR% --root %ROOT% --packages %PACKAGES% --only-site --no-verify --site %REPOSITORY%
-) ELSE (
-	ECHO *** SKIP PACKAGE DOWNLOAD %TMPDIR%
 )
 
 SET SITE=Z:/Y%%3a%%2f
 SET REPOSITORY=Y:/
-IF NOT EXIST %SITE% (
+IF EXIST %SITE% (
+	ECHO *** LOCAL PACKAGE DIRECTORY EXISTS %SITE%
+) ELSE (
 	ECHO *** CREATE LOCAL PACKAGE DIRECTORY
 	SUBST X: %SITE%
 	SUBST Y: %TMPDIR%
 	%SETUP% --verbose --quiet-mode --include-source --download --local-package-dir %PKGDIR% --root %ROOT% --packages %PACKAGES% --only-site --no-verify --site %REPOSITORY%
 	SUBST /D X:
 	SUBST /D Y:
-) ELSE (
-	ECHO *** LOCAL PACKAGE DIRECTORY EXISTS
 )
 
 REM Set PKGDIR=%TMPDIR% only to bootstrap a new repository
 REM SET PKGDIR=%TMPDIR%
 SET PKGDIR=%SITE%
-IF NOT EXIST %ROOT% (
+IF EXIST %ROOT% (
+	ECHO *** ROOT DIRECTORY EXISTS %ROOT%
+) ELSE (
 	ECHO *** INSTALL PACKAGES
 	%SETUP% --quiet-mode --no-startmenu --no-desktop --disable-buggy-antivirus --local-install --local-package-dir %PKGDIR% --root %ROOT% --packages %PACKAGES%
-) ELSE (
-	ECHO *** ROOT DIRECTORY EXISTS
 )
 ECHO.
 
