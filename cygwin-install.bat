@@ -27,12 +27,12 @@ SET MIRROR=http://cygwinxp.cathedral-networks.org
 %HOMEDRIVE% && CD %HOMEPATH%
 SET SETUP=setup-x86.exe
 
-IF NOT EXIST %SETUP% (
+IF EXIST %SETUP% (
+	ECHO *** SETUP EXE EXISTS %SETUP%
+) ELSE (
 	ECHO *** DOWNLOAD SETUP EXE
 	COPY %DOXYGWIN%..\repository\Y%%3a%%2f\x86\setup-x86.exe . || cscript ^
 	%DOXYGWIN%/download.vbs %HTTP% || exit /B
-) ELSE (
-	ECHO *** SETUP EXE EXISTS %SETUP%
 )
 
 REM -- These are the packages we will install (in addition to the default packages)
@@ -55,16 +55,20 @@ SET PACKAGES=%PACKAGES%,busybox,pandoc,recutils,expat,moreutils,ncurses
 SET PACKAGES=%PACKAGES%,cygport,calm,cygwin-doc,meson,terminfo-extra
 SET PACKAGES=%PACKAGES%,cygwin-devel,libncurses-devel,libdb-devel,libxml2-devel
 SET PACKAGES=%PACKAGES%,db,perl-CGI,postgresql,mdbtools
-SET PACKAGES=%PACKAGES%,robodoc,help2man,netpbm
+SET PACKAGES=%PACKAGES%,robodoc,help2man,netpbm,perl-File-ShareDir-Install
 SET PACKAGES=%PACKAGES%,gnumeric,cgit,httpie,ngircd
 SET PACKAGES=%PACKAGES%,bash-completion,doxygen,ImageMagick
 SET PACKAGES=%PACKAGES%,perl-Data-UUID,perl-YAML-Tiny,libfile-ncopy-perl
+SET PACKAGES=%PACKAGES%,public-inbox,perl-DBD-SQLite
+SET PACKAGES=%PACKAGES%,libemail-mime-perl,libnet-server-perl
+SET PACKAGES=%PACKAGES%,libplack-middleware-reverseproxy-perl,libplack-perl
+SET PACKAGES=%PACKAGES%,libsearch-xapian-perl,xapian-tools
 ::SET PACKAGES=%PACKAGES%,bcrypt,gnutls,ffmpeg,sox,praat,moc,gsl
 ::SET PACKAGES=%PACKAGES%,libbz2-devel,liblzma-devel,libpipeline-devel
 ::SET PACKAGES=%PACKAGES%,libgnutls-devel,libpopt-devel,libgsl-devel
 ::SET PACKAGES=%PACKAGES%,libsndfile-utils,libfluidsynth-devel,libespeak-devel
 ::SET PACKAGES=%PACKAGES%,docbook-utils,ruby,scons
-::SET PACKAGES=%PACKAGES%,asciidoc,pstotext,autotrace,transfig
+::SET PACKAGES=%PACKAGES%,pstotext,autotrace,transfig,asciidoc
 ::SET PACKAGES=%PACKAGES%,ucl,libgdk_pixbuf2.0-devel,libgtk2.0-devel
 ::SET PACKAGES=%PACKAGES%,octave,octave-doc,gnuplot,gnuplot-doc,asymptote
 ::SET PACKAGES=%PACKAGES%,xorg-server,xorg-docs,xinit,xterm,WindowMaker
