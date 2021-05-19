@@ -16,9 +16,9 @@ REM -- HTTPS is not supported
 REM -- gh-pages requires a CNAME to enable HTTP
 REM -- net drive for local repository
 REM -- https://sourceware.org/legacy-ml/cygwin/2017-03/msg00385.html
-REM https://web.archive.org/web/20160820100148/http://cygwin.com/setup-x86.exe
+REM http://web.archive.org/web/20160820100148/http://cygwin.com/setup-x86.exe
 REM http://www.crouchingtigerhiddenfruitbat.org/cygwin/timemachine.html
-SET HTTP=https://web.archive.org/web/20160820100148/http://cygwin.com/setup-x86.exe
+SET HTTP=http://web.archive.org/web/20160820100148/http://cygwin.com/setup-x86.exe
 SET MIRROR=http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/2016/08/30/104223
 SET MIRROR=http://cygwin.mirrors.pair.com/
 SET MIRROR=http://ftp.jaist.ac.jp/pub/cygwin/
@@ -59,7 +59,7 @@ SET PACKAGES=%PACKAGES%,robodoc,help2man,netpbm,perl-File-ShareDir-Install
 SET PACKAGES=%PACKAGES%,gnumeric,cgit,httpie,ngircd
 SET PACKAGES=%PACKAGES%,bash-completion,doxygen,ImageMagick
 SET PACKAGES=%PACKAGES%,perl-Data-UUID,perl-YAML-Tiny,libfile-ncopy-perl
-SET PACKAGES=%PACKAGES%,public-inbox,perl-DBD-SQLite
+SET PACKAGES=%PACKAGES%,public-inbox,perl-DBD-SQLite,vifm,file-devel
 SET PACKAGES=%PACKAGES%,libemail-mime-perl,libnet-server-perl
 SET PACKAGES=%PACKAGES%,libplack-middleware-reverseproxy-perl,libplack-perl
 SET PACKAGES=%PACKAGES%,libsearch-xapian-perl,xapian-tools
@@ -103,15 +103,11 @@ IF EXIST %SITE% (
 	ECHO *** LOCAL PACKAGE DIRECTORY EXISTS %SITE%
 ) ELSE (
 	ECHO *** CREATE LOCAL PACKAGE DIRECTORY
-	SUBST X: %SITE%
 	SUBST Y: %TMPDIR%
 	%SETUP% --verbose --quiet-mode --include-source --download --local-package-dir %PKGDIR% --root %ROOT% --packages %PACKAGES% --only-site --no-verify --site %REPOSITORY%
-	SUBST /D X:
 	SUBST /D Y:
 )
 
-REM Set PKGDIR=%TMPDIR% only to bootstrap a new repository
-REM SET PKGDIR=%TMPDIR%
 SET PKGDIR=%SITE%
 IF EXIST %ROOT% (
 	ECHO *** ROOT DIRECTORY EXISTS %ROOT%
