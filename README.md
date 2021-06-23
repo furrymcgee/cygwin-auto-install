@@ -22,12 +22,15 @@ Services
 
 	http://cygwin.com/ml/cygwin/2002-04/msg01229.html
 	http://www.crouchingtigerhiddenfruitbat.org/Cygwin/timemachine.html
+	http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/index.html
 	http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/2016/08/30/104223/x86/setup.ini
 	http://www.noah.org/ssh/cygwin-sshd.html
 	http://www.vicente-navarro.com/blog/2007/07/20/servicios-en-cygwin-syslogd-sshd-telnetd-ftpd-nfsd-etc/
 	https://cygwin.com/cygwin-ug-net/ntsec.html
 	https://cygwin.com/git-cygwin-packages/
 	https://cygwin.com/git/
+	https://cygwin.com/mirrors.lst
+	https://cygwin.com/faq.html
 	https://cygwin.com/package-server.html
 	https://sourceware.org/cygwin-apps/index.html
 	https://sourceware.org/cygwin-apps/setup.ini.html

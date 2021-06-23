@@ -2,6 +2,7 @@
 REM -- Automates doxygwin installation
 REM -- See /etc/setup/installed.db
 REM -- Doxygwin is a customized cygwin installation
+REM -- This batch also creates the repository/Y%3a%2f directory
 REM -- https://github.com/furrymcgee/doxygwin
  
 SETLOCAL
